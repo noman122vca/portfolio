@@ -28,7 +28,12 @@
   - [x] Implemented modular DRY `PortfolioCard` and added interactive `Grid` vs `3D Slider` view mode toggle in `src/components/PortfolioSection.jsx`.
   - [x] Verified 18 project slides rendering with autoplay, depth perspective, dynamic pagination bullets, and glowing navigation arrows.
 
+- [x] Push local Git repository to remote GitHub (`https://github.com/noman122vca/portfolio`) using user's GitHub credentials / PAT.
+- [x] Enable GitHub Pages in repository settings for live public hosting:
+  - Repository: `https://github.com/noman122vca/portfolio`
+  - Live Public URL: `https://noman122vca.github.io/portfolio/`
+  - Verified live via Headless Chrome with 200 OK and visual confirmation.
+
 ## Pending Tasks
-- [ ] Push local Git repository to remote GitHub (`https://github.com/noman122vca/<repo-name>`) using user's GitHub credentials / PAT.
-- [ ] Enable GitHub Pages in repository settings for live public hosting.
+- None (All 35 tasks completed and live deployed).
 
