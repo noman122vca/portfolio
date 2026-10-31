@@ -8,8 +8,8 @@ import { translations } from '../src/data/translations.js';
 
 describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
   test('Profile Data integrity', () => {
-    assert.strictEqual(profileData.name, 'MD EFTEKAR HOSSEN NOMAN');
-    assert.strictEqual(profileData.officialName, 'MD EFTEKAR HOSSEN NOMAN');
+    assert.strictEqual(profileData.name, 'Md. Eftekar Hossen Noman');
+    assert.strictEqual(profileData.officialName, 'Md. Eftekar Hossen Noman');
     assert.ok(profileData.phone.includes('01619-042379'));
     assert.ok(profileData.email.includes('eftekarhossennoman@gmail.com'));
     assert.strictEqual(profileData.github, '@noman122vca');
@@ -41,8 +41,8 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
   });
 
   test('CV Data integrity', () => {
-    assert.strictEqual(cvData.fullName, 'MD EFTEKAR HOSSEN NOMAN');
-    assert.strictEqual(cvData.displayName, 'MD EFTEKAR HOSSEN NOMAN');
+    assert.strictEqual(cvData.fullName, 'Md. Eftekar Hossen Noman');
+    assert.strictEqual(cvData.displayName, 'Md. Eftekar Hossen Noman');
     assert.strictEqual(cvData.email, 'eftekarhossennoman@gmail.com');
     assert.ok(Array.isArray(cvData.education));
     assert.ok(cvData.education.length >= 2);

@@ -146,8 +146,7 @@ export function Hero({ onOpenCV }) {
           >
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold tracking-wider uppercase font-mono shadow-[0_0_15px_rgba(0,229,255,0.2)]">
-                <Sparkles className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold tracking-wider uppercase font-mono shadow-[0_0_15px_rgba(0,229,255,0.2)]">
                 {t.hero.badge}
               </span>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
@@ -164,10 +163,18 @@ export function Hero({ onOpenCV }) {
               </span>
             </h1>
 
-            {/* Bio Paragraph */}
-            <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-              {t.hero.bio}
-            </p>
+            {/* Introduction with proper spacing & Title Case name */}
+            <div className="space-y-3 pt-1">
+              <p className="text-xl sm:text-2xl font-bold text-white tracking-wide">
+                {t.hero.greeting || 'Hi, I am'}{' '}
+                <span className="text-[#00E5FF] font-extrabold">
+                  {t.hero.displayName || 'Md. Eftekar Hossen Noman'}
+                </span>
+              </p>
+              <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                {t.hero.bio}
+              </p>
+            </div>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
@@ -233,16 +240,16 @@ export function Hero({ onOpenCV }) {
             <motion.div
               onHoverStart={() => setIsFastOrbit(true)}
               onHoverEnd={() => setIsFastOrbit(false)}
-              className="relative w-48 h-48 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2 bg-gradient-to-tr from-[#00E5FF]/60 via-[#0284c7]/40 to-transparent shadow-[0_0_60px_rgba(0,229,255,0.35)] cursor-pointer z-30 transition-transform duration-300 hover:scale-105"
+              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2 bg-gradient-to-tr from-[#00E5FF] via-[#0284c7]/50 to-transparent shadow-[0_0_50px_rgba(0,229,255,0.4)] cursor-pointer z-30 transition-transform duration-300 hover:scale-105"
             >
-              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white/20 bg-[#071A22] relative group">
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#00E5FF]/50 bg-[#071A22] relative group">
                 <img
                   src={avatarSrc}
                   alt={profileData.name}
                   onError={() => setAvatarSrc(profileData.avatarExternal)}
-                  className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-105 group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-center filter contrast-[1.03] brightness-[1.02] group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_0_0_25px_rgba(2,11,14,0.5)] border border-white/10" />
               </div>
             </motion.div>
           </div>

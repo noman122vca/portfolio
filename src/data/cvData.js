@@ -1,6 +1,6 @@
 export const cvData = {
-  "fullName": "MD EFTEKAR HOSSEN NOMAN",
-  "displayName": "MD EFTEKAR HOSSEN NOMAN",
+  "fullName": "Md. Eftekar Hossen Noman",
+  "displayName": "Md. Eftekar Hossen Noman",
   "email": "eftekarhossennoman@gmail.com",
   "phone": "+8801619-042379",
   "address": "Dhaka, Bangladesh",
