@@ -10,11 +10,11 @@ export const profileData = {
     "Enthusiastic creator focused on Graphic Design, Video Editing, and Digital Branding. Driven by continuous learning, attention to detail, and a passion for crafting memorable visual media.",
     "Experienced in Adobe Creative Suite, Visual Branding, Motion Content, and Modern Design Toolchains."
   ],
-  "avatarUrl": "/noman-avatar.jpg",
-  "avatarJpg": "/noman-avatar.jpg",
-  "avatarFull": "/noman-avatar.jpg",
-  "avatarFallback": "/noman-avatar.jpg",
-  "avatarExternal": "https://i.postimg.cc/G23xH5vn/Chat-GPT-Image-Sep-21-2026-07-52-43-PM.png",
+  "avatarUrl": "./noman-avatar.jpg",
+  "avatarJpg": "./noman-avatar.jpg",
+  "avatarFull": "./noman-avatar.jpg",
+  "avatarFallback": "./noman-avatar.jpg",
+  "avatarExternal": "./noman-avatar.jpg",
   "email": "eftekarhossennoman@gmail.com",
   "phone": "+8801619-042379",
   "address": "Dhaka, Bangladesh",
@@ -33,6 +33,6 @@ export const profileData = {
   "behanceLink": "https://www.behance.net/mdeftehossin",
   "github": "@noman122vca",
   "githubLink": "https://github.com/noman122vca",
-  "resumeUrl": "/hassan-mahmud-cv.pdf"
+  "resumeUrl": "./hassan-mahmud-cv.pdf"
 };
 

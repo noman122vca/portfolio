@@ -240,7 +240,7 @@ export function Hero({ onOpenCV }) {
                   src={avatarSrc}
                   alt={profileData.name}
                   onError={() => setAvatarSrc(profileData.avatarExternal)}
-                  className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-105 group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-105 group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
