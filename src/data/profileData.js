@@ -1,0 +1,38 @@
+export const profileData = {
+  "name": "MD EFTEKAR HOSSEN NOMAN",
+  "officialName": "MD EFTEKAR HOSSEN NOMAN",
+  "title": "Graphic Designer, Video Editor & Creative Professional",
+  "badge": "GRAPHIC DESIGNER & CREATIVE CREATOR",
+  "tagline": "I CREATE. I DESIGN. I BUILD VISUAL EXPERIENCES.",
+  "bioSummary": "Hi, I am MD EFTEKAR HOSSEN NOMAN. As a trained and motivated creator in Graphic Design, Video Editing, and Creative Visuals, I transform ideas into compelling narratives. Combining creative precision with strategic vision, I help brands and creators captivate their audience across digital platforms.",
+  "aboutQuote": "Crafting compelling visual stories through creative design and dynamic digital media.",
+  "aboutParagraphs": [
+    "Enthusiastic creator focused on Graphic Design, Video Editing, and Digital Branding. Driven by continuous learning, attention to detail, and a passion for crafting memorable visual media.",
+    "Experienced in Adobe Creative Suite, Visual Branding, Motion Content, and Modern Design Toolchains."
+  ],
+  "avatarUrl": "/noman-avatar.jpg",
+  "avatarJpg": "/noman-avatar.jpg",
+  "avatarFull": "/noman-avatar.jpg",
+  "avatarFallback": "/noman-avatar.jpg",
+  "avatarExternal": "https://i.postimg.cc/G23xH5vn/Chat-GPT-Image-Sep-21-2026-07-52-43-PM.png",
+  "email": "eftekarhossennoman@gmail.com",
+  "phone": "+8801619-042379",
+  "address": "Dhaka, Bangladesh",
+  "whatsapp": "+8801619-042379",
+  "whatsappUsername": "+8801619-042379",
+  "whatsappLink": "https://wa.me/8801619042379",
+  "youtube": "@noman122vca",
+  "youtubeLink": "https://www.youtube.com/@noman122vca",
+  "facebook": "MD Eftekhar Hossen Noman",
+  "facebookLink": "https://www.facebook.com/share/1GJsGoRt3n/",
+  "instagram": "@mdeftehossin",
+  "instagramLink": "https://www.instagram.com/mdeftehossin",
+  "linkedin": "MD EFTEKAR HOSSEN NOMAN",
+  "linkedinLink": "https://www.linkedin.com/in/md-eftekhar-hossen-noman-874b50444/",
+  "behance": "mdeftehossin",
+  "behanceLink": "https://www.behance.net/mdeftehossin",
+  "github": "@noman122vca",
+  "githubLink": "https://github.com/noman122vca",
+  "resumeUrl": "/hassan-mahmud-cv.pdf"
+};
+

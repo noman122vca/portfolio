@@ -1,0 +1,23 @@
+# Logs & dependencies
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Environment & Secrets
+.env
+.env.*.local
+!.env.example
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Scratch / Temporary Reverse Engineering files
+scratch/
+downloaded/

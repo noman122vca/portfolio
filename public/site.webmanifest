@@ -1,0 +1,32 @@
+{
+  "name": "Hassan Mahmud - Portfolio",
+  "short_name": "Hassan Mahmud",
+  "description": "Official portfolio of Hassan Mahmud — Graphic Designer, Video Editor, Freelancer and Digital Marketer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020B0E",
+  "theme_color": "#00E5FF",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

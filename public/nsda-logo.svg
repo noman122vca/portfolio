@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Clean Pure White Background -->
+  <rect width="500" height="500" fill="#FFFFFF"/>
+
+  <!-- Official NSDA 5-Skill Human Figures -->
+  <g id="nsda-figures" transform="translate(0, 10)">
+    <!-- 1. GREEN FIGURE (Largest) -->
+    <circle cx="190" cy="92" r="24" fill="#169A48"/>
+    <path d="M 152 120
+             C 134 155 120 205 128 260
+             C 133 288 148 308 170 312
+             L 208 312
+             C 188 270 178 215 186 166
+             C 189 150 196 140 222 140
+             C 196 150 172 138 152 120
+             Z"
+          fill="#169A48"/>
+
+    <!-- 2. NAVY / INDIGO FIGURE -->
+    <circle cx="245" cy="122" r="18.5" fill="#1D2271"/>
+    <path d="M 208 312
+             L 252 312
+             C 238 274 230 228 236 182
+             C 239 168 245 160 268 160
+             C 246 166 232 158 222 140
+             C 196 140 189 150 186 166
+             C 178 215 188 270 208 312
+             Z"
+          fill="#1D2271"/>
+
+    <!-- 3. CYAN / SKY BLUE FIGURE -->
+    <circle cx="288" cy="148" r="14.5" fill="#00A3E2"/>
+    <path d="M 252 312
+             L 290 312
+             C 278 278 272 238 278 198
+             C 281 186 286 180 306 180
+             C 288 185 276 178 268 160
+             C 245 160 239 168 236 182
+             C 230 228 238 274 252 312
+             Z"
+          fill="#00A3E2"/>
+
+    <!-- 4. YELLOW FIGURE -->
+    <circle cx="323" cy="175" r="11" fill="#FFCF00"/>
+    <path d="M 290 312
+             L 322 312
+             C 312 284 308 250 313 218
+             C 315 208 319 202 336 202
+             C 322 206 312 200 306 180
+             C 286 180 281 186 278 198
+             C 272 238 278 278 290 312
+             Z"
+          fill="#FFCF00"/>
+
+    <!-- 5. RED FIGURE (Rightmost) -->
+    <circle cx="351" cy="198" r="8" fill="#E41A23"/>
+    <path d="M 322 312
+             L 345 312
+             C 338 288 336 258 340 232
+             C 342 223 346 219 358 219
+             C 347 222 340 216 336 202
+             C 319 202 315 208 313 218
+             C 308 250 312 284 322 312
+             Z"
+          fill="#E41A23"/>
+  </g>
+
+  <!-- Typography: Bengali and English (Official NSDA Inscription) -->
+  <g transform="translate(0, 15)">
+    <!-- Line 1: জাতীয় দক্ষতা উন্নয়ন কর্তৃপক্ষ বাংলাদেশ -->
+    <text x="250" y="348"
+          font-family="'Kalpurush', 'SolaimanLipi', 'Nikosh', 'Vrinda', 'Noto Sans Bengali', Arial, sans-serif"
+          font-size="25"
+          font-weight="bold"
+          fill="#111111"
+          text-anchor="middle"
+          letter-spacing="0.3">
+      জাতীয় দক্ষতা উন্নয়ন কর্তৃপক্ষ বাংলাদেশ
+    </text>
+
+    <!-- Line 2: NATIONAL SKILLS DEVELOPMENT AUTHORITY BANGLADESH -->
+    <text x="250" y="374"
+          font-family="'Arial Black', 'Arial', 'Helvetica Neue', sans-serif"
+          font-size="12"
+          font-weight="900"
+          fill="#111111"
+          text-anchor="middle"
+          letter-spacing="0.8">
+      NATIONAL SKILLS DEVELOPMENT AUTHORITY BANGLADESH
+    </text>
+  </g>
+</svg>
