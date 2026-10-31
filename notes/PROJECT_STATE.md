@@ -28,6 +28,15 @@
   - [x] Implemented modular DRY `PortfolioCard` and added interactive `Grid` vs `3D Slider` view mode toggle in `src/components/PortfolioSection.jsx`.
   - [x] Verified 18 project slides rendering with autoplay, depth perspective, dynamic pagination bullets, and glowing navigation arrows.
 
+- [x] **Hero UI Refinement & Formatting (Title Case & Clean Badge)**:
+  - [x] Profile photo re-cropped with PIL at `cy=440, size=860` for perfect symmetrical eye, nose, collar alignment.
+  - [x] Removed bottom darkening gradient overlay from circular avatar frame, added subtle studio rim glow.
+  - [x] Converted ALL CAPS name to clean Title Case: `Md. Eftekar Hossen Noman` across Hero, Navbar, CV data, and translations.
+  - [x] Dedicated prominent greeting line: `Hi, I am Md. Eftekar Hossen Noman` with cyan highlight and natural vertical spacing above the bio paragraph.
+  - [x] Removed AI sparkles sticker from `GRAPHIC DESIGNER & CREATIVE CREATOR` badge button.
+  - [x] Verified build (`vite build`), test suite (`npm test`), and pushed updates to `main` and `gh-pages` branch on GitHub.
+  - [x] Verified live on GitHub Pages (`https://noman122vca.github.io/portfolio/`) via Chrome DevTools screenshot capture.
+
 - [x] Push local Git repository to remote GitHub (`https://github.com/noman122vca/portfolio`) using user's GitHub credentials / PAT.
 - [x] Enable GitHub Pages in repository settings for live public hosting:
   - Repository: `https://github.com/noman122vca/portfolio`
@@ -35,5 +44,5 @@
   - Verified live via Headless Chrome with 200 OK and visual confirmation.
 
 ## Pending Tasks
-- None (All 35 tasks completed and live deployed).
+- None (All tasks completed, refined, and live deployed on GitHub Pages).
 
