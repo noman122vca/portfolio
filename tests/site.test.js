@@ -23,15 +23,15 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
 
   test('Portfolio Items integrity', () => {
     assert.ok(Array.isArray(defaultPortfolioItems));
-    assert.strictEqual(defaultPortfolioItems.length, 17, 'Should contain 17 default items');
+    assert.strictEqual(defaultPortfolioItems.length, 8, 'Should contain 8 default items');
 
     const videoItems = defaultPortfolioItems.filter((i) => i.mediaType === 'video');
     const graphicItems = defaultPortfolioItems.filter((i) => i.mediaType === 'graphic');
 
     assert.strictEqual(videoItems.length, 4, 'Should have 4 authentic Facebook video productions');
-    assert.strictEqual(graphicItems.length, 13, 'Should have 13 graphic design works');
+    assert.strictEqual(graphicItems.length, 4, 'Should have 4 graphic design works');
     assert.ok(videoItems.every((v) => v.mediaUrl.includes('facebook.com')), 'All video productions must be authentic Facebook links');
-    assert.ok(graphicItems.some((g) => g.externalUrl && g.externalUrl.includes('facebook.com')), 'Should include authentic Facebook graphic works');
+    assert.ok(graphicItems.every((g) => g.externalUrl && g.externalUrl.includes('facebook.com')), 'All graphic works must be authentic Facebook links');
 
     defaultPortfolioItems.forEach((item) => {
       assert.ok(item.id, 'Item must have an id');
