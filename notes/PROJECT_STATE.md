@@ -56,7 +56,12 @@
   - [x] Added Admin Studio triggers in Navbar, PortfolioSection, and Footer.
   - [x] Added unit tests in `tests/firebase.test.js` (7/7 tests passing).
   - [x] Production build passed (`vite build`) and live deployed to GitHub Pages `gh-pages` branch.
+- [x] **Phase 11: Hero Avatar Restoration & Clean Styling**:
+  - [x] Reverted temporary flyer crop image (`media_1793501195445_2479b99e.png`) per user request.
+  - [x] Restored original high-resolution studio portrait of Md. Eftekar Hossen Noman in `public/noman-avatar.jpg` and `public/eftekar-avatar.jpg`.
+  - [x] Restored clean neon-glow rotating software rings (Ps, Ai, Pr, Ae, CapCut, Meta) and balanced hero layout.
+  - [x] Verified full persistence of Firebase Cloud CMS, YouTube channel `@Nomancreative-17`, Swiper 3D Touch Slider, and CV downloads.
+  - [x] Unit tests 7/7 passing (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
-
