@@ -118,7 +118,7 @@ export const translations = {
         "landscape": "16:9 Landscape",
         "reel": "9:16 Reel"
       },
-      "manageVideos": "+ Add Video Link",
+      "manageVideos": "+ Add Video (YT / FB)",
       "uploadWork": "+ Add Graphic Link"
     },
     "skills": {
@@ -355,8 +355,8 @@ export const translations = {
         "landscape": "১৬:৯ ল্যান্ডস্কেপ",
         "reel": "৯:১৬ রিলস"
       },
-      "manageVideos": "+ ভিডিও লিংক যোগ করুন",
-      "uploadWork": "+ গ্রাফিক্স লিংক যোগ করুন"
+      "manageVideos": "+ ভিডিও যোগ করুন (YT / FB)",
+      "uploadWork": "+ গ্রাফিক্স যোগ করুন"
     },
     "skills": {
       "badge": "দক্ষতা ও অভিজ্ঞতা",

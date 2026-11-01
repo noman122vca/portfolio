@@ -213,6 +213,7 @@ export function App() {
             showToast('অ্যাডমিন লগআউট সফল হয়েছে');
           }}
           onNotify={(msg) => showToast(msg)}
+          onAddLocalProject={(newItem) => updatePortfolioItems([newItem, ...portfolioItems])}
         />
 
         {/* Floating Toast Notification */}

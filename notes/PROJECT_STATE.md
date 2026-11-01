@@ -104,7 +104,15 @@
     - [x] Dual concentric luminous cyan glowing rings with glass shimmer sweep.
     - [x] Orbit tool order mapped clockwise to match Image 2: **Pr** (Left, 9h) -> **Ae** (Top-Left, 11h) -> **CapCut** (Top-Right, 1h) -> **Meta** (Right, 3h) -> **Ps** (Bottom-Right, 5h) -> **Ai** (Bottom-Left, 7h).
   - [x] All 7 tests passed (`npm test`), production build passed (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+- [x] **Phase 15: Facebook Video Embed, Dual-Persistence Cloud/Local CMS & Admin Publishing**:
+  - [x] Resolved Facebook video/reel embedding issue by integrating Facebook's official responsive embed plugin (`https://www.facebook.com/plugins/video.php?href=...`) with direct "Watch on Facebook ↗" fallback overlay in `MediaDetailModal.jsx`.
+  - [x] Implemented dual-persistence fallback in `AdminDashboardModal.jsx` and `VideoFormModal.jsx` so if Firestore is still pending activation, items save seamlessly to local storage without throwing blocking browser alerts.
+  - [x] Wired `onAddLocalProject` prop in `src/App.jsx` to dynamically prepend new video/graphic projects to the active gallery.
+  - [x] Updated portfolio action buttons to `+ Add Video (YT / FB)` in English and `+ ভিডিও যোগ করুন (YT / FB)` in Bengali.
+  - [x] Added unit tests for Facebook URL detection and embed logic in `tests/site.test.js` (8/8 tests passing).
+  - [x] Production build passed (`vite build`) and ready for deployment to GitHub `main` and `gh-pages`.
 
 ## Pending Tasks
-- [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
+- [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 

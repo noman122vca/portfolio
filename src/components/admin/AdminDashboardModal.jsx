@@ -41,7 +41,8 @@ export function AdminDashboardModal({
   onClose,
   cloudItems = [],
   onLogout,
-  onNotify
+  onNotify,
+  onAddLocalProject
 }) {
   const { isBN } = useLanguage();
   const [activeTab, setActiveTab] = useState('add-video'); // 'add-video' | 'add-graphic' | 'manage'
@@ -66,9 +67,10 @@ export function AdminDashboardModal({
   if (!isOpen) return null;
 
   const detectedYtId = extractYouTubeId(videoUrl);
+  const isFb = videoUrl.includes('facebook.com') || videoUrl.includes('fb.watch') || videoUrl.includes('fb.com');
   const isChannel = videoUrl.includes('/@') || videoUrl.includes('/channel/');
   const autoYtThumb = detectedYtId ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg` : '';
-  const finalVideoThumb = videoCustomThumb.trim() || autoYtThumb || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80';
+  const finalVideoThumb = videoCustomThumb.trim() || autoYtThumb || (isFb ? 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80' : 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80');
 
   const handleVideoThumbUpload = (e) => {
     const file = e.target.files?.[0];
@@ -93,33 +95,45 @@ export function AdminDashboardModal({
     if (!videoUrl.trim()) return;
     setSubmitting(true);
 
-    try {
-      const newVideo = {
-        title: videoTitle.trim() || (isChannel ? 'YouTube Official Video' : 'New Video Production'),
-        category: videoCategory,
-        mediaType: 'video',
-        videoFormat: (videoUrl.includes('/shorts/') || videoUrl.includes('/reel/')) ? 'reel' : videoFormat,
-        thumbnailUrl: finalVideoThumb,
-        mediaUrl: videoUrl.trim(),
-        description: videoDesc.trim() || 'Dynamic video project featuring professional editing and kinetic motion graphics.',
-        tags: videoTags.split(',').map((t) => t.trim()).filter(Boolean),
-        dateAdded: '2026',
-        isHighlighted: false,
-      };
+    const isReelOrShort = videoUrl.includes('/shorts/') || videoUrl.includes('/reel/') || videoUrl.includes('fb.watch');
 
+    const newVideo = {
+      id: `video-${Date.now()}`,
+      title: videoTitle.trim() || (isFb ? 'Facebook Video Production' : (isChannel ? 'YouTube Official Video' : 'New Video Production')),
+      category: videoCategory,
+      mediaType: 'video',
+      videoFormat: isReelOrShort ? 'reel' : videoFormat,
+      thumbnailUrl: finalVideoThumb,
+      mediaUrl: videoUrl.trim(),
+      description: videoDesc.trim() || 'Dynamic video project featuring professional editing and kinetic motion graphics.',
+      tags: videoTags.split(',').map((t) => t.trim()).filter(Boolean),
+      dateAdded: '2026',
+      isHighlighted: false,
+    };
+
+    try {
       await addProjectToCloud(newVideo);
       onNotify(isBN ? '✓ ভিডিও ক্লাউডে সফলভাবে লাইভ পাবলিশ হয়েছে!' : '✓ Video successfully published live to cloud portfolio!');
-      setVideoUrl('');
-      setVideoTitle('');
-      setVideoCustomThumb('');
-      setVideoDesc('');
-      onClose();
     } catch (err) {
-      console.error(err);
-      alert(isBN ? 'ডাটাবেস ত্রুটি! অনুগ্রহ করে Firebase Console এ Firestore চালু আছে কিনা চেক করুন।' : 'Failed to publish. Check if Firestore is enabled in Firebase Console.');
-    } finally {
-      setSubmitting(false);
+      console.warn('Firestore cloud sync pending, falling back to local portfolio:', err);
+      if (onAddLocalProject) {
+        onAddLocalProject(newVideo);
+      }
+      onNotify(isBN
+        ? '✓ ভিডিও পোর্টফোলিওতে সফলভাবে যুক্ত হয়েছে! (ক্লাউড সিঙ্কের জন্য Firebase Console এ Firestore ডাটাবেস তৈরি করুন)'
+        : '✓ Video added to portfolio! (To enable global sync, create Firestore database in Firebase Console)');
     }
+
+    setVideoUrl('');
+    setVideoTitle('');
+    setVideoCustomThumb('');
+    setVideoDesc('');
+    onClose();
+    setSubmitting(false);
+
+    // Smooth scroll to projects
+    const projEl = document.getElementById('projects');
+    if (projEl) projEl.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handlePublishGraphic = async (e) => {
@@ -127,31 +141,40 @@ export function AdminDashboardModal({
     if (!graphicImage.trim()) return;
     setSubmitting(true);
 
-    try {
-      const newGraphic = {
-        title: graphicTitle.trim() || 'Creative Brand Visual Artwork',
-        category: graphicCategory,
-        mediaType: 'graphic',
-        thumbnailUrl: graphicImage.trim(),
-        mediaUrl: graphicImage.trim(),
-        description: graphicDesc.trim() || 'High-impact creative brand advertising design and promotional visual artwork.',
-        tags: graphicTags.split(',').map((t) => t.trim()).filter(Boolean),
-        dateAdded: '2026',
-        isHighlighted: false,
-      };
+    const newGraphic = {
+      id: `graphic-${Date.now()}`,
+      title: graphicTitle.trim() || 'Creative Brand Visual Artwork',
+      category: graphicCategory,
+      mediaType: 'graphic',
+      thumbnailUrl: graphicImage.trim(),
+      mediaUrl: graphicImage.trim(),
+      description: graphicDesc.trim() || 'High-impact creative brand advertising design and promotional visual artwork.',
+      tags: graphicTags.split(',').map((t) => t.trim()).filter(Boolean),
+      dateAdded: '2026',
+      isHighlighted: false,
+    };
 
+    try {
       await addProjectToCloud(newGraphic);
       onNotify(isBN ? '✓ গ্রাফিক ডিজাইন ক্লাউডে সফলভাবে লাইভ পাবলিশ হয়েছে!' : '✓ Graphic artwork successfully published live to cloud!');
-      setGraphicTitle('');
-      setGraphicImage('');
-      setGraphicDesc('');
-      onClose();
     } catch (err) {
-      console.error(err);
-      alert(isBN ? 'ডাটাবেস ত্রুটি! অনুগ্রহ করে Firebase Console এ Firestore চালু আছে কিনা চেক করুন।' : 'Failed to publish. Check if Firestore is enabled in Firebase Console.');
-    } finally {
-      setSubmitting(false);
+      console.warn('Firestore cloud sync pending, falling back to local portfolio:', err);
+      if (onAddLocalProject) {
+        onAddLocalProject(newGraphic);
+      }
+      onNotify(isBN
+        ? '✓ গ্রাফিক আর্টওয়ার্ক পোর্টফোলিওতে যুক্ত হয়েছে!'
+        : '✓ Graphic artwork added to portfolio!');
     }
+
+    setGraphicTitle('');
+    setGraphicImage('');
+    setGraphicDesc('');
+    onClose();
+    setSubmitting(false);
+
+    const projEl = document.getElementById('projects');
+    if (projEl) projEl.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleDeleteCloudItem = async (id, title) => {
@@ -266,17 +289,28 @@ export function AdminDashboardModal({
               <form onSubmit={handlePublishVideo} className="space-y-4">
                 <div className="space-y-2">
                   <label className="block text-xs font-mono text-neutral-300">
-                    YouTube / Shorts / Video URL *
+                    {isBN ? 'ভিডিও লিংক (YouTube / Facebook / Reels / Shorts) *' : 'Video URL (YouTube / Facebook / Reels / Shorts) *'}
                   </label>
                   <input
                     type="url"
                     required
-                    placeholder="https://youtu.be/... or https://youtube.com/shorts/..."
+                    placeholder="https://youtu.be/... or https://www.facebook.com/reel/... or https://fb.watch/..."
                     value={videoUrl}
                     onChange={(e) => setVideoUrl(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-[#00E5FF] text-white text-sm"
                   />
                 </div>
+
+                {isFb && (
+                  <div className="flex items-start gap-2.5 p-3 rounded-xl bg-[#1877F2]/10 border border-[#1877F2]/30 text-sky-300 text-xs">
+                    <Info className="w-4 h-4 shrink-0 text-[#1877F2] mt-0.5" />
+                    <span>
+                      {isBN
+                        ? '✓ ফেসবুক ভিডিও / রিল লিংক সনাক্ত হয়েছে! নিচে আকর্ষণীয় থাম্বনেইল ছবি আপলোড করুন এবং প্রজেক্ট টাইটেল দিন।'
+                        : '✓ Facebook Video / Reel detected! Please upload a cover thumbnail and title below.'}
+                    </span>
+                  </div>
+                )}
 
                 {isChannel && (
                   <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">

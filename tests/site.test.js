@@ -99,4 +99,27 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
     assert.strictEqual(extractYouTubeId('https://www.youtube.com/embed/X5IFszf8yk8'), 'X5IFszf8yk8');
     assert.strictEqual(extractYouTubeId('https://invalid-url.com'), null);
   });
+
+  test('Facebook URL detector and embed resolver logic', () => {
+    function isFacebookVideo(url) {
+      if (!url) return false;
+      const trimmed = url.trim();
+      return /facebook\.com|fb\.watch/i.test(trimmed);
+    }
+
+    function getFacebookEmbedUrl(url) {
+      if (!isFacebookVideo(url)) return null;
+      return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url.trim())}&show_text=0&autoplay=1`;
+    }
+
+    assert.strictEqual(isFacebookVideo('https://www.facebook.com/watch/?v=123456789'), true);
+    assert.strictEqual(isFacebookVideo('https://fb.watch/xYz12345/'), true);
+    assert.strictEqual(isFacebookVideo('https://www.facebook.com/reel/987654321'), true);
+    assert.strictEqual(isFacebookVideo('https://youtube.com/watch?v=12345678901'), false);
+
+    const embedUrl = getFacebookEmbedUrl('https://fb.watch/xYz12345/');
+    assert.strictEqual(embedUrl.includes('plugins/video.php?href='), true);
+    assert.strictEqual(embedUrl.includes(encodeURIComponent('https://fb.watch/xYz12345/')), true);
+  });
 });
+

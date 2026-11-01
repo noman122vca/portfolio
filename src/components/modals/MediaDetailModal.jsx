@@ -27,6 +27,17 @@ function resolveVideoEmbed(url) {
       type: 'youtube',
     };
   }
+  if (
+    trimmed.includes('facebook.com') ||
+    trimmed.includes('fb.watch') ||
+    trimmed.includes('fb.com')
+  ) {
+    return {
+      embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(trimmed)}&show_text=0&autoplay=1`,
+      type: 'facebook',
+      originalUrl: trimmed,
+    };
+  }
   if (trimmed.includes('vimeo.com')) {
     const vimeoId = trimmed.split('vimeo.com/')[1]?.split('?')[0]?.split('/')[0];
     if (vimeoId && /^\d+$/.test(vimeoId)) {
@@ -154,6 +165,27 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
                     autoPlay
                     className={`w-full ${isReel ? 'max-h-[65vh] aspect-[9/16]' : 'aspect-video'}`}
                   />
+                ) : videoMeta.type === 'facebook' ? (
+                  <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[65vh]' : 'aspect-video'} bg-black flex flex-col items-center justify-center`}>
+                    <iframe
+                      src={videoMeta.embedUrl}
+                      title={item.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
+                    <div className="absolute top-3 right-3 z-20 pointer-events-auto">
+                      <a
+                        href={item.mediaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold shadow-[0_0_15px_rgba(24,119,242,0.5)] transition-all"
+                      >
+                        <span>Watch on Facebook</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
                 ) : (
                   <div className={`w-full ${isReel ? 'aspect-[9/16] max-h-[65vh]' : 'aspect-video'}`}>
                     <iframe

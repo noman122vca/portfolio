@@ -36,11 +36,12 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
   if (!isOpen) return null;
 
   const detectedYtId = extractYouTubeId(videoUrl);
+  const isFb = videoUrl.includes('facebook.com') || videoUrl.includes('fb.watch') || videoUrl.includes('fb.com');
   const isChannel = videoUrl.includes('/@') || videoUrl.includes('/channel/');
   const autoThumbnail = detectedYtId
     ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg`
     : '';
-  const finalThumbnail = customThumbnail.trim() || autoThumbnail || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80';
+  const finalThumbnail = customThumbnail.trim() || autoThumbnail || (isFb ? 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80' : 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80');
 
   const handleThumbnailUpload = (e) => {
     const file = e.target.files?.[0];
@@ -57,12 +58,14 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
     e.preventDefault();
     if (!videoUrl.trim()) return;
 
+    const isReelOrShort = (videoUrl.includes('/shorts/') || videoUrl.includes('/reel/') || videoUrl.includes('fb.watch'));
+
     const newItem = {
       id: `custom-video-${Date.now()}`,
-      title: title.trim() || (isChannel ? 'YouTube Official Channel Video' : `New Video Project #${items.length + 1}`),
+      title: title.trim() || (isFb ? 'Facebook Video Production' : (isChannel ? 'YouTube Official Channel Video' : `New Video Project #${items.length + 1}`)),
       category,
       mediaType: 'video',
-      videoFormat: (videoUrl.includes('/shorts/') || videoUrl.includes('/reel/')) ? 'reel' : videoFormat,
+      videoFormat: isReelOrShort ? 'reel' : videoFormat,
       thumbnailUrl: finalThumbnail,
       mediaUrl: videoUrl.trim(),
       description: description.trim() || 'Dynamic video project featuring professional editing and kinetic motion graphics.',
@@ -151,17 +154,28 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
 
               <div className="space-y-2">
                 <label className="block text-xs font-mono text-neutral-300">
-                  YouTube / Vimeo / Video URL *
+                  {isBN ? 'ভিডিও লিংক (YouTube / Facebook / Reels / Shorts) *' : 'Video URL (YouTube / Facebook / Reels / Shorts) *'}
                 </label>
                 <input
                   type="url"
                   required
-                  placeholder="https://youtu.be/... or https://youtube.com/shorts/... or https://youtube.com/@..."
+                  placeholder="https://youtu.be/... or https://www.facebook.com/reel/... or https://fb.watch/..."
                   value={videoUrl}
                   onChange={(e) => setVideoUrl(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-[#00E5FF] text-white text-sm"
                 />
               </div>
+
+              {isFb && (
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-[#1877F2]/10 border border-[#1877F2]/30 text-sky-300 text-xs">
+                  <Info className="w-4 h-4 shrink-0 text-[#1877F2] mt-0.5" />
+                  <span>
+                    {isBN
+                      ? '✓ ফেসবুক ভিডিও / রিল লিংক সনাক্ত হয়েছে! নিচে আকর্ষণীয় থাম্বনেইল ছবি আপলোড করুন এবং প্রজেক্ট টাইটেল দিন।'
+                      : '✓ Facebook Video / Reel detected! Please upload a cover thumbnail and title below.'}
+                  </span>
+                </div>
+              )}
 
               {isChannel && (
                 <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
