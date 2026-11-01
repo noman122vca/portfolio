@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import { Play, Eye, PlusCircle, Video, Image as ImageIcon, Sparkles, Film, Smartphone, LayoutGrid, SlidersHorizontal, ShieldCheck } from 'lucide-react';
+import { Play, Eye, PlusCircle, Video, Image as ImageIcon, Sparkles, Film, Smartphone, LayoutGrid, SlidersHorizontal, ShieldCheck, Trash2, LogOut } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow, Keyboard, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 
-function PortfolioCard({ item, onSelectItem }) {
+function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
   return (
     <div
       onClick={() => onSelectItem(item)}
@@ -25,7 +25,7 @@ function PortfolioCard({ item, onSelectItem }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#020B0E] via-transparent to-transparent opacity-80" />
 
         {/* Format & Category Badges */}
-        <div className="absolute top-3 left-3 flex items-center gap-2">
+        <div className="absolute top-3 left-3 flex items-center gap-2 z-20">
           <span className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-[11px] font-mono font-bold text-white border border-white/10">
             {item.category}
           </span>
@@ -35,6 +35,22 @@ function PortfolioCard({ item, onSelectItem }) {
             </span>
           )}
         </div>
+
+        {/* Admin Direct 1-Click Delete Button (Only visible when logged in as admin) */}
+        {isAdmin && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteItem(item.id, item.title);
+            }}
+            className="absolute top-3 right-3 z-30 px-2.5 py-1.5 rounded-xl bg-rose-600/95 hover:bg-rose-500 text-white shadow-[0_0_15px_rgba(225,29,72,0.7)] backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 flex items-center gap-1.5 text-xs font-bold border border-rose-400/50"
+            title="ভুলবশত যোগ হওয়া এই প্রজেক্টটি সরাসরি ডিলিট করুন (Delete Project)"
+          >
+            <Trash2 className="w-3.5 h-3.5 text-white" />
+            <span>মুছুন</span>
+          </button>
+        )}
 
         {/* Hover Overlay Play / View Icon */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-xs">
@@ -81,6 +97,9 @@ export function PortfolioSection({
   onOpenVideoForm,
   onOpenUploadGraphic,
   onOpenAdmin,
+  isAdmin = false,
+  onDeleteItem,
+  onLogoutAdmin,
 }) {
   const { t, isBN } = useLanguage();
   const [selectedFilter, setSelectedFilter] = useState('all');
@@ -121,29 +140,78 @@ export function PortfolioSection({
             </p>
           </div>
 
-          {/* Admin Fast Buttons */}
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={onOpenAdmin || onOpenVideoForm}
-              className="px-4 py-2 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]"
-            >
-              <ShieldCheck className="w-4 h-4" />
-              <span>{isBN ? '+ ক্লাউড স্টুডিও (CMS)' : '+ Cloud Studio (CMS)'}</span>
-            </button>
-            <button
-              onClick={onOpenVideoForm}
-              className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-            >
-              <Video className="w-4 h-4 text-[#00E5FF]" />
-              <span>{t.portfolio?.manageVideos || t.portfolio?.videoSection?.addVideoBtn || '+ Add Video'}</span>
-            </button>
-            <button
-              onClick={onOpenUploadGraphic}
-              className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-            >
-              <PlusCircle className="w-4 h-4 text-[#00E5FF]" />
-              <span>{t.portfolio?.uploadWork || t.portfolio?.graphicSection?.addGraphicBtn || '+ Upload Work'}</span>
-            </button>
+          {/* Admin Fast Action Bar */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            {isAdmin ? (
+              <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/40">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>{isBN ? '🛡️ অ্যাডমিন মোড সক্রিয়' : '🛡️ Admin Active'}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="px-3.5 py-1.5 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)] cursor-pointer"
+                  title="ওপেন ক্লাউড CMS ড্যাশবোর্ড"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>{isBN ? 'CMS ড্যাশবোর্ড' : 'CMS Studio'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenVideoForm}
+                  className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-[#00E5FF]/20 border border-white/20 hover:border-[#00E5FF]/50 text-white hover:text-[#00E5FF] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <Video className="w-3.5 h-3.5 text-[#00E5FF]" />
+                  <span>{isBN ? '+ ভিডিও যোগ' : '+ Add Video'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenUploadGraphic}
+                  className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-[#00E5FF]/20 border border-white/20 hover:border-[#00E5FF]/50 text-white hover:text-[#00E5FF] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <PlusCircle className="w-3.5 h-3.5 text-[#00E5FF]" />
+                  <span>{isBN ? '+ গ্রাফিক্স যোগ' : '+ Add Graphic'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onLogoutAdmin}
+                  className="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                  title="অ্যাডমিন মোড থেকে লগআউট করুন"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>{isBN ? 'লগআউট' : 'Logout'}</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="px-4 py-2 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]"
+                  title="পাসওয়ার্ড noman@admin2026 দিয়ে অ্যাডমিন প্যানেল আনলক করুন"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>{isBN ? '🛡️ অ্যাডমিন স্টুডিও (Login)' : '🛡️ Admin Studio (Login)'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenVideoForm}
+                  className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                >
+                  <Video className="w-4 h-4 text-[#00E5FF]" />
+                  <span>{isBN ? '+ ভিডিও যোগ করুন' : '+ Add Video'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenUploadGraphic}
+                  className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                >
+                  <PlusCircle className="w-4 h-4 text-[#00E5FF]" />
+                  <span>{isBN ? '+ গ্রাফিক্স যোগ করুন' : '+ Add Graphic'}</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -250,7 +318,12 @@ export function PortfolioSection({
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <PortfolioCard item={item} onSelectItem={onSelectItem} />
+                  <PortfolioCard
+                    item={item}
+                    onSelectItem={onSelectItem}
+                    isAdmin={isAdmin}
+                    onDeleteItem={onDeleteItem}
+                  />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -293,7 +366,12 @@ export function PortfolioSection({
                   key={item.id}
                   className="max-w-[340px] sm:max-w-[420px] md:max-w-[460px]"
                 >
-                  <PortfolioCard item={item} onSelectItem={onSelectItem} />
+                  <PortfolioCard
+                    item={item}
+                    onSelectItem={onSelectItem}
+                    isAdmin={isAdmin}
+                    onDeleteItem={onDeleteItem}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

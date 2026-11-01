@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, Tag } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, Tag, Trash2 } from 'lucide-react';
 
 function getYouTubeId(url) {
   if (!url) return null;
@@ -83,7 +83,7 @@ function resolveVideoEmbed(url) {
   return { embedUrl: trimmed, type: 'external' };
 }
 
-export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
+export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAdmin = false, onDeleteItem }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -151,6 +151,17 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
             </div>
 
             <div className="flex items-center gap-2">
+              {isAdmin && (
+                <button
+                  type="button"
+                  onClick={() => onDeleteItem && onDeleteItem(item.id, item.title)}
+                  className="px-3 py-1.5 rounded-xl bg-rose-600/90 hover:bg-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(225,29,72,0.5)] cursor-pointer mr-2 border border-rose-400/40"
+                  title="এই প্রজেক্টটি স্থায়ীভাবে ডিলিট করুন (Delete Project)"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-white" />
+                  <span>মুছুন (Delete)</span>
+                </button>
+              )}
               <button
                 onClick={handlePrev}
                 className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition-colors"
@@ -248,27 +259,39 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white">
                   {item.title}
                 </h2>
-                {item.externalUrl ? (
-                  <a
-                    href={item.externalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2]/20 border border-[#1877F2]/50 hover:bg-[#1877F2] text-xs font-bold text-white shadow-[0_0_15px_rgba(24,119,242,0.3)] transition-all self-start sm:self-auto"
-                  >
-                    <span>{item.externalUrl.includes('facebook.com') ? 'View on Facebook' : 'View External'}</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                ) : item.mediaUrl && item.mediaType === 'video' ? (
-                  <a
-                    href={item.mediaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#00E5FF]/40 text-xs font-mono text-neutral-300 hover:text-[#00E5FF] transition-colors self-start sm:self-auto"
-                  >
-                    <span>Watch External</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                ) : null}
+                <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => onDeleteItem && onDeleteItem(item.id, item.title)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-600/90 hover:bg-rose-500 text-white text-xs font-bold shadow-[0_0_15px_rgba(225,29,72,0.4)] transition-all cursor-pointer border border-rose-400/40"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>প্রজেক্ট মুছুন (Admin)</span>
+                    </button>
+                  )}
+                  {item.externalUrl ? (
+                    <a
+                      href={item.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2]/20 border border-[#1877F2]/50 hover:bg-[#1877F2] text-xs font-bold text-white shadow-[0_0_15px_rgba(24,119,242,0.3)] transition-all"
+                    >
+                      <span>{item.externalUrl.includes('facebook.com') ? 'View on Facebook' : 'View External'}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  ) : item.mediaUrl && item.mediaType === 'video' ? (
+                    <a
+                      href={item.mediaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#00E5FF]/40 text-xs font-mono text-neutral-300 hover:text-[#00E5FF] transition-colors"
+                    >
+                      <span>Watch External</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  ) : null}
+                </div>
               </div>
 
               <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-light">

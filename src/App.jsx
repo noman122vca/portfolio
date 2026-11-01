@@ -16,7 +16,7 @@ import { VideoFormModal } from './components/modals/VideoFormModal';
 import { GraphicUploadModal } from './components/modals/GraphicUploadModal';
 import { AdminLoginModal } from './components/admin/AdminLoginModal';
 import { AdminDashboardModal } from './components/admin/AdminDashboardModal';
-import { subscribeToPortfolio } from './config/firebase';
+import { subscribeToPortfolio, deleteProjectFromCloud } from './config/firebase';
 import { CheckCircle2 } from 'lucide-react';
 
 const STORAGE_KEY = 'noman_portfolio_items_v5';
@@ -29,6 +29,13 @@ export function App() {
   const [isGraphicUploadOpen, setIsGraphicUploadOpen] = useState(false);
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(() => {
+    try {
+      return sessionStorage.getItem('noman_admin_auth') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
   const [cloudPortfolioItems, setCloudPortfolioItems] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
 
@@ -139,6 +146,41 @@ export function App() {
     }
   };
 
+  const handleLogoutAdmin = () => {
+    try {
+      sessionStorage.removeItem('noman_admin_auth');
+    } catch (e) {
+      console.error(e);
+    }
+    setIsAdmin(false);
+    setIsAdminDashboardOpen(false);
+    showToast('অ্যাডমিন লগআউট সফল হয়েছে (Logged out of Admin)');
+  };
+
+  const handleDeleteProject = async (id, title = 'প্রজেক্ট') => {
+    const confirmMsg = `আপনি কি নিশ্চিত যে "${title}" প্রজেক্টটি স্থায়ীভাবে মুছে ফেলতে চান?\n(Are you sure you want to delete this project?)`;
+    if (!window.confirm(confirmMsg)) return;
+
+    // 1. Delete from Cloud Firestore if it's a cloud item
+    const isCloud = cloudPortfolioItems.some((cloud) => cloud.id === id);
+    if (isCloud) {
+      try {
+        await deleteProjectFromCloud(id, 3000);
+      } catch (err) {
+        console.warn('Cloud delete notice:', err.message);
+      }
+    }
+
+    // 2. Remove from local portfolio items
+    const updated = portfolioItems.filter((item) => item.id !== id);
+    updatePortfolioItems(updated, `"${title}" সফলভাবে ডিলিট করা হয়েছে!`);
+
+    // 3. Close media detail preview modal if currently open on that item
+    if (selectedItem?.id === id) {
+      setSelectedItem(null);
+    }
+  };
+
   return (
     <LanguageProvider>
       <div className="relative min-h-screen bg-[#020B0E] text-neutral-200 selection:bg-[#00E5FF] selection:text-black overflow-x-hidden font-sans antialiased">
@@ -163,6 +205,9 @@ export function App() {
             onOpenVideoForm={() => setIsVideoFormOpen(true)}
             onOpenUploadGraphic={() => setIsGraphicUploadOpen(true)}
             onOpenAdmin={handleOpenAdmin}
+            isAdmin={isAdmin}
+            onDeleteItem={handleDeleteProject}
+            onLogoutAdmin={handleLogoutAdmin}
           />
           <AboutSection />
           <SkillsAndTraining />
@@ -181,6 +226,8 @@ export function App() {
           onClose={() => setSelectedItem(null)}
           items={displayedPortfolioItems}
           onSelectItem={(item) => setSelectedItem(item)}
+          isAdmin={isAdmin}
+          onDeleteItem={handleDeleteProject}
         />
 
         <VideoFormModal
@@ -205,6 +252,7 @@ export function App() {
           isOpen={isAdminLoginOpen}
           onClose={() => setIsAdminLoginOpen(false)}
           onLoginSuccess={() => {
+            setIsAdmin(true);
             setIsAdminDashboardOpen(true);
             showToast('অ্যাডমিন মোডে স্বাগতম! (Logged in to Admin Studio)');
           }}
@@ -215,14 +263,10 @@ export function App() {
           onClose={() => setIsAdminDashboardOpen(false)}
           cloudItems={cloudPortfolioItems}
           allPortfolioItems={portfolioItems}
-          onLogout={() => {
-            sessionStorage.removeItem('noman_admin_auth');
-            setIsAdminDashboardOpen(false);
-            showToast('অ্যাডমিন লগআউট সফল হয়েছে');
-          }}
+          onLogout={handleLogoutAdmin}
           onNotify={(msg) => showToast(msg)}
           onAddLocalProject={(newItem) => updatePortfolioItems([newItem, ...portfolioItems])}
-          onDeleteProject={(id) => updatePortfolioItems(portfolioItems.filter((item) => item.id !== id))}
+          onDeleteProject={handleDeleteProject}
           onClearCategory={(type) => {
             const updated = portfolioItems.filter((item) => item.mediaType !== type);
             updatePortfolioItems(updated, type === 'video' ? 'সব ভিডিও প্রজেক্ট মুছে ফেলা হয়েছে' : 'সব গ্রাফিক্স প্রজেক্ট মুছে ফেলা হয়েছে');
