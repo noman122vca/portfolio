@@ -1,10 +1,10 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { profileData } from '../data/profileData';
-import { ArrowUp, CheckCircle2, Heart } from 'lucide-react';
+import { ArrowUp, CheckCircle2, Heart, ShieldCheck } from 'lucide-react';
 
-export function Footer() {
-  const { t } = useLanguage();
+export function Footer({ onOpenAdmin }) {
+  const { t, isBN } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,9 +54,20 @@ export function Footer() {
 
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-400">
           <p>© {new Date().getFullYear()} {profileData.name}. {t.footer.rights}</p>
-          <p className="flex items-center gap-1">
-            Built with React 19 & Tailwind CSS
-          </p>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={onOpenAdmin}
+              className="text-neutral-500 hover:text-[#00E5FF] transition-colors cursor-pointer flex items-center gap-1.5"
+              title={isBN ? 'ক্লায়েন্ট অ্যাডমিন স্টুডিও' : 'Client Admin Studio'}
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#00E5FF]" />
+              <span>{isBN ? 'ক্লায়েন্ট অ্যাডমিন প্যানেল' : 'Admin Studio'}</span>
+            </button>
+            <span className="text-neutral-700">•</span>
+            <p className="flex items-center gap-1">
+              Built with React 19 & Tailwind CSS
+            </p>
+          </div>
         </div>
       </div>
     </footer>

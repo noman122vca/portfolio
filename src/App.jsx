@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import { defaultPortfolioItems } from './data/portfolioData';
 import { BackgroundFX } from './components/BackgroundFX';
@@ -14,6 +14,9 @@ import { CVModal } from './components/modals/CVModal';
 import { MediaDetailModal } from './components/modals/MediaDetailModal';
 import { VideoFormModal } from './components/modals/VideoFormModal';
 import { GraphicUploadModal } from './components/modals/GraphicUploadModal';
+import { AdminLoginModal } from './components/admin/AdminLoginModal';
+import { AdminDashboardModal } from './components/admin/AdminDashboardModal';
+import { subscribeToPortfolio } from './config/firebase';
 import { CheckCircle2 } from 'lucide-react';
 
 const STORAGE_KEY = 'noman_portfolio_items_v1';
@@ -24,12 +27,32 @@ export function App() {
   const [isCVOpen, setIsCVOpen] = useState(false);
   const [isVideoFormOpen, setIsVideoFormOpen] = useState(false);
   const [isGraphicUploadOpen, setIsGraphicUploadOpen] = useState(false);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
+  const [cloudPortfolioItems, setCloudPortfolioItems] = useState([]);
   const [toastMessage, setToastMessage] = useState('');
 
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 4000);
   };
+
+  // Real-time Firestore synchronization
+  useEffect(() => {
+    const unsubscribe = subscribeToPortfolio(
+      (items) => {
+        if (Array.isArray(items)) {
+          setCloudPortfolioItems(items);
+        }
+      },
+      (err) => {
+        console.warn('Firestore subscription fallback:', err?.message || err);
+      }
+    );
+    return () => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+    };
+  }, []);
 
   const [portfolioItems, setPortfolioItems] = useState(() => {
     try {
@@ -68,6 +91,12 @@ export function App() {
     return defaultPortfolioItems;
   });
 
+  // Merge cloud items on top of local portfolio items (eliminating duplicate IDs)
+  const displayedPortfolioItems = [
+    ...cloudPortfolioItems,
+    ...portfolioItems.filter((local) => !cloudPortfolioItems.some((cloud) => cloud.id === local.id)),
+  ];
+
   const updatePortfolioItems = (newItems, message = null) => {
     setPortfolioItems(newItems);
     try {
@@ -97,6 +126,15 @@ export function App() {
     }
   };
 
+  const handleOpenAdmin = () => {
+    const isAuth = sessionStorage.getItem('noman_admin_auth') === 'true';
+    if (isAuth) {
+      setIsAdminDashboardOpen(true);
+    } else {
+      setIsAdminLoginOpen(true);
+    }
+  };
+
   return (
     <LanguageProvider>
       <div className="relative min-h-screen bg-[#020B0E] text-neutral-200 selection:bg-[#00E5FF] selection:text-black overflow-x-hidden font-sans antialiased">
@@ -104,16 +142,20 @@ export function App() {
         <BackgroundFX />
 
         {/* Sticky Glassmorphic Navbar */}
-        <Navbar onOpenCV={() => setIsCVOpen(true)} />
+        <Navbar
+          onOpenCV={() => setIsCVOpen(true)}
+          onOpenAdmin={handleOpenAdmin}
+        />
 
         {/* Main Content Sections */}
         <main className="relative z-10">
           <Hero onOpenCV={() => setIsCVOpen(true)} />
           <PortfolioSection
-            items={portfolioItems}
+            items={displayedPortfolioItems}
             onSelectItem={(item) => setSelectedItem(item)}
             onOpenVideoForm={() => setIsVideoFormOpen(true)}
             onOpenUploadGraphic={() => setIsGraphicUploadOpen(true)}
+            onOpenAdmin={handleOpenAdmin}
           />
           <AboutSection />
           <SkillsAndTraining />
@@ -122,7 +164,7 @@ export function App() {
         </main>
 
         {/* Global Footer */}
-        <Footer />
+        <Footer onOpenAdmin={handleOpenAdmin} />
 
         {/* Modals & Popups */}
         <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
@@ -130,7 +172,7 @@ export function App() {
         <MediaDetailModal
           item={selectedItem}
           onClose={() => setSelectedItem(null)}
-          items={portfolioItems}
+          items={displayedPortfolioItems}
           onSelectItem={(item) => setSelectedItem(item)}
         />
 
@@ -149,6 +191,28 @@ export function App() {
             updatePortfolioItems([newItem, ...portfolioItems], msg);
             setIsGraphicUploadOpen(false);
           }}
+        />
+
+        {/* Firebase Cloud CMS Admin Modals */}
+        <AdminLoginModal
+          isOpen={isAdminLoginOpen}
+          onClose={() => setIsAdminLoginOpen(false)}
+          onLoginSuccess={() => {
+            setIsAdminDashboardOpen(true);
+            showToast('অ্যাডমিন মোডে স্বাগতম! (Logged in to Admin Studio)');
+          }}
+        />
+
+        <AdminDashboardModal
+          isOpen={isAdminDashboardOpen}
+          onClose={() => setIsAdminDashboardOpen(false)}
+          cloudItems={cloudPortfolioItems}
+          onLogout={() => {
+            sessionStorage.removeItem('noman_admin_auth');
+            setIsAdminDashboardOpen(false);
+            showToast('অ্যাডমিন লগআউট সফল হয়েছে');
+          }}
+          onNotify={(msg) => showToast(msg)}
         />
 
         {/* Floating Toast Notification */}

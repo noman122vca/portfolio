@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
-import { Play, Eye, PlusCircle, Video, Image as ImageIcon, Sparkles, Film, Smartphone, LayoutGrid, SlidersHorizontal } from 'lucide-react';
+import { Play, Eye, PlusCircle, Video, Image as ImageIcon, Sparkles, Film, Smartphone, LayoutGrid, SlidersHorizontal, ShieldCheck } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow, Keyboard, A11y } from 'swiper/modules';
 import 'swiper/css';
@@ -79,9 +79,10 @@ export function PortfolioSection({
   items,
   onSelectItem,
   onOpenVideoForm,
-  onOpenUploadGraphic
+  onOpenUploadGraphic,
+  onOpenAdmin,
 }) {
-  const { t } = useLanguage();
+  const { t, isBN } = useLanguage();
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [videoFormatFilter, setVideoFormatFilter] = useState('all');
   const [viewMode, setViewMode] = useState('grid');
@@ -121,7 +122,14 @@ export function PortfolioSection({
           </div>
 
           {/* Admin Fast Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={onOpenAdmin || onOpenVideoForm}
+              className="px-4 py-2 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>{isBN ? '+ ক্লাউড স্টুডিও (CMS)' : '+ Cloud Studio (CMS)'}</span>
+            </button>
             <button
               onClick={onOpenVideoForm}
               className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
@@ -131,9 +139,9 @@ export function PortfolioSection({
             </button>
             <button
               onClick={onOpenUploadGraphic}
-              className="px-4 py-2 rounded-xl bg-[#00E5FF]/10 hover:bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
+              className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
             >
-              <PlusCircle className="w-4 h-4" />
+              <PlusCircle className="w-4 h-4 text-[#00E5FF]" />
               <span>{t.portfolio?.uploadWork || t.portfolio?.graphicSection?.addGraphicBtn || '+ Upload Work'}</span>
             </button>
           </div>

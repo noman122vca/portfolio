@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { profileData } from '../data/profileData';
-import { Menu, X, FileDown, Volume2, VolumeX, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Menu, X, FileDown, Volume2, VolumeX, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 
-export function Navbar({ onOpenCV }) {
+export function Navbar({ onOpenCV, onOpenAdmin }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const { language, setLanguage, isBN, t } = useLanguage();
@@ -148,6 +148,16 @@ export function Navbar({ onOpenCV }) {
               <span>{t.nav.resume}</span>
             </button>
 
+            {/* Admin Studio Trigger */}
+            <button
+              onClick={onOpenAdmin}
+              className="px-3.5 py-2 rounded-xl border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] bg-white/[0.03] hover:bg-[#00E5FF]/5 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+              title={isBN ? "ক্লায়েন্ট অ্যাডমিন প্যানেল (ভিডিও ও ডিজাইন আপলোড)" : "Client Admin Studio (Upload Videos & Art)"}
+            >
+              <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
+              <span className="hidden xl:inline">{isBN ? "অ্যাডমিন" : "Admin"}</span>
+            </button>
+
             {/* Let's Talk CTA */}
             <a
               href="#contact"
@@ -237,6 +247,16 @@ export function Navbar({ onOpenCV }) {
             >
               <FileDown className="w-4 h-4" />
               <span>{t.nav.resume}</span>
+            </button>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onOpenAdmin && onOpenAdmin();
+              }}
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-white bg-white/5 hover:bg-[#00E5FF]/10 hover:text-[#00E5FF] border border-white/10 flex items-center gap-2"
+            >
+              <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
+              <span>{isBN ? 'ক্লায়েন্ট অ্যাডমিন প্যানেল' : 'Client Admin Studio'}</span>
             </button>
           </div>
         </div>
