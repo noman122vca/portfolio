@@ -175,5 +175,22 @@
   - [x] Added Facebook Post Link / External URL input to the `+ Add Graphic` tab in Admin Studio.
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`vite build`).
 
+- [x] **Phase 21: Sync Portfolio to Exactly Requested 8 Links (4 Videos & 4 Graphics)**:
+  - [x] Purged extra Facebook reels (`fb_reel_5` through `fb_reel_11`), leaving exactly the 4 requested Facebook videos:
+    1. `Nafees Salim Rough Cut (As-Sunnah Promo)` (`https://www.facebook.com/share/v/1PvJ2AVPcW/`)
+    2. `As-Sunnah Skill Development Institute Promo` (`https://www.facebook.com/share/v/1JHsYSCzHV/`)
+    3. `আমার তো জান্নাতে যাওয়া উদ্দেশ্য | Noman Visuals` (`https://www.facebook.com/share/v/14tbBerDfhX/`)
+    4. `After Effects Basic Motion | Noman Visuals` (`https://www.facebook.com/share/v/1dpxHiLsvR/`)
+  - [x] Confirmed the 4 authentic graphic design works from user's links are prominently featured:
+    5. `Commercial Product Visual Design` (`https://www.facebook.com/share/p/1CQ8Af1gwo/`)
+    6. `Creative Lettering & Typography Art` (`https://www.facebook.com/share/p/1A1T5XwiDR/`)
+    7. `Commercial Brand Mockup Presentation` (`https://www.facebook.com/share/p/1V1bghe2Ws/`)
+    8. `As-Sunnah SDI Batch 41 Project Design` (`https://www.facebook.com/share/p/1Edo69B3UJ/`)
+  - [x] Dynamic counter automatically reflects: `WORKS: Video Editing (4) | Graphic Design (13)`.
+  - [x] Bumped `STORAGE_KEY` to `noman_portfolio_items_v4` in `App.jsx` with automatic purge of `v3`, `v2`, `v1`.
+  - [x] Unit test suite updated (`tests/site.test.js`) and all 8 tests pass (`npm test`).
+  - [x] Production build clean (`vite build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
