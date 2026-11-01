@@ -61,7 +61,19 @@
   - [x] Restored original high-resolution studio portrait of Md. Eftekar Hossen Noman in `public/noman-avatar.jpg` and `public/eftekar-avatar.jpg`.
   - [x] Restored clean neon-glow rotating software rings (Ps, Ai, Pr, Ae, CapCut, Meta) and balanced hero layout.
   - [x] Verified full persistence of Firebase Cloud CMS, YouTube channel `@Nomancreative-17`, Swiper 3D Touch Slider, and CV downloads.
-  - [x] Unit tests 7/7 passing (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+- [x] **Phase 12: Ultra-Glassic Motion Avatar & Symmetrical Hero Layout**:
+  - [x] Corrected hero grid from `lg:grid-cols-12` (7/5 lopsided split) to balanced `lg:grid-cols-2` (50/50 split), perfectly centering the avatar & orbit container horizontally.
+  - [x] Eliminated asymmetrical transparent gradient cut that caused an optical dark crescent on the right edge.
+  - [x] Implemented a 360-degree uniform frosted glass bezel (`p-2.5 sm:p-3`, `backdrop-blur-xl`, `border-[#00E5FF]/60`, `shadow-[0_0_50px_rgba(0,229,255,0.45)]`).
+  - [x] Added convex optical glass specular highlight (`radial-gradient(ellipse_at_35%_25%)`) creating a 3D glass dome effect.
+  - [x] Added multi-axis animations:
+    - Floating bobbing (`y: [-7, 7, -7]`, 5s easeInOut)
+    - Ambient cyan breathing pulse behind the orbit
+    - Animated diagonal glass light sheen sweep (`x: ['-150%', '160%']`) across the lens
+    - Continuous 360-degree rotating tech skill orbit with counter-rotating frosted glass badges
+    - Accelerated orbit velocity on avatar hover
+  - [x] Verified desktop (`1440x900`) and mobile (`390x844`) responsiveness via Chrome DevTools Protocol screenshots.
+  - [x] All 7/7 unit tests passing (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
