@@ -47,11 +47,16 @@
   - [x] All 6 unit tests passing (`npm test`), production build passing (`vite build`).
 
 - [x] Push local Git repository to remote GitHub (`https://github.com/noman122vca/portfolio`) using user's GitHub credentials / PAT.
-- [x] Enable GitHub Pages in repository settings for live public hosting:
-  - Repository: `https://github.com/noman122vca/portfolio`
-  - Live Public URL: `https://noman122vca.github.io/portfolio/`
-  - Verified live via Headless Chrome with 200 OK and visual confirmation.
+- [x] **Phase 10: Firebase Cloud CMS & Client Admin Studio**:
+  - [x] Installed `firebase` SDK in `package.json`.
+  - [x] Configured Firebase project credentials for `noman-protfolio` (`AIzaSyA3zkBYJRUBl8LxyKWfE7Hyt_gDtCj7igg`) in `.env` and `src/config/firebase.js`.
+  - [x] Implemented password-protected `AdminLoginModal` with password `noman@admin2026`.
+  - [x] Implemented full `AdminDashboardModal` with video publisher (YouTube, Reels, Shorts), graphic artwork uploader, and cloud project manager with 1-click deletion.
+  - [x] Connected real-time `onSnapshot` subscription in `src/App.jsx` merging cloud items with default portfolio.
+  - [x] Added Admin Studio triggers in Navbar, PortfolioSection, and Footer.
+  - [x] Added unit tests in `tests/firebase.test.js` (7/7 tests passing).
+  - [x] Production build passed (`vite build`) and live deployed to GitHub Pages `gh-pages` branch.
 
 ## Pending Tasks
-- None (All 42 tasks across 9 phases completed and live deployed).
+- [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
 
