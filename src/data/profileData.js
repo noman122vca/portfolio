@@ -2,7 +2,7 @@ export const profileData = {
   "name": "Md. Eftekar Hossen Noman",
   "officialName": "Md. Eftekar Hossen Noman",
   "title": "Graphic Designer, Video Editor & Creative Professional",
-  "badge": "GRAPHIC DESIGNER & CREATIVE CREATOR",
+  "badge": "GRAPHIC DESIGNER & VIDEO EDITOR",
   "tagline": "I CREATE. I DESIGN. I BUILD VISUAL EXPERIENCES.",
   "bioSummary": "Hi, I am Md. Eftekar Hossen Noman. As a trained and motivated creator in Graphic Design, Video Editing, and Creative Visuals, I transform ideas into compelling narratives. Combining creative precision with strategic vision, I help brands and creators captivate their audience across digital platforms.",
   "aboutQuote": "Crafting compelling visual stories through creative design and dynamic digital media.",

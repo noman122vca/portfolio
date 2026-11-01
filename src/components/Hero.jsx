@@ -17,56 +17,56 @@ import {
   YouTubeIcon,
   GitHubIcon
 } from './Icons';
-import { ArrowDown, FileDown, Send, Sparkles } from 'lucide-react';
+import { ArrowDown, FileText, MessageSquare, Sparkles } from 'lucide-react';
 
 const ORBIT_TOOLS = [
   {
-    id: 'ai',
-    name: 'Adobe Illustrator',
-    left: '50%',
-    top: '0%',
-    renderLogo: () => <IllustratorIcon />,
-    borderGlow: 'shadow-[0_0_20px_rgba(255,154,0,0.8)] border-2 border-[#FF9A00]',
-  },
-  {
     id: 'pr',
     name: 'Adobe Premiere Pro',
-    left: '93.3%',
-    top: '25%',
+    left: '0%',
+    top: '50%',
     renderLogo: () => <PremiereProIcon />,
     borderGlow: 'shadow-[0_0_20px_rgba(234,119,255,0.8)] border-2 border-[#EA77FF]',
   },
   {
     id: 'ae',
     name: 'Adobe After Effects',
-    left: '93.3%',
-    top: '75%',
+    left: '25%',
+    top: '6.7%',
     renderLogo: () => <AfterEffectsIcon />,
     borderGlow: 'shadow-[0_0_20px_rgba(153,153,255,0.8)] border-2 border-[#9999FF]',
   },
   {
     id: 'capcut',
     name: 'CapCut Video Editor',
-    left: '50%',
-    top: '100%',
+    left: '75%',
+    top: '6.7%',
     renderLogo: () => <CapCutIcon />,
     borderGlow: 'shadow-[0_0_22px_rgba(255,255,255,0.85)] border-2 border-white',
   },
   {
     id: 'meta',
     name: 'Meta Video Marketing',
-    left: '6.7%',
-    top: '75%',
+    left: '100%',
+    top: '50%',
     renderLogo: () => <MetaMarketingIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(0,198,255,0.8)] border-2 border-white',
+    borderGlow: 'shadow-[0_0_22px_rgba(255,255,255,0.85)] border-2 border-white',
   },
   {
     id: 'ps',
     name: 'Adobe Photoshop',
-    left: '6.7%',
-    top: '25%',
+    left: '75%',
+    top: '93.3%',
     renderLogo: () => <PhotoshopIcon />,
     borderGlow: 'shadow-[0_0_20px_rgba(49,168,255,0.8)] border-2 border-[#31A8FF]',
+  },
+  {
+    id: 'ai',
+    name: 'Adobe Illustrator',
+    left: '25%',
+    top: '93.3%',
+    renderLogo: () => <IllustratorIcon />,
+    borderGlow: 'shadow-[0_0_20px_rgba(255,154,0,0.8)] border-2 border-[#FF9A00]',
   },
 ];
 
@@ -124,91 +124,114 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
 export function Hero({ onOpenCV }) {
   const [avatarSrc, setAvatarSrc] = useState(profileData.avatarUrl);
   const [isFastOrbit, setIsFastOrbit] = useState(false);
-  const { t } = useLanguage();
+  const { t, isBN } = useLanguage();
 
   const socialChannels = [
     { name: 'WhatsApp', url: profileData.whatsappLink, renderLogo: () => <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
+    { name: 'Meta', url: profileData.facebookLink, renderLogo: () => <MetaMarketingIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
+    { name: 'Behance', url: profileData.behanceLink, renderLogo: () => <BehanceIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
+    { name: 'LinkedIn', url: profileData.linkedinLink, renderLogo: () => <LinkedInIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
     { name: 'Facebook', url: profileData.facebookLink, renderLogo: () => <FacebookIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
     { name: 'Instagram', url: profileData.instagramLink, renderLogo: () => <InstagramIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
-    { name: 'LinkedIn', url: profileData.linkedinLink, renderLogo: () => <LinkedInIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
-    { name: 'Behance', url: profileData.behanceLink, renderLogo: () => <BehanceIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
     { name: 'YouTube', url: profileData.youtubeLink, renderLogo: () => <YouTubeIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
-    ...(profileData.githubLink ? [{ name: 'GitHub', url: profileData.githubLink, renderLogo: () => <GitHubIcon className="w-5 h-5 sm:w-6 sm:h-6" /> }] : [])
   ];
 
   return (
-    <section className="relative pt-8 sm:pt-14 pb-20 sm:pb-32 overflow-hidden">
+    <section className="relative pt-6 sm:pt-12 pb-16 sm:pb-28 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-6 sm:space-y-8 text-center lg:text-left z-10"
+            className="space-y-5 sm:space-y-6 text-center lg:text-left z-10"
           >
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold tracking-wider uppercase font-mono shadow-[0_0_15px_rgba(0,229,255,0.2)]">
                 {t.hero.badge}
               </span>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 {t.hero.available}
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
               {t.hero.headlinePre}{' '}
-              <span className="accent-gradient-text headline-glow">
+              <span className="text-[#00E5FF] drop-shadow-[0_0_25px_rgba(0,229,255,0.65)] font-extrabold">
                 {t.hero.headlineHighlight}
               </span>
             </h1>
 
-            {/* Introduction with proper spacing & Title Case name */}
-            <div className="space-y-3 pt-1">
-              <p className="text-xl sm:text-2xl font-bold text-white tracking-wide">
-                {t.hero.greeting || 'Hi, I am'}{' '}
-                <span className="text-[#00E5FF] font-extrabold">
-                  {t.hero.displayName || 'Md. Eftekar Hossen Noman'}
-                </span>
-              </p>
-              <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                {t.hero.bio}
-              </p>
-            </div>
+            {/* Introduction Bio matching Image 2 */}
+            <p className="text-sm sm:text-base text-neutral-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              {isBN ? (
+                <>
+                  <span className="text-white font-semibold">আসসালামু আলাইকুম, আমি মো: ইফতেখার হোসেন নোমান।</span> গ্রাফিক ডিজাইন ও ভিডিও এডিটিংয়ের একজন দক্ষ ও নিবেদিতপ্রাণ ক্রিয়েটর হিসেবে আমি যেকোনো ধারণাকে আকর্ষণীয় ভিজ্যুয়াল গল্পে রূপান্তর করতে ভালোবাসি। সৃজনশীল কাজের সূক্ষ্মতা ও আধুনিক ডিজিটাল কৌশলের সমন্বয়ে কনটেন্ট ক্রিয়েটর ও ব্র্যান্ডগুলোর কাঙ্ক্ষিত দর্শক তৈরি করতে সহায়তা করি।
+                </>
+              ) : (
+                <>
+                  <span className="text-white font-semibold">Hi, I am Md. Eftekar Hossen Noman.</span> As a trained and motivated creator in Video Editing and Graphic Design, I transform ideas into compelling visual narratives. Combining creative precision with marketing strategy, I help brands and creators captivate their audience across digital platforms.
+                </>
+              )}
+            </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            {/* CTAs matching Image 2 (Single Row guaranteed on desktop) */}
+            <div className="flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 pt-1">
               <a
                 href="#projects"
-                className="px-6 sm:px-8 py-3.5 rounded-2xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-sm sm:text-base tracking-wide shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:shadow-[0_0_40px_rgba(0,229,255,0.7)] transition-all cursor-pointer flex items-center gap-2 group hover:scale-[1.02] active:scale-[0.98]"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white hover:bg-neutral-100 text-black font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.35)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 group hover:scale-[1.02] active:scale-[0.98] shrink-0"
               >
                 <span>{t.hero.selectedWorks}</span>
-                <ArrowDown className="w-4 h-4 stroke-[3] group-hover:translate-y-1 transition-transform" />
+                <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3] group-hover:translate-y-0.5 transition-transform" />
               </a>
 
               <a
                 href="#contact"
-                className="px-6 sm:px-8 py-3.5 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-[#00E5FF]/50 text-white font-bold text-sm sm:text-base transition-all cursor-pointer flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+                className="px-4.5 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0D1F2D]/90 hover:bg-[#132A3D] border border-cyan-900/40 hover:border-[#00E5FF]/50 text-white font-medium text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 hover:scale-[1.02] active:scale-[0.98] backdrop-blur-md shadow-[0_0_15px_rgba(0,0,0,0.5)] shrink-0"
               >
-                <Send className="w-4 h-4 text-[#00E5FF]" />
+                <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00E5FF]" />
                 <span>{t.hero.letsConnect}</span>
               </a>
 
               <button
                 onClick={onOpenCV}
-                className="px-6 sm:px-7 py-3.5 rounded-2xl border border-[#00E5FF]/40 hover:border-[#00E5FF] bg-[#00E5FF]/5 hover:bg-[#00E5FF]/15 text-[#00E5FF] font-bold text-sm sm:text-base transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.15)] hover:scale-[1.02] active:scale-[0.98]"
+                className="px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full hover:bg-white/[0.05] text-white hover:text-[#00E5FF] font-medium text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 hover:scale-[1.02] active:scale-[0.98] shrink-0"
               >
-                <FileDown className="w-4 h-4" />
+                <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00E5FF]" />
                 <span>{t.hero.resumePdf}</span>
               </button>
             </div>
 
-            {/* Social channels preview */}
+            {/* Works Counter Row matching Image 2 */}
+            <div className="flex items-center justify-center lg:justify-start gap-2.5 pt-0.5">
+              <span className="text-[10px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-widest">
+                WORKS:
+              </span>
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-[#00E5FF]/40 text-xs text-neutral-300 font-medium transition-all"
+              >
+                <span>🎬</span>
+                <span>{isBN ? 'ভিডিও এডিটিং' : 'Video Editing'}</span>
+                <span className="text-neutral-400 font-mono">(9)</span>
+              </a>
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00E5FF]/10 hover:bg-[#00E5FF]/20 border border-[#00E5FF]/40 hover:border-[#00E5FF] text-xs text-[#00E5FF] font-medium transition-all shadow-[0_0_12px_rgba(0,229,255,0.15)]"
+              >
+                <span>🎨</span>
+                <span>{isBN ? 'গ্রাফিক ডিজাইন' : 'Graphic Design'}</span>
+                <span className="text-[#00E5FF]/80 font-mono">(9)</span>
+              </a>
+            </div>
+
+            {/* Social channels preview matching Image 2 */}
             <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-              <span className="text-xs font-mono text-neutral-400 mr-2">
+              <span className="text-xs font-mono text-neutral-400 mr-1">
                 {t.hero.verifiedChannels}
               </span>
               <div className="flex items-center gap-2 sm:gap-2.5">

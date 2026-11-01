@@ -14,7 +14,7 @@ export const translations = {
       "letsTalk": "Let's Talk"
     },
     "hero": {
-      "badge": "GRAPHIC DESIGNER & CREATIVE CREATOR",
+      "badge": "GRAPHIC DESIGNER & VIDEO EDITOR",
       "available": "Available for projects",
       "headlinePre": "Crafting visual stories & high–retention",
       "headlineHighlight": "video edits.",
@@ -251,7 +251,7 @@ export const translations = {
       "letsTalk": "কথা বলুন"
     },
     "hero": {
-      "badge": "গ্রাফিক ডিজাইনার ও ক্রিয়েটিভ ক্রিয়েটর",
+      "badge": "গ্রাফিক ডিজাইনার ও ভিডিও এডিটর",
       "available": "নতুন প্রজেক্টের জন্য উন্মুক্ত",
       "headlinePre": "সৃজনশীল ভিজ্যুয়াল স্টোরি ও হাই–রিটেনশন",
       "headlineHighlight": "ভিডিও এডিটিং।",
