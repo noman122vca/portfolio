@@ -85,6 +85,26 @@
     - Bottom-Left (8 o'clock): **Meta** (White card, Meta loop & text, cyan halo glow)
     - Top-Left (10 o'clock): **Ps** (Cyan glow)
   - [x] Passed 7/7 unit tests (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+- [x] **Phase 14: Perfect Alignment with Image 2 (Hassan Mahmud Hero Architecture)**:
+  - [x] **Typography & Hierarchy**:
+    - [x] Header badge updated to `GRAPHIC DESIGNER & VIDEO EDITOR` alongside `• Available for projects`.
+    - [x] Headline styling aligned: `Crafting visual stories & high–retention video edits.` with only `video edits.` in vibrant cyan with soft glow.
+    - [x] Bio text unified into a single, cohesive, readable paragraph integrating the greeting without disconnected heading blocks.
+  - [x] **Single-Row Action Buttons**:
+    - [x] Pure white `Selected Works ↓` button with dark text and white glow shadow.
+    - [x] Dark glass `Let's Connect` pill with cyan `MessageSquare` icon.
+    - [x] Outline/text `Resume (PDF)` pill with cyan `FileText` icon.
+    - [x] All 3 buttons guaranteed to stay in one single row on desktop (`flex-nowrap lg:flex-nowrap gap-2.5 sm:gap-3`).
+  - [x] **Works Counter Pills**:
+    - [x] Dedicated `WORKS:` uppercase mono label with `[ 🎬 Video Editing (9) ]` and `[ 🎨 Graphic Design (9) ]` pills linking to `#projects`.
+  - [x] **Verified Channels**:
+    - [x] Dedicated thin divider followed by creative channels matching reference: WhatsApp, Meta, Behance, LinkedIn, Facebook, Instagram, YouTube.
+  - [x] **Avatar & 3D Holographic Orbit**:
+    - [x] Scaled studio portrait on seamless dark teal gradient vignette with natural headroom and shoulders.
+    - [x] Dual concentric luminous cyan glowing rings with glass shimmer sweep.
+    - [x] Orbit tool order mapped clockwise to match Image 2: **Pr** (Left, 9h) -> **Ae** (Top-Left, 11h) -> **CapCut** (Top-Right, 1h) -> **Meta** (Right, 3h) -> **Ps** (Bottom-Right, 5h) -> **Ai** (Bottom-Left, 7h).
+  - [x] All 7 tests passed (`npm test`), production build passed (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
+
