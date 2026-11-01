@@ -130,6 +130,26 @@ flowchart TD
 
 ---
 
+## Phase 9: User Story 6 (US6) - YouTube Channel, Madrasha Education, Reliable CV PDF Download & Client Media Management Architecture
+
+**Story Goal**: Update verified YouTube channel, replace CV educational background with authentic Madrasha degrees (Takmil & Fazilat), resolve CV PDF download 404 with a dedicated high-res generated PDF, and enhance video/graphic upload architecture with robust URL handling, feedback, and 1-click JSON code export for clients.  
+**Independent Test Criteria**: 
+1. Official YouTube link resolves to `https://www.youtube.com/@Nomancreative-17`.
+2. CV modal displays Takmil (Dawra-e-Hadith) and Fazilat (Mishkat) with respective boards.
+3. Clicking "Download PDF" downloads `Md-Eftekar-Hossen-Noman-CV.pdf` successfully with 200 OK.
+4. Video modal handles all YouTube URL variants (including channel and shorts), allows custom thumbnail input, displays success toast, and provides a 1-click JSON export button for client handover.
+5. All automated tests in `tests/site.test.js` pass.
+
+- [x] T036 [P] [US6] Update YouTube channel handle (`@Nomancreative-17`) and URL (`https://www.youtube.com/@Nomancreative-17`) in `src/data/profileData.js`
+- [x] T037 [P] [US6] Update Curriculum Vitae educational background with Takmil and Fazilat records in `src/data/cvData.js`
+- [x] T038 [P] [US6] Generate authentic and branded CV PDF document `public/md-eftekar-hossen-noman-cv.pdf` using headless Chrome PDF rendering
+- [x] T039 [US6] Update CV download target and filename to relative path `./md-eftekar-hossen-noman-cv.pdf` in `src/data/cvData.js` and `src/components/modals/CVModal.jsx`
+- [x] T040 [US6] Enhance `src/components/modals/VideoFormModal.jsx` and `src/components/modals/GraphicUploadModal.jsx` with custom thumbnail support, submission feedback toast, and 1-click JSON export
+- [x] T041 [US6] Update unit test suite in `tests/site.test.js` to assert new YouTube URL, Madrasha education credentials, and PDF download route
+- [x] T042 [US6] Execute bundle build (`npm run build`), deploy to `gh-pages` branch, and verify live on GitHub Pages
+
+---
+
 ## Parallel Execution Strategy
 
 Tasks marked `[P]` can be developed independently:
@@ -137,5 +157,6 @@ Tasks marked `[P]` can be developed independently:
 - **Batch 2 (Core Sections & Modals)**: T010, T014, T016, T017, T019, T022, T023 can be authored in parallel once Phase 2 completes.
 - **Batch 3 (Verification & Polish)**: T013, T018, T025, T026 run in parallel before release.
 - **Batch 4 (Customization & Deployment Readiness)**: T027, T028, T031, T034 can be authored in parallel with T029, T030, T032, T033, T035.
+- **Batch 5 (US6 Refinement & PDF Generation)**: T036, T037, T038 can be authored in parallel before T039, T040, T041, T042.
 
 

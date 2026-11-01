@@ -14,14 +14,22 @@ import { CVModal } from './components/modals/CVModal';
 import { MediaDetailModal } from './components/modals/MediaDetailModal';
 import { VideoFormModal } from './components/modals/VideoFormModal';
 import { GraphicUploadModal } from './components/modals/GraphicUploadModal';
+import { CheckCircle2 } from 'lucide-react';
 
-const STORAGE_KEY = 'hassan_portfolio_items_v18';
+const STORAGE_KEY = 'noman_portfolio_items_v1';
+const LEGACY_STORAGE_KEY = 'hassan_portfolio_items_v18';
 
 export function App() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isCVOpen, setIsCVOpen] = useState(false);
   const [isVideoFormOpen, setIsVideoFormOpen] = useState(false);
   const [isGraphicUploadOpen, setIsGraphicUploadOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 4000);
+  };
 
   const [portfolioItems, setPortfolioItems] = useState(() => {
     try {
@@ -30,7 +38,7 @@ export function App() {
         localStorage.removeItem(`hassan_portfolio_items_v${i}`);
       }
 
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -60,12 +68,15 @@ export function App() {
     return defaultPortfolioItems;
   });
 
-  const updatePortfolioItems = (newItems) => {
+  const updatePortfolioItems = (newItems, message = null) => {
     setPortfolioItems(newItems);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newItems));
     } catch (e) {
       console.error('Error saving portfolio items to localStorage:', e);
+    }
+    if (message) {
+      showToast(message);
     }
   };
 
@@ -78,9 +89,11 @@ export function App() {
       setPortfolioItems(defaultPortfolioItems);
       try {
         localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
       } catch (e) {
         console.error(e);
       }
+      showToast('পোর্টফোলিও ডিফল্ট অবস্থায় রিসেট করা হয়েছে');
     }
   };
 
@@ -132,11 +145,19 @@ export function App() {
         <GraphicUploadModal
           isOpen={isGraphicUploadOpen}
           onClose={() => setIsGraphicUploadOpen(false)}
-          onAddWork={(newItem) => {
-            updatePortfolioItems([newItem, ...portfolioItems]);
+          onAddWork={(newItem, msg) => {
+            updatePortfolioItems([newItem, ...portfolioItems], msg);
             setIsGraphicUploadOpen(false);
           }}
         />
+
+        {/* Floating Toast Notification */}
+        {toastMessage && (
+          <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl bg-[#071A22] border border-[#00E5FF]/60 text-white shadow-[0_0_35px_rgba(0,229,255,0.4)] transition-all">
+            <CheckCircle2 className="w-5 h-5 text-[#00E5FF] shrink-0" />
+            <span className="text-sm font-semibold">{toastMessage}</span>
+          </div>
+        )}
       </div>
     </LanguageProvider>
   );

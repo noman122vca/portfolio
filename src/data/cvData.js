@@ -8,16 +8,16 @@ export const cvData = {
   "careerObjective": "As a trained and motivated candidate with an interest in Video Editing and Graphic Design, I seek to work in a suitable professional environment. I aim to apply my acquired knowledge and skills through practical work while continuously improving my abilities through regular practice and learning new skills. I aim to develop myself professionally through practical experience and contribute effectively to the work of the organization with responsibility and dedication.",
   "education": [
     {
-      "degree": "Fazil Degree",
-      "institute": "Islamic Arabic University Dhaka",
-      "status": "Ongoing"
+      "degree": "Takmil (Dawra-e-Hadith) / Equivalent to Master's Degree",
+      "institute": "Board: Al-Haiatul Ulya Lil-Jami'atil Qawmia Bangladesh.",
+      "board": "Al-Haiatul Ulya Lil-Jami'atil Qawmia Bangladesh",
+      "status": "Completed (Dawra-e-Hadith)"
     },
     {
-      "degree": "Higher Secondary School Certificate (Alim)",
-      "institute": "Sonagazi Kamil Madrasha",
-      "year": "2023",
-      "group": "General",
-      "gpa": "3.79"
+      "degree": "Fazilat (Mishkat)",
+      "institute": "Board: Befaqul Madarisil Arabia Bangladesh",
+      "board": "Befaqul Madarisil Arabia Bangladesh",
+      "status": "Completed (Fazilat)"
     }
   ],
   "coreCompetencies": [
@@ -71,5 +71,5 @@ export const cvData = {
       "email": "nazmul.huda.editor@gmail.com"
     }
   ],
-  "pdfDownloadUrl": "/hassan-mahmud-cv.pdf"
+  "pdfDownloadUrl": "./md-eftekar-hossen-noman-cv.pdf"
 };

@@ -41,10 +41,16 @@ export function GraphicUploadModal({ isOpen, onClose, onAddWork }) {
       isHighlighted: false,
     };
 
-    onAddWork(newItem);
+    onAddWork(newItem, isBN ? '✓ নতুন গ্রাফিক ডিজাইন সফলভাবে যুক্ত হয়েছে!' : '✓ Graphic artwork successfully added to portfolio!');
     setTitle('');
     setImageUrl('');
     setDescription('');
+
+    // Smooth scroll to projects
+    const projEl = document.getElementById('projects');
+    if (projEl) {
+      projEl.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

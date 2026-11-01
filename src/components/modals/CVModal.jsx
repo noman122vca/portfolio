@@ -38,7 +38,7 @@ export function CVModal({ isOpen, onClose }) {
             <div className="flex items-center gap-3">
               <a
                 href={cvData.pdfDownloadUrl}
-                download="Hassan-Mahmud-CV.pdf"
+                download="Md-Eftekar-Hossen-Noman-CV.pdf"
                 className="px-4 py-2 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-xs flex items-center gap-1.5 shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all cursor-pointer"
               >
                 <FileDown className="w-4 h-4" />

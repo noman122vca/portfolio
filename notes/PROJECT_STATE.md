@@ -37,6 +37,15 @@
   - [x] Verified build (`vite build`), test suite (`npm test`), and pushed updates to `main` and `gh-pages` branch on GitHub.
   - [x] Verified live on GitHub Pages (`https://noman122vca.github.io/portfolio/`) via Chrome DevTools screenshot capture.
 
+- [x] **Phase 9: US6 - YouTube, Madrasha Education, Reliable CV PDF & Client Media Architecture**:
+  - [x] YouTube channel updated to `https://www.youtube.com/@Nomancreative-17` and `@Nomancreative-17` in `src/data/profileData.js`.
+  - [x] Educational background updated to Takmil (Dawra-e-Hadith) / Master's Equivalent (Al-Haiatul Ulya) and Fazilat Mishkat (Befaqul Madarisil Arabia) in `src/data/cvData.js`.
+  - [x] Generated official, vector PDF `public/md-eftekar-hossen-noman-cv.pdf` using Chrome Page.printToPDF.
+  - [x] Resolved PDF download 404 by routing to relative path `./md-eftekar-hossen-noman-cv.pdf` with download filename `Md-Eftekar-Hossen-Noman-CV.pdf`.
+  - [x] Upgraded VideoFormModal & GraphicUploadModal with YouTube channel detection, custom thumbnail upload/URL, submission feedback toast, and 1-click JSON code export for client handover.
+  - [x] Cleaned storage key to `noman_portfolio_items_v1`.
+  - [x] All 6 unit tests passing (`npm test`), production build passing (`vite build`).
+
 - [x] Push local Git repository to remote GitHub (`https://github.com/noman122vca/portfolio`) using user's GitHub credentials / PAT.
 - [x] Enable GitHub Pages in repository settings for live public hosting:
   - Repository: `https://github.com/noman122vca/portfolio`
@@ -44,5 +53,5 @@
   - Verified live via Headless Chrome with 200 OK and visual confirmation.
 
 ## Pending Tasks
-- None (All tasks completed, refined, and live deployed on GitHub Pages).
+- None (All 42 tasks across 9 phases completed and live deployed).
 

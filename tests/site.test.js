@@ -14,6 +14,8 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
     assert.ok(profileData.email.includes('eftekarhossennoman@gmail.com'));
     assert.strictEqual(profileData.github, '@noman122vca');
     assert.strictEqual(profileData.githubLink, 'https://github.com/noman122vca');
+    assert.strictEqual(profileData.youtube, '@Nomancreative-17');
+    assert.strictEqual(profileData.youtubeLink, 'https://www.youtube.com/@Nomancreative-17');
     assert.strictEqual(profileData.facebookLink, 'https://www.facebook.com/share/1GJsGoRt3n/');
     assert.strictEqual(profileData.behanceLink, 'https://www.behance.net/mdeftehossin');
     assert.strictEqual(profileData.linkedinLink, 'https://www.linkedin.com/in/md-eftekhar-hossen-noman-874b50444/');
@@ -46,11 +48,13 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
     assert.strictEqual(cvData.email, 'eftekarhossennoman@gmail.com');
     assert.ok(Array.isArray(cvData.education));
     assert.ok(cvData.education.length >= 2);
+    assert.ok(cvData.education.some(e => e.degree.includes('Takmil')));
+    assert.ok(cvData.education.some(e => e.degree.includes('Fazilat')));
     assert.ok(Array.isArray(cvData.coreCompetencies));
     assert.ok(cvData.coreCompetencies.length >= 4);
     assert.ok(Array.isArray(cvData.references));
     assert.strictEqual(cvData.references.length, 2);
-    assert.strictEqual(cvData.pdfDownloadUrl, '/hassan-mahmud-cv.pdf');
+    assert.strictEqual(cvData.pdfDownloadUrl, './md-eftekar-hossen-noman-cv.pdf');
   });
 
   test('Institutional Certifications integrity', () => {

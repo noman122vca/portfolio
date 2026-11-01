@@ -21,8 +21,8 @@ export const profileData = {
   "whatsapp": "+8801619-042379",
   "whatsappUsername": "+8801619-042379",
   "whatsappLink": "https://wa.me/8801619042379",
-  "youtube": "@noman122vca",
-  "youtubeLink": "https://www.youtube.com/@noman122vca",
+  "youtube": "@Nomancreative-17",
+  "youtubeLink": "https://www.youtube.com/@Nomancreative-17",
   "facebook": "MD Eftekhar Hossen Noman",
   "facebookLink": "https://www.facebook.com/share/1GJsGoRt3n/",
   "instagram": "@mdeftehossin",
@@ -33,6 +33,6 @@ export const profileData = {
   "behanceLink": "https://www.behance.net/mdeftehossin",
   "github": "@noman122vca",
   "githubLink": "https://github.com/noman122vca",
-  "resumeUrl": "./hassan-mahmud-cv.pdf"
+  "resumeUrl": "./md-eftekar-hossen-noman-cv.pdf"
 };
 

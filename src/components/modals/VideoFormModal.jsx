@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
-import { X, Plus, RefreshCw, Trash2, Video, Film, Smartphone, AlertTriangle } from 'lucide-react';
+import { X, Plus, RefreshCw, Trash2, Video, Film, Smartphone, AlertTriangle, Code, Copy, Check, Image as ImageIcon, Info } from 'lucide-react';
 
 function extractYouTubeId(url) {
   if (!url) return null;
@@ -14,6 +14,10 @@ function extractYouTubeId(url) {
   if (m3) return m3[1];
   const m4 = trimmed.match(/\/embed\/([a-zA-Z0-9_-]{11})/);
   if (m4) return m4[1];
+  const m5 = trimmed.match(/\/live\/([a-zA-Z0-9_-]{11})/);
+  if (m5) return m5[1];
+  const m6 = trimmed.match(/\/v\/([a-zA-Z0-9_-]{11})/);
+  if (m6) return m6[1];
   return null;
 }
 
@@ -23,15 +27,31 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Video Editing');
   const [videoFormat, setVideoFormat] = useState('landscape');
+  const [customThumbnail, setCustomThumbnail] = useState('');
   const [description, setDescription] = useState('');
   const [tags, setTags] = useState('Video Editing, Premiere Pro, Motion');
+  const [copiedItem, setCopiedItem] = useState(null);
+  const [exportedAll, setExportedAll] = useState(false);
 
   if (!isOpen) return null;
 
   const detectedYtId = extractYouTubeId(videoUrl);
-  const previewThumbnail = detectedYtId
+  const isChannel = videoUrl.includes('/@') || videoUrl.includes('/channel/');
+  const autoThumbnail = detectedYtId
     ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg`
     : '';
+  const finalThumbnail = customThumbnail.trim() || autoThumbnail || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80';
+
+  const handleThumbnailUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCustomThumbnail(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleAddVideo = (e) => {
     e.preventDefault();
@@ -39,11 +59,11 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
 
     const newItem = {
       id: `custom-video-${Date.now()}`,
-      title: title.trim() || `New Video Project #${items.length + 1}`,
+      title: title.trim() || (isChannel ? 'YouTube Official Channel Video' : `New Video Project #${items.length + 1}`),
       category,
       mediaType: 'video',
       videoFormat: (videoUrl.includes('/shorts/') || videoUrl.includes('/reel/')) ? 'reel' : videoFormat,
-      thumbnailUrl: previewThumbnail || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80',
+      thumbnailUrl: finalThumbnail,
       mediaUrl: videoUrl.trim(),
       description: description.trim() || 'Dynamic video project featuring professional editing and kinetic motion graphics.',
       tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
@@ -51,16 +71,37 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
       isHighlighted: false,
     };
 
-    onUpdateItems([newItem, ...items]);
+    onUpdateItems([newItem, ...items], isBN ? '✓ নতুন ভিডিও প্রজেক্ট সফলভাবে যুক্ত হয়েছে!' : '✓ Video project successfully added to portfolio!');
     setVideoUrl('');
     setTitle('');
+    setCustomThumbnail('');
     setDescription('');
     onClose();
+
+    // Smooth scroll to projects
+    const projEl = document.getElementById('projects');
+    if (projEl) {
+      projEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const copyItemJson = (item) => {
+    const jsonStr = JSON.stringify(item, null, 2);
+    navigator.clipboard.writeText(jsonStr);
+    setCopiedItem(item.id);
+    setTimeout(() => setCopiedItem(null), 2500);
+  };
+
+  const exportAllJson = () => {
+    const jsonStr = JSON.stringify(items, null, 2);
+    navigator.clipboard.writeText(jsonStr);
+    setExportedAll(true);
+    setTimeout(() => setExportedAll(false), 2500);
   };
 
   const handleDeleteItem = (id) => {
     if (window.confirm(isBN ? 'আপনি কি এই প্রজেক্টটি মুছে ফেলতে চান?' : 'Are you sure you want to delete this project?')) {
-      onUpdateItems(items.filter((item) => item.id !== id));
+      onUpdateItems(items.filter((item) => item.id !== id), isBN ? 'প্রজেক্ট মুছে ফেলা হয়েছে' : 'Project removed');
     }
   };
 
@@ -115,23 +156,60 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
                 <input
                   type="url"
                   required
-                  placeholder="https://youtu.be/... or https://youtube.com/shorts/..."
+                  placeholder="https://youtu.be/... or https://youtube.com/shorts/... or https://youtube.com/@..."
                   value={videoUrl}
                   onChange={(e) => setVideoUrl(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-[#00E5FF] text-white text-sm"
                 />
               </div>
 
-              {previewThumbnail && (
+              {isChannel && (
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
+                  <Info className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
+                  <span>
+                    {isBN
+                      ? 'ইউটিউব চ্যানেল লিংক সনাক্ত হয়েছে। অনুগ্রহ করে নিচে টাইটেল এবং কাস্টম থাম্বনেইল দিন (বা নির্দিষ্ট ভিডিও লিংক পেস্ট করুন)।'
+                      : 'YouTube Channel URL detected. Please specify a title and thumbnail below (or paste a specific video/short URL).'}
+                  </span>
+                </div>
+              )}
+
+              {/* Custom Thumbnail Input */}
+              <div className="space-y-2">
+                <label className="block text-xs font-mono text-neutral-300">
+                  {isBN ? 'ভিডিও থাম্বনেইল (স্বয়ংক্রিয় বা কাস্টম ছবি)' : 'Video Thumbnail (Auto or Custom)'}
+                </label>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleThumbnailUpload}
+                    className="text-xs text-neutral-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#00E5FF]/20 file:text-[#00E5FF] cursor-pointer"
+                  />
+                  <input
+                    type="url"
+                    placeholder="Or thumbnail image URL..."
+                    value={customThumbnail.startsWith('data:') ? '' : customThumbnail}
+                    onChange={(e) => setCustomThumbnail(e.target.value)}
+                    className="flex-1 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs"
+                  />
+                </div>
+              </div>
+
+              {finalThumbnail && (
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/20">
                   <img
-                    src={previewThumbnail}
+                    src={finalThumbnail}
                     alt="Preview"
-                    className="w-20 aspect-video object-cover rounded-lg"
+                    className="w-20 aspect-video object-cover rounded-lg shrink-0 bg-neutral-900"
                   />
-                  <div className="text-xs">
-                    <span className="text-emerald-400 font-bold block">✓ YouTube ID Detected: {detectedYtId}</span>
-                    <span className="text-neutral-400">Auto-extracted thumbnail verified</span>
+                  <div className="text-xs truncate">
+                    <span className="text-[#00E5FF] font-bold block">
+                      {detectedYtId ? `✓ YouTube ID: ${detectedYtId}` : (customThumbnail ? '✓ Custom Thumbnail Loaded' : '✓ Default Thumbnail')}
+                    </span>
+                    <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
+                      {videoUrl || 'Waiting for URL...'}
+                    </span>
                   </div>
                 </div>
               )}
@@ -198,6 +276,31 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
               </button>
             </form>
 
+            {/* Developer Handover & Export JSON Tool */}
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-[#00E5FF]/20 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Code className="w-4 h-4 text-[#00E5FF]" />
+                  <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                    {isBN ? 'ক্লায়েন্ট বা ডেভেলপার এক্সপোর্ট' : 'Developer & Client Export'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={exportAllJson}
+                  className="px-3 py-1.5 rounded-lg bg-[#00E5FF]/10 hover:bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  {exportedAll ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{exportedAll ? (isBN ? 'কপি হয়েছে!' : 'Copied!') : (isBN ? 'সব কাজের কোড কপি' : 'Copy All JSON')}</span>
+                </button>
+              </div>
+              <p className="text-[11px] text-neutral-400 leading-relaxed font-light">
+                {isBN 
+                  ? '💡 ক্লায়েন্ট কীভাবে কাজ দেখবে? আপনি বা ক্লায়েন্ট এখানে যেকোনো কাজ যুক্ত করলে তা এই ব্রাউজারে সাথে সাথে দেখতে পাবেন। তবে পৃথিবীর সকল দর্শকের জন্য স্থায়ী করতে \'সব কাজের কোড কপি\' করে portfolioData.js এ বসিয়ে গিট পুশ করুন।'
+                  : '💡 Permanent Global Deployment: Added items render immediately on your browser. To make them permanently available to all clients globally, click Copy All JSON, paste into portfolioData.js, and git push.'}
+              </p>
+            </div>
+
             {/* Existing Video List */}
             <div className="space-y-3">
               <h3 className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">
@@ -220,13 +323,24 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
                         <span className="text-neutral-400 font-mono">{vid.videoFormat}</span>
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleDeleteItem(vid.id)}
-                      className="p-2 rounded-lg text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors shrink-0"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => copyItemJson(vid)}
+                        className="p-2 rounded-lg text-neutral-400 hover:text-[#00E5FF] hover:bg-white/5 transition-colors"
+                        title={isBN ? 'এই প্রজেক্টের কোড কপি করুন' : 'Copy Project JSON'}
+                      >
+                        {copiedItem === vid.id ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteItem(vid.id)}
+                        className="p-2 rounded-lg text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
