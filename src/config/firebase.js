@@ -61,26 +61,37 @@ export function subscribeToPortfolio(onSuccess, onError) {
 }
 
 /**
- * Add a new video or graphic item to Firestore Cloud
+ * Add a new video or graphic item to Firestore Cloud (with timeout guard)
  */
-export async function addProjectToCloud(item) {
+export async function addProjectToCloud(item, timeoutMs = 2500) {
   const colRef = collection(db, COLLECTION_NAME);
-  const docRef = await addDoc(colRef, {
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Cloud Firestore connection timed out. Database may not be initialized in Firebase Console.')), timeoutMs)
+  );
+
+  const savePromise = addDoc(colRef, {
     ...item,
     createdAt: serverTimestamp(),
     publishedAt: new Date().toISOString(),
   });
+
+  const docRef = await Promise.race([savePromise, timeoutPromise]);
   return docRef.id;
 }
 
 /**
- * Delete an item from Firestore Cloud
+ * Delete an item from Firestore Cloud (with timeout guard)
  */
-export async function deleteProjectFromCloud(docId) {
+export async function deleteProjectFromCloud(docId, timeoutMs = 2500) {
   const docRef = doc(db, COLLECTION_NAME, docId);
-  await deleteDoc(docRef);
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Cloud Firestore connection timed out.')), timeoutMs)
+  );
+
+  await Promise.race([deleteDoc(docRef), timeoutPromise]);
   return true;
 }
+
 
 /**
  * Validate Admin Password

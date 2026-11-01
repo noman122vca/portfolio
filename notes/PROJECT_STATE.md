@@ -111,8 +111,17 @@
   - [x] Updated portfolio action buttons to `+ Add Video (YT / FB)` in English and `+ ভিডিও যোগ করুন (YT / FB)` in Bengali.
   - [x] Added unit tests for Facebook URL detection and embed logic in `tests/site.test.js` (8/8 tests passing).
   - [x] Production build passed (`vite build`) and ready for deployment to GitHub `main` and `gh-pages`.
+- [x] **Phase 16: Zero-Lag Optimistic Publishing & Firebase Timeout Guard**:
+  - [x] Root Cause: When Firestore is uninitialized in Firebase Console, `addDoc` connection attempts hang indefinitely without rejecting, trapping the admin UI in `Publishing to Cloud...`.
+  - [x] Implemented `Promise.race` timeout guard (2500ms) on `addProjectToCloud` and `deleteProjectFromCloud` in `src/config/firebase.js`.
+  - [x] Implemented Instant Optimistic Publishing in `AdminDashboardModal.jsx`: projects save immediately to portfolio state/localStorage, modal closes instantly, screen scrolls to `#projects`, and background cloud sync proceeds non-blocking.
+  - [x] Added `allPortfolioItems` and `onDeleteProject` support to Admin Manage tab so local and cloud custom projects can be deleted seamlessly.
+  - [x] Dynamically wired WORKS counter in `Hero.jsx` (`({videoCount})` and `({graphicCount})`) driven by active portfolio state.
+  - [x] Directly pre-seeded user's Nafees Salim Facebook video into `defaultPortfolioItems` in `src/data/portfolioData.js`.
+  - [x] All 8 tests pass (`npm test`) and production build verified (`vite build`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 

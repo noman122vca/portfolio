@@ -121,10 +121,13 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
   );
 }
 
-export function Hero({ onOpenCV }) {
+export function Hero({ onOpenCV, portfolioItems = [] }) {
   const [avatarSrc, setAvatarSrc] = useState(profileData.avatarUrl);
   const [isFastOrbit, setIsFastOrbit] = useState(false);
   const { t, isBN } = useLanguage();
+
+  const videoCount = portfolioItems.filter((i) => i.mediaType === 'video').length || 9;
+  const graphicCount = portfolioItems.filter((i) => i.mediaType === 'graphic').length || 9;
 
   const socialChannels = [
     { name: 'WhatsApp', url: profileData.whatsappLink, renderLogo: () => <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6" /> },
@@ -217,7 +220,7 @@ export function Hero({ onOpenCV }) {
               >
                 <span>🎬</span>
                 <span>{isBN ? 'ভিডিও এডিটিং' : 'Video Editing'}</span>
-                <span className="text-neutral-400 font-mono">(9)</span>
+                <span className="text-neutral-400 font-mono">({videoCount})</span>
               </a>
               <a
                 href="#projects"
@@ -225,7 +228,7 @@ export function Hero({ onOpenCV }) {
               >
                 <span>🎨</span>
                 <span>{isBN ? 'গ্রাফিক ডিজাইন' : 'Graphic Design'}</span>
-                <span className="text-[#00E5FF]/80 font-mono">(9)</span>
+                <span className="text-[#00E5FF]/80 font-mono">({graphicCount})</span>
               </a>
             </div>
 

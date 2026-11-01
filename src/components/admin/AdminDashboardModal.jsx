@@ -40,13 +40,14 @@ export function AdminDashboardModal({
   isOpen,
   onClose,
   cloudItems = [],
+  allPortfolioItems = [],
   onLogout,
   onNotify,
-  onAddLocalProject
+  onAddLocalProject,
+  onDeleteProject,
 }) {
   const { isBN } = useLanguage();
   const [activeTab, setActiveTab] = useState('add-video'); // 'add-video' | 'add-graphic' | 'manage'
-  const [submitting, setSubmitting] = useState(false);
 
   // Video Form State
   const [videoUrl, setVideoUrl] = useState('');
@@ -90,10 +91,9 @@ export function AdminDashboardModal({
     }
   };
 
-  const handlePublishVideo = async (e) => {
+  const handlePublishVideo = (e) => {
     e.preventDefault();
     if (!videoUrl.trim()) return;
-    setSubmitting(true);
 
     const isReelOrShort = videoUrl.includes('/shorts/') || videoUrl.includes('/reel/') || videoUrl.includes('fb.watch');
 
@@ -111,35 +111,37 @@ export function AdminDashboardModal({
       isHighlighted: false,
     };
 
-    try {
-      await addProjectToCloud(newVideo);
-      onNotify(isBN ? '✓ ভিডিও ক্লাউডে সফলভাবে লাইভ পাবলিশ হয়েছে!' : '✓ Video successfully published live to cloud portfolio!');
-    } catch (err) {
-      console.warn('Firestore cloud sync pending, falling back to local portfolio:', err);
-      if (onAddLocalProject) {
-        onAddLocalProject(newVideo);
-      }
-      onNotify(isBN
-        ? '✓ ভিডিও পোর্টফোলিওতে সফলভাবে যুক্ত হয়েছে! (ক্লাউড সিঙ্কের জন্য Firebase Console এ Firestore ডাটাবেস তৈরি করুন)'
-        : '✓ Video added to portfolio! (To enable global sync, create Firestore database in Firebase Console)');
+    // 1. Immediately persist to local portfolio (Optimistic UI - Zero Waiting!)
+    if (onAddLocalProject) {
+      onAddLocalProject(newVideo);
     }
 
+    // 2. Immediately close modal & reset form
     setVideoUrl('');
     setVideoTitle('');
     setVideoCustomThumb('');
     setVideoDesc('');
     onClose();
-    setSubmitting(false);
 
-    // Smooth scroll to projects
+    // 3. Smooth scroll to projects
     const projEl = document.getElementById('projects');
     if (projEl) projEl.scrollIntoView({ behavior: 'smooth' });
+
+    onNotify(isBN ? '✓ ভিডিও পোর্টফোলিওতে সফলভাবে যুক্ত হয়েছে!' : '✓ Video project successfully added to portfolio!');
+
+    // 4. Background cloud sync (non-blocking, timeout guarded)
+    addProjectToCloud(newVideo, 3000)
+      .then(() => {
+        console.log('Video synced to Firebase Firestore Cloud');
+      })
+      .catch((err) => {
+        console.warn('Background cloud sync notice:', err.message);
+      });
   };
 
-  const handlePublishGraphic = async (e) => {
+  const handlePublishGraphic = (e) => {
     e.preventDefault();
     if (!graphicImage.trim()) return;
-    setSubmitting(true);
 
     const newGraphic = {
       id: `graphic-${Date.now()}`,
@@ -154,38 +156,51 @@ export function AdminDashboardModal({
       isHighlighted: false,
     };
 
-    try {
-      await addProjectToCloud(newGraphic);
-      onNotify(isBN ? '✓ গ্রাফিক ডিজাইন ক্লাউডে সফলভাবে লাইভ পাবলিশ হয়েছে!' : '✓ Graphic artwork successfully published live to cloud!');
-    } catch (err) {
-      console.warn('Firestore cloud sync pending, falling back to local portfolio:', err);
-      if (onAddLocalProject) {
-        onAddLocalProject(newGraphic);
-      }
-      onNotify(isBN
-        ? '✓ গ্রাফিক আর্টওয়ার্ক পোর্টফোলিওতে যুক্ত হয়েছে!'
-        : '✓ Graphic artwork added to portfolio!');
+    // 1. Immediately persist to local portfolio
+    if (onAddLocalProject) {
+      onAddLocalProject(newGraphic);
     }
 
+    // 2. Immediately close modal & reset form
     setGraphicTitle('');
     setGraphicImage('');
     setGraphicDesc('');
     onClose();
-    setSubmitting(false);
 
+    // 3. Smooth scroll to projects
     const projEl = document.getElementById('projects');
     if (projEl) projEl.scrollIntoView({ behavior: 'smooth' });
+
+    onNotify(isBN ? '✓ গ্রাফিক আর্টওয়ার্ক পোর্টফোলিওতে যুক্ত হয়েছে!' : '✓ Graphic artwork added to portfolio!');
+
+    // 4. Background cloud sync (non-blocking, timeout guarded)
+    addProjectToCloud(newGraphic, 3000)
+      .then(() => {
+        console.log('Graphic synced to Firebase Firestore Cloud');
+      })
+      .catch((err) => {
+        console.warn('Background cloud sync notice:', err.message);
+      });
   };
 
-  const handleDeleteCloudItem = async (id, title) => {
-    if (window.confirm(isBN ? `আপনি কি "${title}" প্রজেক্টটি ডাটাবেস থেকে ডিলিট করতে চান?` : `Delete "${title}" from cloud database?`)) {
-      try {
-        await deleteProjectFromCloud(id);
-        onNotify(isBN ? 'প্রজেক্ট ডিলিট করা হয়েছে' : 'Project removed from cloud');
-      } catch (err) {
-        console.error(err);
-        alert('Failed to delete item.');
+  const customLocalItems = allPortfolioItems.filter(
+    (item) => item.id.startsWith('video-') || item.id.startsWith('graphic-') || item.id.startsWith('custom-')
+  );
+  const displayManageItems = cloudItems.length > 0 ? cloudItems : customLocalItems;
+
+  const handleDeleteItem = async (item) => {
+    if (window.confirm(isBN ? `আপনি কি "${item.title}" প্রজেক্টটি মুছে ফেলতে চান?` : `Delete "${item.title}"?`)) {
+      if (item.isCloud) {
+        try {
+          await deleteProjectFromCloud(item.id, 3000);
+        } catch (err) {
+          console.warn('Cloud delete notice:', err.message);
+        }
       }
+      if (onDeleteProject) {
+        onDeleteProject(item.id);
+      }
+      onNotify(isBN ? 'প্রজেক্ট মুছে ফেলা হয়েছে' : 'Project removed');
     }
   };
 
@@ -278,7 +293,7 @@ export function AdminDashboardModal({
               }`}
             >
               <Layers className="w-4 h-4" />
-              <span>{isBN ? 'লাইভ ক্লাউড প্রজেক্টস' : 'Manage Cloud Projects'} ({cloudItems.length})</span>
+              <span>{isBN ? 'প্রজেক্ট ম্যানেজ করুন' : 'Manage Projects'} ({displayManageItems.length})</span>
             </button>
           </div>
 
@@ -420,11 +435,11 @@ export function AdminDashboardModal({
 
                 <button
                   type="submit"
-                  disabled={submitting || !videoUrl.trim()}
+                  disabled={!videoUrl.trim()}
                   className="w-full py-3.5 rounded-2xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-sm transition-all shadow-[0_0_25px_rgba(0,229,255,0.4)] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Cloud className="w-4 h-4" />
-                  <span>{submitting ? (isBN ? 'ক্লাউডে পাবলিশ হচ্ছে...' : 'Publishing to Cloud...') : (isBN ? 'সবার জন্য লাইভ পাবলিশ করুন (Publish to Website)' : 'Publish to Live Website')}</span>
+                  <span>{isBN ? 'সবার জন্য লাইভ পাবলিশ করুন (Publish Video)' : 'Publish to Live Portfolio'}</span>
                 </button>
               </form>
             )}
@@ -505,36 +520,36 @@ export function AdminDashboardModal({
 
                 <button
                   type="submit"
-                  disabled={submitting || !graphicImage.trim()}
+                  disabled={!graphicImage.trim()}
                   className="w-full py-3.5 rounded-2xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-sm transition-all shadow-[0_0_25px_rgba(0,229,255,0.4)] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Cloud className="w-4 h-4" />
-                  <span>{submitting ? (isBN ? 'ক্লাউডে পাবলিশ হচ্ছে...' : 'Publishing to Cloud...') : (isBN ? 'সবার জন্য লাইভ পাবলিশ করুন (Publish Artwork)' : 'Publish Artwork to Website')}</span>
+                  <span>{isBN ? 'সবার জন্য লাইভ পাবলিশ করুন (Publish Artwork)' : 'Publish Artwork to Portfolio'}</span>
                 </button>
               </form>
             )}
 
-            {/* Tab 3: Manage Cloud Items */}
+            {/* Tab 3: Manage Projects */}
             {activeTab === 'manage' && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-white/10">
                   <span className="text-xs font-mono text-neutral-400">
-                    {isBN ? 'ক্লাউড ফায়ারবেসে থাকা মোট প্রজেক্ট:' : 'Total Cloud Projects in Firestore:'} {cloudItems.length}
+                    {isBN ? 'ম্যানেজযোগ্য প্রজেক্ট সংখ্যা:' : 'Total Custom Projects:'} {displayManageItems.length}
                   </span>
                   <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Real-time Sync Active</span>
+                    <span>{cloudItems.length > 0 ? 'Cloud Synced' : 'Active'}</span>
                   </span>
                 </div>
 
-                {cloudItems.length === 0 ? (
+                {displayManageItems.length === 0 ? (
                   <div className="text-center py-12 text-neutral-400 space-y-2">
-                    <p className="text-sm">{isBN ? 'এখনো কোনো নতুন ক্লাউড প্রজেক্ট যোগ করা হয়নি।' : 'No custom cloud items added yet.'}</p>
-                    <p className="text-xs text-neutral-500">{isBN ? 'উপরে "+ ভিডিও" বা "+ গ্রাফিক" ট্যাবে গিয়ে সহজেই লাইভ প্রজেক্ট যোগ করুন।' : 'Use the tabs above to publish your first cloud project.'}</p>
+                    <p className="text-sm">{isBN ? 'এখনো কোনো নতুন প্রজেক্ট যোগ করা হয়নি।' : 'No custom projects added yet.'}</p>
+                    <p className="text-xs text-neutral-500">{isBN ? 'উপরে "+ ভিডিও" বা "+ গ্রাফিক" ট্যাবে গিয়ে সহজেই লাইভ প্রজেক্ট যোগ করুন।' : 'Use the tabs above to publish your first project.'}</p>
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    {cloudItems.map((item) => (
+                    {displayManageItems.map((item) => (
                       <div
                         key={item.id}
                         className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-4"
@@ -547,17 +562,22 @@ export function AdminDashboardModal({
                           />
                           <div className="truncate text-xs">
                             <span className="font-bold text-white block truncate">{item.title}</span>
-                            <span className="text-neutral-400 font-mono">
-                              {item.category} • {item.mediaType}
+                            <span className="text-neutral-400 font-mono flex items-center gap-2 mt-0.5">
+                              <span>{item.category} • {item.mediaType}</span>
+                              {item.isCloud ? (
+                                <span className="px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-400 text-[10px] border border-sky-500/30">Cloud</span>
+                              ) : (
+                                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] border border-emerald-500/30">Local</span>
+                              )}
                             </span>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-2 shrink-0">
                           <button
-                            onClick={() => handleDeleteCloudItem(item.id, item.title)}
+                            onClick={() => handleDeleteItem(item)}
                             className="p-2 rounded-xl text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
-                            title="Delete from Firestore"
+                            title="Delete Project"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

@@ -149,7 +149,10 @@ export function App() {
 
         {/* Main Content Sections */}
         <main className="relative z-10">
-          <Hero onOpenCV={() => setIsCVOpen(true)} />
+          <Hero
+            onOpenCV={() => setIsCVOpen(true)}
+            portfolioItems={displayedPortfolioItems}
+          />
           <PortfolioSection
             items={displayedPortfolioItems}
             onSelectItem={(item) => setSelectedItem(item)}
@@ -207,6 +210,7 @@ export function App() {
           isOpen={isAdminDashboardOpen}
           onClose={() => setIsAdminDashboardOpen(false)}
           cloudItems={cloudPortfolioItems}
+          allPortfolioItems={portfolioItems}
           onLogout={() => {
             sessionStorage.removeItem('noman_admin_auth');
             setIsAdminDashboardOpen(false);
@@ -214,6 +218,7 @@ export function App() {
           }}
           onNotify={(msg) => showToast(msg)}
           onAddLocalProject={(newItem) => updatePortfolioItems([newItem, ...portfolioItems])}
+          onDeleteProject={(id) => updatePortfolioItems(portfolioItems.filter((item) => item.id !== id))}
         />
 
         {/* Floating Toast Notification */}

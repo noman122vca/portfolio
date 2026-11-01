@@ -1,5 +1,24 @@
 export const defaultPortfolioItems = [
   {
+    "id": "video-noman-fb-1",
+    "title": "Nafees Salim Rough Cut",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "landscape",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80",
+    "mediaUrl": "https://www.facebook.com/share/v/1PvJ2AVPcW/",
+    "description": "As-Sunnah Skill Development Institute Promo video project created with Adobe Premiere Pro and motion graphics.",
+    "tags": [
+      "Nafees Salim",
+      "As-Sunnah Skill",
+      "Facebook Video",
+      "Premiere Pro",
+      "Motion"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
     "id": "video-hassan-1",
     "title": "AS SUNNAH SKILL ADMISSION PROMO VIDEO",
     "category": "Video Editing",
