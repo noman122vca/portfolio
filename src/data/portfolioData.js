@@ -1,22 +1,79 @@
 export const defaultPortfolioItems = [
   {
     "id": "video-noman-fb-1",
-    "title": "Nafees Salim Rough Cut",
+    "title": "Nafees Salim Rough Cut (As-Sunnah Promo)",
     "category": "Video Editing",
     "mediaType": "video",
     "videoFormat": "landscape",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80",
-    "mediaUrl": "https://www.facebook.com/share/v/1PvJ2AVPcW/",
-    "description": "As-Sunnah Skill Development Institute Promo video project created with Adobe Premiere Pro and motion graphics.",
+    "thumbnailUrl": "./portfolio/fb_reel_1.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/1363652169086347/",
+    "description": "Official promotional rough cut featuring speaker Nafees Salim for As-Sunnah Skill Development Institute. Dynamic cuts, sound design, and color grading by Md. Eftekar Hossen Noman.",
     "tags": [
       "Nafees Salim",
       "As-Sunnah Skill",
       "Facebook Video",
       "Premiere Pro",
-      "Motion"
+      "Featured Highlight"
     ],
     "dateAdded": "2026",
     "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-2",
+    "title": "As-Sunnah Skill Development Institute Promo",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "landscape",
+    "thumbnailUrl": "./portfolio/fb_reel_2.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/1087490990911079/",
+    "description": "High-impact admission & professional skill development promo produced for As-Sunnah Skill Development Institute. Cinematic pacing, audio mastering, and typography.",
+    "tags": [
+      "As-Sunnah Foundation",
+      "Skill Development",
+      "Admission Promo",
+      "Premiere Pro",
+      "Featured Highlight"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-3",
+    "title": "আমার তো জান্নাতে যাওয়া উদ্দেশ্য | Noman Visuals",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "landscape",
+    "thumbnailUrl": "./portfolio/fb_reel_3.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/2405190683344268/",
+    "description": "Cinematic spiritual visualization & celestial 3D world creation. Atmospheric lighting, particle compositing, and sound mastering in Adobe After Effects & Premiere Pro.",
+    "tags": [
+      "3D VFX",
+      "Cinematic Visuals",
+      "After Effects",
+      "Noman Visuals",
+      "Featured Highlight"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-4",
+    "title": "After Effects Basic Motion | Noman Visuals",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "landscape",
+    "thumbnailUrl": "./portfolio/fb_reel_4.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/969138829584724/",
+    "description": "Motion graphics study showcasing smooth kinetic easing curves, vector animation principles, and visual rhythm in Adobe After Effects.",
+    "tags": [
+      "Motion Graphics",
+      "After Effects",
+      "Kinetic Motion",
+      "Animation",
+      "Noman Visuals"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": false
   },
   {
     "id": "video-hassan-1",

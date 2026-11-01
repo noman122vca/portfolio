@@ -119,9 +119,20 @@
   - [x] Dynamically wired WORKS counter in `Hero.jsx` (`({videoCount})` and `({graphicCount})`) driven by active portfolio state.
   - [x] Directly pre-seeded user's Nafees Salim Facebook video into `defaultPortfolioItems` in `src/data/portfolioData.js`.
   - [x] All 8 tests pass (`npm test`) and production build verified (`vite build`).
+- [x] **Phase 17: Multi-Facebook Video/Reel Ingestion & Canonical Embed Mapping**:
+  - [x] Ingested 4 official Facebook reels provided by user:
+    1. `Nafees Salim Rough Cut (As-Sunnah Promo)` (`1PvJ2AVPcW` / `1363652169086347`)
+    2. `As-Sunnah Skill Development Institute Promo` (`1JHsYSCzHV` / `1087490990911079`)
+    3. `আমার তো জান্নাতে যাওয়া উদ্দেশ্য | Noman Visuals` (`14tbBerDfhX` / `2405190683344268`)
+    4. `After Effects Basic Motion | Noman Visuals` (`1dpxHiLsvR` / `969138829584724`)
+  - [x] Downloaded high-resolution authentic thumbnails to `public/portfolio/fb_reel_{1..4}.jpg` to prevent CDN expiration.
+  - [x] Added `FB_SHARE_MAP` in `MediaDetailModal.jsx` to map share links to canonical Facebook reel URLs in iframe plugin.
+  - [x] Updated portfolio default items to 22 (13 videos, 9 graphics) and updated unit test suite (8/8 tests pass).
+  - [x] Compiled production bundle and deployed to GitHub `main` and `gh-pages`.
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 
 

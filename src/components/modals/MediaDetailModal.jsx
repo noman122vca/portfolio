@@ -17,6 +17,13 @@ function getYouTubeId(url) {
   return m5 ? m5[1] : null;
 }
 
+const FB_SHARE_MAP = {
+  '1PvJ2AVPcW': 'https://www.facebook.com/reel/1363652169086347/',
+  '1JHsYSCzHV': 'https://www.facebook.com/reel/1087490990911079/',
+  '14tbBerDfhX': 'https://www.facebook.com/reel/2405190683344268/',
+  '1dpxHiLsvR': 'https://www.facebook.com/reel/969138829584724/',
+};
+
 function resolveVideoEmbed(url) {
   if (!url) return { embedUrl: '', type: 'direct' };
   const trimmed = url.trim();
@@ -32,8 +39,15 @@ function resolveVideoEmbed(url) {
     trimmed.includes('fb.watch') ||
     trimmed.includes('fb.com')
   ) {
+    let canonical = trimmed;
+    for (const [key, reelUrl] of Object.entries(FB_SHARE_MAP)) {
+      if (trimmed.includes(key)) {
+        canonical = reelUrl;
+        break;
+      }
+    }
     return {
-      embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(trimmed)}&show_text=0&autoplay=1`,
+      embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(canonical)}&show_text=0&autoplay=1`,
       type: 'facebook',
       originalUrl: trimmed,
     };
