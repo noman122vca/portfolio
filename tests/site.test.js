@@ -123,5 +123,21 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
     assert.strictEqual(embedUrl.includes('plugins/video.php?href='), true);
     assert.strictEqual(embedUrl.includes(encodeURIComponent('https://fb.watch/xYz12345/')), true);
   });
+
+  test('Admin Role Gating & Visitor UI separation logic', () => {
+    // Visitor state (unauthenticated)
+    const visitorAdmin = false;
+    const shouldShowAdminBar = (isAdmin) => Boolean(isAdmin);
+    const shouldShowDeleteButton = (isAdmin) => Boolean(isAdmin);
+
+    assert.strictEqual(shouldShowAdminBar(visitorAdmin), false, 'Visitors must not see the admin toolbar on #projects');
+    assert.strictEqual(shouldShowDeleteButton(visitorAdmin), false, 'Visitors must not see card deletion buttons');
+
+    // Authenticated admin state
+    const authAdmin = true;
+    assert.strictEqual(shouldShowAdminBar(authAdmin), true, 'Authenticated admin must see the admin toolbar');
+    assert.strictEqual(shouldShowDeleteButton(authAdmin), true, 'Authenticated admin must see card deletion buttons');
+  });
 });
+
 

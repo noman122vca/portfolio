@@ -140,9 +140,9 @@ export function PortfolioSection({
             </p>
           </div>
 
-          {/* Admin Fast Action Bar */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            {isAdmin ? (
+          {/* Admin Fast Action Bar (Only visible when logged in as Admin) */}
+          {isAdmin && (
+            <div className="flex flex-wrap items-center gap-2.5">
               <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/40">
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -183,36 +183,8 @@ export function PortfolioSection({
                   <span>{isBN ? 'লগআউট' : 'Logout'}</span>
                 </button>
               </div>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  onClick={onOpenAdmin}
-                  className="px-4 py-2 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black text-xs font-extrabold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.4)]"
-                  title="পাসওয়ার্ড noman@admin2026 দিয়ে অ্যাডমিন প্যানেল আনলক করুন"
-                >
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>{isBN ? '🛡️ অ্যাডমিন স্টুডিও (Login)' : '🛡️ Admin Studio (Login)'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={onOpenVideoForm}
-                  className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-                >
-                  <Video className="w-4 h-4 text-[#00E5FF]" />
-                  <span>{isBN ? '+ ভিডিও যোগ করুন' : '+ Add Video'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={onOpenUploadGraphic}
-                  className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-[#00E5FF]/10 border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] text-xs font-bold transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
-                >
-                  <PlusCircle className="w-4 h-4 text-[#00E5FF]" />
-                  <span>{isBN ? '+ গ্রাফিক্স যোগ করুন' : '+ Add Graphic'}</span>
-                </button>
-              </>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Filter Pills and View Mode Switcher */}

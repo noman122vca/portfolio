@@ -191,6 +191,8 @@ export function App() {
         <Navbar
           onOpenCV={() => setIsCVOpen(true)}
           onOpenAdmin={handleOpenAdmin}
+          isAdmin={isAdmin}
+          onLogoutAdmin={handleLogoutAdmin}
         />
 
         {/* Main Content Sections */}
@@ -216,7 +218,11 @@ export function App() {
         </main>
 
         {/* Global Footer */}
-        <Footer onOpenAdmin={handleOpenAdmin} />
+        <Footer
+          onOpenAdmin={handleOpenAdmin}
+          isAdmin={isAdmin}
+          onLogoutAdmin={handleLogoutAdmin}
+        />
 
         {/* Modals & Popups */}
         <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />

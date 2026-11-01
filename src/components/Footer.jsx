@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { profileData } from '../data/profileData';
 import { ArrowUp, CheckCircle2, Heart, ShieldCheck } from 'lucide-react';
 
-export function Footer({ onOpenAdmin }) {
+export function Footer({ onOpenAdmin, isAdmin = false, onLogoutAdmin }) {
   const { t, isBN } = useLanguage();
 
   const scrollToTop = () => {
@@ -55,14 +55,37 @@ export function Footer({ onOpenAdmin }) {
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-400">
           <p>© {new Date().getFullYear()} {profileData.name}. {t.footer.rights}</p>
           <div className="flex items-center gap-4">
-            <button
-              onClick={onOpenAdmin}
-              className="text-neutral-500 hover:text-[#00E5FF] transition-colors cursor-pointer flex items-center gap-1.5"
-              title={isBN ? 'ক্লায়েন্ট অ্যাডমিন স্টুডিও' : 'Client Admin Studio'}
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00E5FF]" />
-              <span>{isBN ? 'ক্লায়েন্ট অ্যাডমিন প্যানেল' : 'Admin Studio'}</span>
-            </button>
+            {isAdmin ? (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer flex items-center gap-1.5 font-bold"
+                  title="ওপেন অ্যাডমিন CMS"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isBN ? 'অ্যাডমিন সক্রিয়' : 'Admin Active'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onLogoutAdmin}
+                  className="text-rose-400 hover:text-rose-300 transition-colors cursor-pointer"
+                  title="লগআউট"
+                >
+                  ({isBN ? 'লগআউট' : 'Logout'})
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={onOpenAdmin}
+                className="text-neutral-500 hover:text-[#00E5FF] transition-colors cursor-pointer flex items-center gap-1.5"
+                title={isBN ? 'অ্যাডমিন লগইন' : 'Admin Login'}
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#00E5FF]" />
+                <span>{isBN ? 'অ্যাডমিন পোর্টাল' : 'Admin Portal'}</span>
+              </button>
+            )}
             <span className="text-neutral-700">•</span>
             <p className="flex items-center gap-1">
               Built with React 19 & Tailwind CSS

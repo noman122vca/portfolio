@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { profileData } from '../data/profileData';
 import { Menu, X, FileDown, Volume2, VolumeX, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
 
-export function Navbar({ onOpenCV, onOpenAdmin }) {
+export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const { language, setLanguage, isBN, t } = useLanguage();
@@ -148,15 +148,38 @@ export function Navbar({ onOpenCV, onOpenAdmin }) {
               <span>{t.nav.resume}</span>
             </button>
 
-            {/* Admin Studio Trigger */}
-            <button
-              onClick={onOpenAdmin}
-              className="px-3.5 py-2 rounded-xl border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] bg-white/[0.03] hover:bg-[#00E5FF]/5 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
-              title={isBN ? "ক্লায়েন্ট অ্যাডমিন প্যানেল (ভিডিও ও ডিজাইন আপলোড)" : "Client Admin Studio (Upload Videos & Art)"}
-            >
-              <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
-              <span className="hidden xl:inline">{isBN ? "অ্যাডমিন" : "Admin"}</span>
-            </button>
+            {/* Admin Studio Trigger (Header Section) */}
+            {isAdmin ? (
+              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                  title={isBN ? "অ্যাডমিন ড্যাশবোর্ড খুলুন" : "Open Admin Studio"}
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="hidden xl:inline">{isBN ? "অ্যাডমিন সক্রিয়" : "Admin Active"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onLogoutAdmin}
+                  className="px-2 py-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 text-xs font-bold transition-all cursor-pointer"
+                  title={isBN ? "লগআউট করুন" : "Logout"}
+                >
+                  {isBN ? "লগআউট" : "Logout"}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={onOpenAdmin}
+                className="px-3.5 py-2 rounded-xl border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] bg-white/[0.03] hover:bg-[#00E5FF]/5 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                title={isBN ? "অ্যাডমিন লগইন (পাসওয়ার্ড দিন)" : "Admin Login (Enter Password)"}
+              >
+                <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
+                <span className="hidden xl:inline">{isBN ? "অ্যাডমিন" : "Admin"}</span>
+              </button>
+            )}
 
             {/* Let's Talk CTA */}
             <a
@@ -248,16 +271,43 @@ export function Navbar({ onOpenCV, onOpenAdmin }) {
               <FileDown className="w-4 h-4" />
               <span>{t.nav.resume}</span>
             </button>
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenAdmin && onOpenAdmin();
-              }}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-white bg-white/5 hover:bg-[#00E5FF]/10 hover:text-[#00E5FF] border border-white/10 flex items-center gap-2"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
-              <span>{isBN ? 'ক্লায়েন্ট অ্যাডমিন প্যানেল' : 'Client Admin Studio'}</span>
-            </button>
+            {isAdmin ? (
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenAdmin && onOpenAdmin();
+                  }}
+                  className="flex-1 py-2.5 px-3 rounded-xl text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>{isBN ? '🛡️ অ্যাডমিন ড্যাশবোর্ড' : '🛡️ Admin Studio'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onLogoutAdmin && onLogoutAdmin();
+                  }}
+                  className="py-2.5 px-3 rounded-xl text-sm font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 cursor-pointer"
+                >
+                  {isBN ? 'লগআউট' : 'Logout'}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenAdmin && onOpenAdmin();
+                }}
+                className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-white bg-white/5 hover:bg-[#00E5FF]/10 hover:text-[#00E5FF] border border-white/10 flex items-center gap-2 cursor-pointer"
+              >
+                <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
+                <span>{isBN ? 'অ্যাডমিন লগইন' : 'Admin Login'}</span>
+              </button>
+            )}
           </div>
         </div>
       )}
