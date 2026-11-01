@@ -208,6 +208,15 @@
   - [x] Unit test suite updated (`tests/site.test.js`) and all 8 tests pass (`npm test`).
   - [x] Production build verified (`npm run build`).
 
+- [x] **Phase 23: Direct Home Page Admin Controls & 1-Click Card Deletion (Spec-Driven Solution)**:
+  - [x] **Direct Card Deletion**: When logged in as Admin, a prominent red `[ 🗑️ মুছুন ]` button appears on every video and graphic card on the homepage (in both Grid & 3D Coverflow slider).
+  - [x] **Direct Modal Deletion**: Inside `MediaDetailModal`, an inline `[ 🗑️ প্রজেক্ট মুছুন (Admin) ]` button is rendered in both the top bar and next to the external link, allowing 1-click deletion while previewing any accidentally added project.
+  - [x] **Active Admin Status Bar on `#projects`**: When authenticated, displays `[ 🛡️ অ্যাডমিন মোড সক্রিয় ] [ ⚙️ CMS ড্যাশবোর্ড ] [ + ভিডিও যোগ ] [ + গ্রাফিক্স যোগ ] [ 🚪 লগআউট ]`.
+  - [x] **Clear Public Action Buttons**: When not logged in, displays `[ 🛡️ অ্যাডমিন স্টুডিও (Login) ]`, `[ + ভিডিও যোগ করুন ]`, and `[ + গ্রাফিক্স যোগ করুন ]`.
+  - [x] Password remains default `noman@admin2026`.
+  - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
+  - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
 
