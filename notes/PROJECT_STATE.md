@@ -164,6 +164,16 @@
   - [x] Unit test suite updated (`tests/site.test.js`) and 8/8 tests pass (`npm test`).
   - [x] Production build clean (`vite build`).
 
+- [x] **Phase 20: Comprehensive Admin CMS Control, Bulk Deletion, and Category Filters**:
+  - [x] Enhanced `AdminDashboardModal.jsx` Manage tab:
+    - [x] Displays all projects (both cloud and local items).
+    - [x] Added category filter chips: `All`, `Videos`, `Graphics`.
+    - [x] Added instant title search bar for rapid filtering.
+    - [x] Added 1-click single item deletion with trash button.
+    - [x] Added bulk category deletion: `Clear All Videos` (`সব ভিডিও মুছুন`) and `Clear All Graphics` (`সব গ্রাফিক্স মুছুন`).
+    - [x] Added `Reset Default` (`ডিফল্ট রিস্টোর`) button.
+  - [x] Added Facebook Post Link / External URL input to the `+ Add Graphic` tab in Admin Studio.
+  - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`vite build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
-

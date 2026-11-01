@@ -221,6 +221,11 @@ export function App() {
           onNotify={(msg) => showToast(msg)}
           onAddLocalProject={(newItem) => updatePortfolioItems([newItem, ...portfolioItems])}
           onDeleteProject={(id) => updatePortfolioItems(portfolioItems.filter((item) => item.id !== id))}
+          onClearCategory={(type) => {
+            const updated = portfolioItems.filter((item) => item.mediaType !== type);
+            updatePortfolioItems(updated, type === 'video' ? 'সব ভিডিও প্রজেক্ট মুছে ফেলা হয়েছে' : 'সব গ্রাফিক্স প্রজেক্ট মুছে ফেলা হয়েছে');
+          }}
+          onResetDefault={handleResetDefault}
         />
 
         {/* Floating Toast Notification */}

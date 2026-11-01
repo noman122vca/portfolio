@@ -45,9 +45,13 @@ export function AdminDashboardModal({
   onNotify,
   onAddLocalProject,
   onDeleteProject,
+  onClearCategory,
+  onResetDefault,
 }) {
   const { isBN } = useLanguage();
   const [activeTab, setActiveTab] = useState('add-video'); // 'add-video' | 'add-graphic' | 'manage'
+  const [manageFilter, setManageFilter] = useState('all'); // 'all' | 'video' | 'graphic'
+  const [manageSearch, setManageSearch] = useState('');
 
   // Video Form State
   const [videoUrl, setVideoUrl] = useState('');
@@ -62,6 +66,7 @@ export function AdminDashboardModal({
   const [graphicTitle, setGraphicTitle] = useState('');
   const [graphicCategory, setGraphicCategory] = useState('Graphic Design');
   const [graphicImage, setGraphicImage] = useState('');
+  const [graphicExternalUrl, setGraphicExternalUrl] = useState('');
   const [graphicDesc, setGraphicDesc] = useState('');
   const [graphicTags, setGraphicTags] = useState('Graphic Design, Photoshop, Visual Art');
 
@@ -150,6 +155,7 @@ export function AdminDashboardModal({
       mediaType: 'graphic',
       thumbnailUrl: graphicImage.trim(),
       mediaUrl: graphicImage.trim(),
+      externalUrl: graphicExternalUrl.trim() || undefined,
       description: graphicDesc.trim() || 'High-impact creative brand advertising design and promotional visual artwork.',
       tags: graphicTags.split(',').map((t) => t.trim()).filter(Boolean),
       dateAdded: '2026',
@@ -164,6 +170,7 @@ export function AdminDashboardModal({
     // 2. Immediately close modal & reset form
     setGraphicTitle('');
     setGraphicImage('');
+    setGraphicExternalUrl('');
     setGraphicDesc('');
     onClose();
 
@@ -183,10 +190,18 @@ export function AdminDashboardModal({
       });
   };
 
-  const customLocalItems = allPortfolioItems.filter(
-    (item) => item.id.startsWith('video-') || item.id.startsWith('graphic-') || item.id.startsWith('custom-')
-  );
-  const displayManageItems = cloudItems.length > 0 ? cloudItems : customLocalItems;
+  // Combine all cloud and portfolio items deduplicated by id
+  const allMergedItems = [
+    ...cloudItems,
+    ...allPortfolioItems.filter((local) => !cloudItems.some((cloud) => cloud.id === local.id)),
+  ];
+
+  const displayManageItems = allMergedItems.filter((item) => {
+    if (manageFilter === 'video' && item.mediaType !== 'video') return false;
+    if (manageFilter === 'graphic' && item.mediaType !== 'graphic') return false;
+    if (manageSearch.trim() && !item.title.toLowerCase().includes(manageSearch.toLowerCase().trim())) return false;
+    return true;
+  });
 
   const handleDeleteItem = async (item) => {
     if (window.confirm(isBN ? `আপনি কি "${item.title}" প্রজেক্টটি মুছে ফেলতে চান?` : `Delete "${item.title}"?`)) {
@@ -201,6 +216,15 @@ export function AdminDashboardModal({
         onDeleteProject(item.id);
       }
       onNotify(isBN ? 'প্রজেক্ট মুছে ফেলা হয়েছে' : 'Project removed');
+    }
+  };
+
+  const handleClearAllCategory = (type) => {
+    const typeLabel = type === 'video' ? (isBN ? 'সব ভিডিও' : 'all videos') : (isBN ? 'সব গ্রাফিক্স' : 'all graphics');
+    if (window.confirm(isBN ? `আপনি কি নিশ্চিতভাবে ${typeLabel} মুছে ফেলতে চান?` : `Are you sure you want to delete ${typeLabel}?`)) {
+      if (onClearCategory) {
+        onClearCategory(type);
+      }
     }
   };
 
@@ -498,6 +522,19 @@ export function AdminDashboardModal({
                 )}
 
                 <div className="space-y-2">
+                  <label className="block text-xs font-mono text-neutral-300">
+                    {isBN ? 'ফেসবুক পোস্ট লিংক / এক্সটার্নাল URL (ঐচ্ছিক)' : 'Facebook Post Link / External URL (Optional)'}
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://www.facebook.com/share/p/..."
+                    value={graphicExternalUrl}
+                    onChange={(e) => setGraphicExternalUrl(e.target.value)}
+                    className="w-full px-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs font-mono focus:border-[#00E5FF]"
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <label className="block text-xs font-mono text-neutral-300">Description</label>
                   <textarea
                     rows={2}
@@ -531,53 +568,133 @@ export function AdminDashboardModal({
 
             {/* Tab 3: Manage Projects */}
             {activeTab === 'manage' && (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                  <span className="text-xs font-mono text-neutral-400">
-                    {isBN ? 'ম্যানেজযোগ্য প্রজেক্ট সংখ্যা:' : 'Total Custom Projects:'} {displayManageItems.length}
-                  </span>
-                  <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>{cloudItems.length > 0 ? 'Cloud Synced' : 'Active'}</span>
-                  </span>
+              <div className="space-y-5">
+                {/* Header Stats & Quick Actions */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/10">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono text-neutral-400">
+                      {isBN ? 'মোট প্রজেক্ট:' : 'Total Projects:'} <strong className="text-white">{allMergedItems.length}</strong>
+                    </span>
+                    <span className="text-[11px] font-mono text-neutral-500">
+                      (🎬 {allMergedItems.filter((i) => i.mediaType === 'video').length} • 🎨 {allMergedItems.filter((i) => i.mediaType === 'graphic').length})
+                    </span>
+                  </div>
+
+                  {/* Bulk Actions */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {onClearCategory && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handleClearAllCategory('video')}
+                          className="px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-[11px] font-mono transition-colors cursor-pointer"
+                        >
+                          {isBN ? 'সব ভিডিও মুছুন' : 'Clear All Videos'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleClearAllCategory('graphic')}
+                          className="px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-[11px] font-mono transition-colors cursor-pointer"
+                        >
+                          {isBN ? 'সব গ্রাফিক্স মুছুন' : 'Clear All Graphics'}
+                        </button>
+                      </>
+                    )}
+                    {onResetDefault && (
+                      <button
+                        type="button"
+                        onClick={onResetDefault}
+                        className="px-2.5 py-1 rounded-lg bg-[#00E5FF]/10 hover:bg-[#00E5FF]/20 border border-[#00E5FF]/30 text-[#00E5FF] text-[11px] font-mono transition-colors cursor-pointer"
+                      >
+                        {isBN ? 'ডিফল্ট রিস্টোর' : 'Reset Default'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Filters & Search */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-white/[0.03] border border-white/10 self-start sm:self-auto">
+                    {[
+                      { id: 'all', label: isBN ? `সব (${allMergedItems.length})` : `All (${allMergedItems.length})` },
+                      { id: 'video', label: isBN ? `ভিডিও (${allMergedItems.filter((i) => i.mediaType === 'video').length})` : `Videos (${allMergedItems.filter((i) => i.mediaType === 'video').length})` },
+                      { id: 'graphic', label: isBN ? `গ্রাফিক্স (${allMergedItems.filter((i) => i.mediaType === 'graphic').length})` : `Graphics (${allMergedItems.filter((i) => i.mediaType === 'graphic').length})` },
+                    ].map((f) => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        onClick={() => setManageFilter(f.id)}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          manageFilter === f.id
+                            ? 'bg-[#00E5FF] text-black shadow-[0_0_12px_rgba(0,229,255,0.4)]'
+                            : 'text-neutral-400 hover:text-white'
+                        }`}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <input
+                    type="text"
+                    placeholder={isBN ? 'টাইটেল দিয়ে খুঁজুন...' : 'Search by title...'}
+                    value={manageSearch}
+                    onChange={(e) => setManageSearch(e.target.value)}
+                    className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs placeholder-neutral-500 focus:border-[#00E5FF] outline-none"
+                  />
                 </div>
 
                 {displayManageItems.length === 0 ? (
                   <div className="text-center py-12 text-neutral-400 space-y-2">
-                    <p className="text-sm">{isBN ? 'এখনো কোনো নতুন প্রজেক্ট যোগ করা হয়নি।' : 'No custom projects added yet.'}</p>
-                    <p className="text-xs text-neutral-500">{isBN ? 'উপরে "+ ভিডিও" বা "+ গ্রাফিক" ট্যাবে গিয়ে সহজেই লাইভ প্রজেক্ট যোগ করুন।' : 'Use the tabs above to publish your first project.'}</p>
+                    <p className="text-sm">{isBN ? 'কোনো প্রজেক্ট পাওয়া যায়নি।' : 'No projects found.'}</p>
+                    <p className="text-xs text-neutral-500">{isBN ? 'উপরে "+ Add Video" বা "+ Add Graphic" ট্যাবে গিয়ে সহজে নতুন প্রজেক্ট যোগ করুন।' : 'Use the tabs above to publish projects.'}</p>
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="space-y-2.5 max-h-[50vh] overflow-y-auto pr-1">
                     {displayManageItems.map((item) => (
                       <div
                         key={item.id}
-                        className="p-3 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-4"
+                        className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/15 flex items-center justify-between gap-4 transition-all"
                       >
                         <div className="flex items-center gap-3 overflow-hidden">
                           <img
                             src={item.thumbnailUrl}
                             alt={item.title}
-                            className="w-16 aspect-video object-cover rounded-xl bg-black shrink-0"
+                            className="w-16 h-12 object-cover rounded-xl bg-black shrink-0 border border-white/10"
                           />
                           <div className="truncate text-xs">
                             <span className="font-bold text-white block truncate">{item.title}</span>
                             <span className="text-neutral-400 font-mono flex items-center gap-2 mt-0.5">
-                              <span>{item.category} • {item.mediaType}</span>
+                              <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] text-[#00E5FF]">
+                                {item.mediaType === 'video' ? '🎬 Video' : '🎨 Graphic'}
+                              </span>
+                              <span>{item.category}</span>
                               {item.isCloud ? (
                                 <span className="px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-400 text-[10px] border border-sky-500/30">Cloud</span>
                               ) : (
-                                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] border border-emerald-500/30">Local</span>
+                                <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] border border-emerald-500/30">Active</span>
                               )}
                             </span>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-2 shrink-0">
+                          {(item.mediaUrl || item.externalUrl) && (
+                            <a
+                              href={item.externalUrl || item.mediaUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 rounded-xl text-neutral-400 hover:text-[#00E5FF] hover:bg-white/5 transition-colors"
+                              title="Open Link"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
                           <button
+                            type="button"
                             onClick={() => handleDeleteItem(item)}
                             className="p-2 rounded-xl text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
-                            title="Delete Project"
+                            title={isBN ? 'মুছে ফেলুন' : 'Delete Project'}
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
