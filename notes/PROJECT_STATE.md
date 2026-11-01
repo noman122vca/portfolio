@@ -73,7 +73,18 @@
     - Continuous 360-degree rotating tech skill orbit with counter-rotating frosted glass badges
     - Accelerated orbit velocity on avatar hover
   - [x] Verified desktop (`1440x900`) and mobile (`390x844`) responsiveness via Chrome DevTools Protocol screenshots.
-  - [x] All 7/7 unit tests passing (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+- [x] **Phase 13: Image 1 Architecture Setup with Seamless Studio Portrait**:
+  - [x] Extracted high-precision cutout of Md. Eftekar Hossen Noman using AI segmentation, completely removing the light-blue square background and watermark 3D cubes.
+  - [x] Re-composited portrait on the exact dark cyberpunk teal spotlight background (`#2E8A96` center fading to `#04161E`) matching the 1st reference image (`media_1793508168013_6f2c9bb7.png`).
+  - [x] Implemented double concentric glowing cyan rings around the central avatar (inner rim + outer concentric halo ring with dark concentric gap).
+  - [x] Aligned all 6 software badges to exact positions and styling from Image 1:
+    - Top (12 o'clock): **Ai** (Amber glow)
+    - Top-Right (2 o'clock): **Pr** (Magenta/purple glow)
+    - Bottom-Right (4 o'clock): **Ae** (Indigo glow)
+    - Bottom (6 o'clock): **CapCut** (White card, black logo & text, white halo glow)
+    - Bottom-Left (8 o'clock): **Meta** (White card, Meta loop & text, cyan halo glow)
+    - Top-Left (10 o'clock): **Ps** (Cyan glow)
+  - [x] Passed 7/7 unit tests (`npm test`), production build passing (`vite build`), deployed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
