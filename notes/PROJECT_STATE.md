@@ -150,5 +150,20 @@
   - [x] Bumped localStorage key in `App.jsx` to `noman_portfolio_items_v2` with automated purge of `v1` to eliminate stale cached videos.
   - [x] All 8 tests passing (`npm test`), production build verified (`npm run build`).
 
+- [x] **Phase 19: Ingestion of 4 Authentic Facebook Graphic Design Artworks**:
+  - [x] Ingested all 4 Facebook graphic/photo post links provided by user:
+    1. `Commercial Product Visual Design` (`share/p/1CQ8Af1gwo` / `122126618103467649`)
+    2. `Creative Lettering & Typography Art` (`share/p/1A1T5XwiDR` / `122126616645467649`)
+    3. `Commercial Brand Mockup Presentation` (`share/p/1V1bghe2Ws` / `122126615361467649`)
+    4. `As-Sunnah SDI Batch 41 Project Design` (`share/p/1Edo69B3UJ` / `122109838767467649`)
+  - [x] Downloaded high-resolution original image assets locally to `public/portfolio/fb_graphic_{1..4}.jpg`.
+  - [x] Added `externalUrl` to each graphic item pointing to the original Facebook post.
+  - [x] Enhanced `MediaDetailModal.jsx` to render an interactive "View on Facebook" button and banner for graphic design works.
+  - [x] Total portfolio items expanded to 24 (11 Videos, 13 Graphic Design works). Dynamic hero counter automatically displays `WORKS: Video Editing (11) | Graphic Design (13)`.
+  - [x] Bumped localStorage key in `App.jsx` to `noman_portfolio_items_v3` with purge of `v2` and `v1`.
+  - [x] Unit test suite updated (`tests/site.test.js`) and 8/8 tests pass (`npm test`).
+  - [x] Production build clean (`vite build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+

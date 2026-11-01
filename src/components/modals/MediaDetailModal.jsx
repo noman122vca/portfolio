@@ -219,11 +219,26 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
                   </div>
                 )
               ) : (
-                <img
-                  src={item.mediaUrl || item.thumbnailUrl}
-                  alt={item.title}
-                  className="max-h-[70vh] w-auto mx-auto object-contain rounded-xl"
-                />
+                <div className="relative group/graphic w-full flex items-center justify-center">
+                  <img
+                    src={item.mediaUrl || item.thumbnailUrl}
+                    alt={item.title}
+                    className="max-h-[70vh] w-auto mx-auto object-contain rounded-xl shadow-2xl"
+                  />
+                  {item.externalUrl && item.externalUrl.includes('facebook.com') && (
+                    <div className="absolute top-3 right-3 z-20">
+                      <a
+                        href={item.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold shadow-[0_0_15px_rgba(24,119,242,0.5)] transition-all"
+                      >
+                        <span>View on Facebook</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 
@@ -233,7 +248,17 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white">
                   {item.title}
                 </h2>
-                {item.mediaUrl && item.mediaType === 'video' && (
+                {item.externalUrl ? (
+                  <a
+                    href={item.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2]/20 border border-[#1877F2]/50 hover:bg-[#1877F2] text-xs font-bold text-white shadow-[0_0_15px_rgba(24,119,242,0.3)] transition-all self-start sm:self-auto"
+                  >
+                    <span>{item.externalUrl.includes('facebook.com') ? 'View on Facebook' : 'View External'}</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                ) : item.mediaUrl && item.mediaType === 'video' ? (
                   <a
                     href={item.mediaUrl}
                     target="_blank"
@@ -243,7 +268,7 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem }) {
                     <span>Watch External</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                )}
+                ) : null}
               </div>
 
               <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-light">

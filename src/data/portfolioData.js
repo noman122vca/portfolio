@@ -208,6 +208,82 @@ export const defaultPortfolioItems = [
     "isHighlighted": false
   },
   {
+    "id": "graphic-noman-fb-1",
+    "title": "Commercial Product Visual Design",
+    "category": "Graphic Design",
+    "mediaType": "graphic",
+    "thumbnailUrl": "./portfolio/fb_graphic_1.jpg",
+    "mediaUrl": "./portfolio/fb_graphic_1.jpg",
+    "externalUrl": "https://www.facebook.com/share/p/1CQ8Af1gwo/",
+    "description": "High-impact commercial product advertising visual by Noman Visuals, featuring modern aesthetic composition, studio lighting manipulation, and brand presentation in Adobe Photoshop.",
+    "tags": [
+      "Product Design",
+      "Commercial Visual",
+      "Photoshop",
+      "Noman Visuals",
+      "Featured"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "graphic-noman-fb-2",
+    "title": "Creative Lettering & Typography Art",
+    "category": "Graphic Design",
+    "mediaType": "graphic",
+    "thumbnailUrl": "./portfolio/fb_graphic_2.jpg",
+    "mediaUrl": "./portfolio/fb_graphic_2.jpg",
+    "externalUrl": "https://www.facebook.com/share/p/1A1T5XwiDR/",
+    "description": "Expressive artistic lettering and typography visual artwork crafted by Noman Visuals with balanced contrast, curves, and creative design philosophy.",
+    "tags": [
+      "Lettering",
+      "Typography",
+      "Illustrator",
+      "Photoshop",
+      "Noman Visuals"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "graphic-noman-fb-3",
+    "title": "Commercial Brand Mockup Presentation",
+    "category": "Graphic Design",
+    "mediaType": "graphic",
+    "thumbnailUrl": "./portfolio/fb_graphic_3.jpg",
+    "mediaUrl": "./portfolio/fb_graphic_3.jpg",
+    "externalUrl": "https://www.facebook.com/share/p/1V1bghe2Ws/",
+    "description": "Realistic brand presentation mockup with atmospheric lighting, authentic texture mapping, and high-conversion commercial packaging layout by Noman Visuals.",
+    "tags": [
+      "Mockup Design",
+      "Brand Packaging",
+      "Photoshop",
+      "Noman Visuals",
+      "Featured"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "graphic-noman-fb-4",
+    "title": "As-Sunnah SDI Batch 41 Project Design",
+    "category": "Graphic Design",
+    "mediaType": "graphic",
+    "thumbnailUrl": "./portfolio/fb_graphic_4.jpg",
+    "mediaUrl": "./portfolio/fb_graphic_4.jpg",
+    "externalUrl": "https://www.facebook.com/share/p/1Edo69B3UJ/",
+    "description": "Official institutional coursework and creative portfolio project (Roll: 4124, Class 15) by Md Eftekar Hossen Noman at As-Sunnah Skill Development Institute.",
+    "tags": [
+      "Batch 41",
+      "As-Sunnah SDI",
+      "Course Project",
+      "Photoshop",
+      "Premiere Pro"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
     "id": "graphic-hassan-artboard-1",
     "title": "Commercial Product & Brand Visual Campaign",
     "category": "Graphic Design",
