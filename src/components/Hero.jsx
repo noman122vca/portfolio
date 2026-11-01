@@ -21,52 +21,52 @@ import { ArrowDown, FileDown, Send, Sparkles } from 'lucide-react';
 
 const ORBIT_TOOLS = [
   {
-    id: 'ps',
-    name: 'Adobe Photoshop',
-    left: '50%',
-    top: '0%',
-    renderLogo: () => <PhotoshopIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(49,168,255,0.7)] border-2 border-[#31A8FF]',
-  },
-  {
     id: 'ai',
     name: 'Adobe Illustrator',
-    left: '93.3%',
-    top: '25%',
+    left: '50%',
+    top: '0%',
     renderLogo: () => <IllustratorIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(255,154,0,0.7)] border-2 border-[#FF9A00]',
+    borderGlow: 'shadow-[0_0_20px_rgba(255,154,0,0.8)] border-2 border-[#FF9A00]',
   },
   {
     id: 'pr',
     name: 'Adobe Premiere Pro',
     left: '93.3%',
-    top: '75%',
+    top: '25%',
     renderLogo: () => <PremiereProIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(234,119,255,0.7)] border-2 border-[#EA77FF]',
+    borderGlow: 'shadow-[0_0_20px_rgba(234,119,255,0.8)] border-2 border-[#EA77FF]',
   },
   {
     id: 'ae',
     name: 'Adobe After Effects',
-    left: '50%',
-    top: '100%',
+    left: '93.3%',
+    top: '75%',
     renderLogo: () => <AfterEffectsIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(153,153,255,0.7)] border-2 border-[#9999FF]',
+    borderGlow: 'shadow-[0_0_20px_rgba(153,153,255,0.8)] border-2 border-[#9999FF]',
   },
   {
     id: 'capcut',
     name: 'CapCut Video Editor',
-    left: '6.7%',
-    top: '75%',
+    left: '50%',
+    top: '100%',
     renderLogo: () => <CapCutIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(255,255,255,0.7)] border-2 border-white',
+    borderGlow: 'shadow-[0_0_22px_rgba(255,255,255,0.85)] border-2 border-white',
   },
   {
     id: 'meta',
     name: 'Meta Video Marketing',
     left: '6.7%',
-    top: '25%',
+    top: '75%',
     renderLogo: () => <MetaMarketingIcon />,
-    borderGlow: 'shadow-[0_0_18px_rgba(0,198,255,0.7)] border-2 border-[#00c6ff]',
+    borderGlow: 'shadow-[0_0_22px_rgba(0,198,255,0.8)] border-2 border-white',
+  },
+  {
+    id: 'ps',
+    name: 'Adobe Photoshop',
+    left: '6.7%',
+    top: '25%',
+    renderLogo: () => <PhotoshopIcon />,
+    borderGlow: 'shadow-[0_0_20px_rgba(49,168,255,0.8)] border-2 border-[#31A8FF]',
   },
 ];
 
@@ -255,17 +255,16 @@ export function Hero({ onOpenCV }) {
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               onHoverStart={() => setIsFastOrbit(true)}
               onHoverEnd={() => setIsFastOrbit(false)}
-              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2.5 sm:p-3 bg-gradient-to-b from-[#00E5FF]/45 via-white/10 to-[#00E5FF]/45 backdrop-blur-xl border border-[#00E5FF]/60 shadow-[0_0_50px_rgba(0,229,255,0.45),inset_0_0_25px_rgba(0,229,255,0.25)] cursor-pointer z-30 transition-all duration-300 hover:scale-105 select-none"
+              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full cursor-pointer z-30 transition-all duration-300 hover:scale-105 select-none"
             >
-              {/* Rotating Subtle Glass Border Accent */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-0 rounded-full border border-dashed border-[#00E5FF]/45 pointer-events-none"
-              />
+              {/* Concentric Outer Cyan Halo Ring matching Image 1 */}
+              <div className="absolute -inset-4 sm:-inset-5 xl:-inset-6 rounded-full border-2 border-[#00E5FF]/75 shadow-[0_0_25px_rgba(0,229,255,0.45)] pointer-events-none" />
+              
+              {/* Secondary subtle frosted glass aura */}
+              <div className="absolute -inset-2 rounded-full border border-white/10 pointer-events-none" />
 
               {/* Inner Precision Circular Rim & Photo Frame */}
-              <div className="w-full h-full rounded-full overflow-hidden border-[3.5px] border-[#00E5FF] bg-[#071A22] relative group shadow-[0_0_30px_rgba(0,229,255,0.5),inset_0_0_15px_rgba(0,229,255,0.3)]">
+              <div className="w-full h-full rounded-full overflow-hidden border-[3.5px] border-[#00E5FF] bg-[#071A22] relative group shadow-[0_0_35px_rgba(0,229,255,0.7),inset_0_0_15px_rgba(0,229,255,0.3)]">
                 {/* Authentic Portrait Image */}
                 <img
                   src={avatarSrc}
