@@ -22,6 +22,13 @@ const FB_SHARE_MAP = {
   '1JHsYSCzHV': 'https://www.facebook.com/reel/1087490990911079/',
   '14tbBerDfhX': 'https://www.facebook.com/reel/2405190683344268/',
   '1dpxHiLsvR': 'https://www.facebook.com/reel/969138829584724/',
+  '1BpqhUz3P6': 'https://www.facebook.com/reel/2328405841255761/',
+  '1Dq2NQ4pK8': 'https://www.facebook.com/reel/1074169458775398/',
+  '1DnvPg6csm': 'https://www.facebook.com/reel/27212899438408418/',
+  '18XgyxBSfG': 'https://www.facebook.com/reel/4306337859656139/',
+  '1BTQ4SN7Hb': 'https://www.facebook.com/reel/2226215068110349/',
+  '19yYLp9Wqg': 'https://www.facebook.com/reel/1646995013757948/',
+  '19jUy8CUcK': 'https://www.facebook.com/reel/1594156038557415/',
 };
 
 function resolveVideoEmbed(url) {

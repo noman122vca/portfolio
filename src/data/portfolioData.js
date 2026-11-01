@@ -76,164 +76,133 @@ export const defaultPortfolioItems = [
     "isHighlighted": false
   },
   {
-    "id": "video-hassan-1",
-    "title": "AS SUNNAH SKILL ADMISSION PROMO VIDEO",
+    "id": "video-noman-fb-5",
+    "title": "Basic SaaS Motion | Noman Visuals",
     "category": "Video Editing",
     "mediaType": "video",
     "videoFormat": "landscape",
-    "thumbnailUrl": "https://i.ytimg.com/vi/KOrldftEmLU/maxresdefault.jpg",
-    "mediaUrl": "https://youtu.be/KOrldftEmLU?si=mfcfdH59sEs5ZT2I",
-    "description": "Official admission promotional video created for As-Sunnah Skill Development Institute by Hassan Mahmud. Features fast-paced cuts, sound design, typography, and motion graphics.",
+    "thumbnailUrl": "./portfolio/fb_reel_5.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/2328405841255761/",
+    "description": "Clean modern SaaS product UI animation and vector motion design crafted in Adobe After Effects with smooth easing and kinetic flow.",
     "tags": [
-      "As-Sunnah Skill",
-      "Admission Promo",
-      "Premiere Pro",
-      "Featured Highlight"
-    ],
-    "dateAdded": "2026",
-    "isHighlighted": true
-  },
-  {
-    "id": "video-hassan-2",
-    "title": "Nafees Salim Video Edit",
-    "category": "Video Editing",
-    "mediaType": "video",
-    "videoFormat": "landscape",
-    "thumbnailUrl": "https://i.ytimg.com/vi/X5IFszf8yk8/maxresdefault.jpg",
-    "mediaUrl": "https://youtu.be/X5IFszf8yk8?si=wHw-6cLr2dfH83bU",
-    "description": "High-retention social media video edit created for Nafees Salim. Packed with dynamic rhythm, cinematic zooms, sound effects, and color grading.",
-    "tags": [
-      "Nafees Salim",
-      "Social Media",
-      "Retention Edit",
-      "Featured Highlight"
-    ],
-    "dateAdded": "2026",
-    "isHighlighted": true
-  },
-  {
-    "id": "video-hassan-3",
-    "title": "Outdoor Video Edit",
-    "category": "Video Editing",
-    "mediaType": "video",
-    "videoFormat": "landscape",
-    "thumbnailUrl": "https://i.ytimg.com/vi/hzf0j1WvqzY/hqdefault.jpg",
-    "mediaUrl": "https://youtu.be/hzf0j1WvqzY?si=9uKKyVfMzm1SZNoc",
-    "description": "Cinematic outdoor atmospheric video edit showcasing natural color tones, ambient sound design, and smooth transitions.",
-    "tags": [
-      "Outdoor Edit",
-      "Cinematic",
-      "Color Grading",
-      "Atmospheric"
-    ],
-    "dateAdded": "2026",
-    "isHighlighted": false
-  },
-  {
-    "id": "video-hassan-5",
-    "title": "3D Camera Motion",
-    "category": "Video Editing",
-    "mediaType": "video",
-    "videoFormat": "landscape",
-    "thumbnailUrl": "https://i.ytimg.com/vi/ug5ZXjiQRR4/hqdefault.jpg",
-    "mediaUrl": "https://youtu.be/ug5ZXjiQRR4?si=RrcxgJudWup_npYs",
-    "description": "Advanced 3D camera tracking, depth compositing, and spatial camera motion designed in Adobe After Effects.",
-    "tags": [
-      "3D Camera",
+      "SaaS Motion",
       "After Effects",
-      "3D Tracking",
-      "VFX"
+      "UI Animation",
+      "Noman Visuals"
     ],
     "dateAdded": "2026",
     "isHighlighted": false
   },
   {
-    "id": "video-hassan-6",
-    "title": "Saas Animation Project Sabrly Media",
-    "category": "Video Editing",
-    "mediaType": "video",
-    "videoFormat": "landscape",
-    "thumbnailUrl": "https://i.ytimg.com/vi/6aKkTkBnzxQ/maxresdefault.jpg",
-    "mediaUrl": "https://youtu.be/6aKkTkBnzxQ",
-    "description": "Modern SaaS product animation and UI explainer project created for Sabrly Media featuring smooth transitions, vector animations, and sound design.",
-    "tags": [
-      "SaaS Animation",
-      "Sabrly Media",
-      "Product Video",
-      "Motion Graphics"
-    ],
-    "dateAdded": "2026",
-    "isHighlighted": false
-  },
-  {
-    "id": "video-hassan-4",
-    "title": "Motion Graphics Kinetic Typography Reel",
+    "id": "video-noman-fb-6",
+    "title": "Skill Motion Course Project | Noman Visuals",
     "category": "Video Editing",
     "mediaType": "video",
     "videoFormat": "reel",
-    "thumbnailUrl": "https://i.ytimg.com/vi/duEYB2KJlLc/hqdefault.jpg",
-    "mediaUrl": "https://youtu.be/duEYB2KJlLc?si=4mJsN9VIaTU6YdDr",
-    "description": "Professional motion graphics sequence with kinetic typography, modern vector animations, and synchronized audio beats in 9:16 vertical ratio.",
+    "thumbnailUrl": "./portfolio/fb_reel_6.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/1074169458775398/",
+    "description": "Kinetic typography and course feature promo animation created for As-Sunnah Skill Development Institute using Adobe After Effects.",
     "tags": [
+      "Course Promo",
+      "Kinetic Typography",
+      "As-Sunnah Skill",
+      "Motion Design",
+      "Featured Highlight"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-7",
+    "title": "Instagram High-Retention Reel Edit | Noman Visuals",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "reel",
+    "thumbnailUrl": "./portfolio/fb_reel_7.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/27212899438408418/",
+    "description": "Fast-paced viral Instagram reel edit packed with dynamic zooms, punchy subtitles, sound effects, and color grading for high viewer retention.",
+    "tags": [
+      "Instagram Reel",
+      "Viral Retention",
+      "Premiere Pro",
+      "Subtitles",
+      "Featured Highlight"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-8",
+    "title": "Animation & Motion Design (Vampire Blood Perfume)",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "reel",
+    "thumbnailUrl": "./portfolio/fb_reel_8.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/4306337859656139/",
+    "description": "Commercial luxury product promotion combining 3D spatial compositing, dynamic camera movement, and aesthetic landscape environment in After Effects.",
+    "tags": [
+      "Commercial Ad",
+      "3D Motion",
+      "Product Animation",
+      "After Effects",
+      "Featured Highlight"
+    ],
+    "dateAdded": "2026",
+    "isHighlighted": true
+  },
+  {
+    "id": "video-noman-fb-9",
+    "title": "Product Promotional Video | Pure Honey Motion Graphics",
+    "category": "Video Editing",
+    "mediaType": "video",
+    "videoFormat": "reel",
+    "thumbnailUrl": "./portfolio/fb_reel_9.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/2226215068110349/",
+    "description": "Vibrant commercial motion graphics animation for natural food product branding, featuring clean typography and elegant layout.",
+    "tags": [
+      "Product Promo",
+      "Branding",
       "Motion Graphics",
       "After Effects",
-      "Kinetic Typography",
-      "Reel",
-      "Shorts"
-    ],
-    "dateAdded": "2026",
-    "isHighlighted": true
-  },
-  {
-    "id": "video-hassan-reel-2",
-    "title": "High-Retention Hook & Subtitles Reel",
-    "category": "Video Editing",
-    "mediaType": "video",
-    "videoFormat": "reel",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
-    "mediaUrl": "https://youtu.be/duEYB2KJlLc",
-    "description": "High-retention social media vertical reel featuring punchy hooks, dynamic animated captions, sound effects, and fast-paced B-roll cuts.",
-    "tags": [
-      "Hook Retention",
-      "CapCut/Premiere",
-      "Dynamic Captions",
-      "Instagram Reel"
+      "Noman Visuals"
     ],
     "dateAdded": "2026",
     "isHighlighted": false
   },
   {
-    "id": "video-hassan-reel-3",
-    "title": "Cinematic Product Showcase Reel",
+    "id": "video-noman-fb-10",
+    "title": "Steal like an Artist | Noman Visuals",
     "category": "Video Editing",
     "mediaType": "video",
     "videoFormat": "reel",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=80",
-    "mediaUrl": "https://youtu.be/6aKkTkBnzxQ",
-    "description": "Smooth vertical transition reel showcasing product cinematography, custom lighting tones, and rhythmic music synchronization.",
+    "thumbnailUrl": "./portfolio/fb_reel_10.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/1646995013757948/",
+    "description": "Talking head educational reel edit with professional audio cleanup, subtle cinematic color pass, and storytelling rhythm.",
     "tags": [
-      "Product Reel",
-      "Cinematic",
-      "Transitions",
-      "Shorts"
+      "Talking Head",
+      "Reel Editing",
+      "Storytelling",
+      "Premiere Pro",
+      "Noman Visuals"
     ],
     "dateAdded": "2026",
     "isHighlighted": false
   },
   {
-    "id": "video-hassan-reel-4",
-    "title": "Typography & Visual Beats Reel",
+    "id": "video-noman-fb-11",
+    "title": "As-Sunnah Skill Development Institute Lab Showcase",
     "category": "Video Editing",
     "mediaType": "video",
-    "videoFormat": "reel",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80",
-    "mediaUrl": "https://youtu.be/duEYB2KJlLc",
-    "description": "Modern vertical visual beats edit combining glitch effects, glowing typography, and high-energy music drops.",
+    "videoFormat": "landscape",
+    "thumbnailUrl": "./portfolio/fb_reel_11.jpg",
+    "mediaUrl": "https://www.facebook.com/reel/1594156038557415/",
+    "description": "Institutional facility showcase and lab tour video for As-Sunnah Skill Development Institute. Cinematic color tone and ambient soundscape.",
     "tags": [
-      "Visual Beats",
-      "Glitch FX",
-      "After Effects",
-      "Reels"
+      "As-Sunnah Skill",
+      "Lab Showcase",
+      "Institutional Tour",
+      "Premiere Pro",
+      "Noman Visuals"
     ],
     "dateAdded": "2026",
     "isHighlighted": false

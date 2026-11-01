@@ -130,9 +130,25 @@
   - [x] Updated portfolio default items to 22 (13 videos, 9 graphics) and updated unit test suite (8/8 tests pass).
   - [x] Compiled production bundle and deployed to GitHub `main` and `gh-pages`.
 
+- [x] **Phase 18: Ingestion of All 11 Authentic Facebook Video Projects & Removal of Old YouTube Placeholders**:
+  - [x] Removed all 9 old placeholder YouTube videos (`video-hassan-1` through `video-hassan-6` & `video-hassan-reel-2..4`).
+  - [x] Ingested all 11 authentic Facebook reels/videos provided by user:
+    1. `Nafees Salim Rough Cut (As-Sunnah Promo)` (`1PvJ2AVPcW` / `1363652169086347`)
+    2. `As-Sunnah Skill Development Institute Promo` (`1JHsYSCzHV` / `1087490990911079`)
+    3. `আমার তো জান্নাতে যাওয়া উদ্দেশ্য | Noman Visuals` (`14tbBerDfhX` / `2405190683344268`)
+    4. `After Effects Basic Motion | Noman Visuals` (`1dpxHiLsvR` / `969138829584724`)
+    5. `Basic SaaS Motion | Noman Visuals` (`1BpqhUz3P6` / `2328405841255761`)
+    6. `Skill Motion Course Project | Noman Visuals` (`1Dq2NQ4pK8` / `1074169458775398`)
+    7. `Instagram High-Retention Reel Edit | Noman Visuals` (`1DnvPg6csm` / `27212899438408418`)
+    8. `Animation & Motion Design (Vampire Blood Perfume)` (`18XgyxBSfG` / `4306337859656139`)
+    9. `Product Promotional Video | Pure Honey Motion Graphics` (`1BTQ4SN7Hb` / `2226215068110349`)
+    10. `Steal like an Artist | Noman Visuals` (`19yYLp9Wqg` / `1646995013757948`)
+    11. `As-Sunnah Skill Development Institute Lab Showcase` (`19jUy8CUcK` / `1594156038557415`)
+  - [x] Downloaded local permanent thumbnails to `public/portfolio/fb_reel_{1..11}.jpg` preventing any CDN expiration.
+  - [x] Updated `FB_SHARE_MAP` in `MediaDetailModal.jsx` for all 11 share IDs.
+  - [x] Preserved all 9 authentic graphic design projects intact (20 total items: 11 videos + 9 graphics).
+  - [x] Bumped localStorage key in `App.jsx` to `noman_portfolio_items_v2` with automated purge of `v1` to eliminate stale cached videos.
+  - [x] All 8 tests passing (`npm test`), production build verified (`npm run build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
-
-
-
-

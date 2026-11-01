@@ -19,8 +19,8 @@ import { AdminDashboardModal } from './components/admin/AdminDashboardModal';
 import { subscribeToPortfolio } from './config/firebase';
 import { CheckCircle2 } from 'lucide-react';
 
-const STORAGE_KEY = 'noman_portfolio_items_v1';
-const LEGACY_STORAGE_KEY = 'hassan_portfolio_items_v18';
+const STORAGE_KEY = 'noman_portfolio_items_v2';
+const LEGACY_STORAGE_KEY = 'noman_portfolio_items_v1';
 
 export function App() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -57,9 +57,10 @@ export function App() {
   const [portfolioItems, setPortfolioItems] = useState(() => {
     try {
       // Purge legacy storage versions
-      for (let i = 1; i <= 17; i++) {
+      for (let i = 1; i <= 18; i++) {
         localStorage.removeItem(`hassan_portfolio_items_v${i}`);
       }
+      localStorage.removeItem('noman_portfolio_items_v1');
 
       const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {
