@@ -217,7 +217,17 @@
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
   - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
+- [x] **Phase 24: Admin Role Gating & Visitor UI Separation (Header-Exclusive Authentication)**:
+  - [x] **Spec Authored**: Created `specs/admin-role-gating-and-header-auth-spec.md` detailing technical architecture, state contracts, and Gherkin BDD scenarios.
+  - [x] **Visitor UI Cleaned**: Removed all admin action buttons (`Admin Studio (Login)`, `+ Add Video`, `+ Add Graphic`) from `#projects` when `!isAdmin`. Regular visitors see a 100% clean, professional portfolio showcase.
+  - [x] **Header-Exclusive Admin Authentication**: Admin login is initiated exclusively via the Header/Navbar `[ 🛡️ Admin ]` button with password `noman@admin2026`.
+  - [x] **Active Admin Session Unlock**: Upon logging in via Header, `#projects` unlocks the active Admin Toolbar (`CMS Studio`, `+ Add Video`, `+ Add Graphic`, `Logout`), individual card deletion (`[ 🗑️ মুছুন ]`), and modal deletion.
+  - [x] **Instant Logout Reversion**: Clicking `Logout` immediately removes all administrative controls and restores the clean visitor showcase.
+  - [x] **Unit Testing**: Added automated unit test in `tests/site.test.js` verifying role-gating separation. 9/9 unit tests pass (`npm test`).
+  - [x] **Production Verification**: Built with `vite build` and live deployed to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 
