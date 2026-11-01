@@ -80,13 +80,16 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
         isMobile ? 'w-[280px] h-[280px] sm:w-[340px] sm:h-[340px]' : 'w-[430px] h-[430px] xl:w-[500px] xl:h-[500px]'
       }`}
     >
+      {/* Concentric Glass Orbit Track with Glow */}
       <div
         className={`absolute inset-0 rounded-full border border-dashed transition-all duration-300 pointer-events-none ${
           isFastOrbit
-            ? 'border-[#00E5FF]/70 shadow-[0_0_30px_rgba(0,229,255,0.45)]'
-            : 'border-[#00E5FF]/40 shadow-[0_0_20px_rgba(0,229,255,0.2)]'
+            ? 'border-[#00E5FF]/80 shadow-[0_0_35px_rgba(0,229,255,0.55)]'
+            : 'border-[#00E5FF]/45 shadow-[0_0_20px_rgba(0,229,255,0.25)]'
         }`}
       />
+      <div className="absolute inset-[-8px] rounded-full border border-white/[0.08] pointer-events-none" />
+
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration, repeat: Infinity, ease: 'linear' }}
@@ -106,7 +109,7 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
               title={tool.name}
             >
               <div
-                className={`relative ${badgeSize} rounded-2xl overflow-hidden flex items-center justify-center ${tool.borderGlow} transition-transform duration-200 bg-transparent`}
+                className={`relative ${badgeSize} rounded-2xl overflow-hidden flex items-center justify-center ${tool.borderGlow} backdrop-blur-xl bg-[#071A22]/90 transition-transform duration-200`}
               >
                 {tool.renderLogo()}
               </div>
@@ -134,15 +137,15 @@ export function Hero({ onOpenCV }) {
   ];
 
   return (
-    <section className="relative pt-10 sm:pt-16 pb-20 sm:pb-32 overflow-hidden">
+    <section className="relative pt-8 sm:pt-14 pb-20 sm:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-center">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left z-10"
+            className="space-y-6 sm:space-y-8 text-center lg:text-left z-10"
           >
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
@@ -225,8 +228,18 @@ export function Hero({ onOpenCV }) {
             </div>
           </motion.div>
 
-          {/* Avatar and Animated Orbit */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
+          {/* Symmetrical 3D Holographic Orbit & Ultra-Glassic Avatar */}
+          <div className="relative flex items-center justify-center py-6 sm:py-10 z-10">
+            {/* Ambient Cyan Holographic Glow Wave */}
+            <motion.div
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.35, 0.65, 0.35],
+              }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute w-[320px] h-[320px] sm:w-[440px] sm:h-[440px] rounded-full bg-[radial-gradient(circle,_rgba(0,229,255,0.25)_0%,_rgba(0,180,216,0.1)_45%,_transparent_70%)] blur-2xl pointer-events-none"
+            />
+
             {/* Desktop Orbit Ring */}
             <div className="hidden sm:block">
               <OrbitRing isMobile={false} isFastOrbit={isFastOrbit} />
@@ -236,20 +249,58 @@ export function Hero({ onOpenCV }) {
               <OrbitRing isMobile={true} isFastOrbit={isFastOrbit} />
             </div>
 
-            {/* Central Avatar */}
+            {/* Central Holographic Ultra-Glassic Avatar Container */}
             <motion.div
+              animate={{ y: [-7, 7, -7] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               onHoverStart={() => setIsFastOrbit(true)}
               onHoverEnd={() => setIsFastOrbit(false)}
-              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2 bg-gradient-to-tr from-[#00E5FF] via-[#0284c7]/50 to-transparent shadow-[0_0_50px_rgba(0,229,255,0.4)] cursor-pointer z-30 transition-transform duration-300 hover:scale-105"
+              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2.5 sm:p-3 bg-gradient-to-b from-[#00E5FF]/45 via-white/10 to-[#00E5FF]/45 backdrop-blur-xl border border-[#00E5FF]/60 shadow-[0_0_50px_rgba(0,229,255,0.45),inset_0_0_25px_rgba(0,229,255,0.25)] cursor-pointer z-30 transition-all duration-300 hover:scale-105 select-none"
             >
-              <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#00E5FF]/50 bg-[#071A22] relative group">
+              {/* Rotating Subtle Glass Border Accent */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 rounded-full border border-dashed border-[#00E5FF]/45 pointer-events-none"
+              />
+
+              {/* Inner Precision Circular Rim & Photo Frame */}
+              <div className="w-full h-full rounded-full overflow-hidden border-[3.5px] border-[#00E5FF] bg-[#071A22] relative group shadow-[0_0_30px_rgba(0,229,255,0.5),inset_0_0_15px_rgba(0,229,255,0.3)]">
+                {/* Authentic Portrait Image */}
                 <img
                   src={avatarSrc}
                   alt={profileData.name}
-                  onError={() => setAvatarSrc(profileData.avatarExternal)}
-                  className="w-full h-full object-cover object-center filter contrast-[1.03] brightness-[1.02] group-hover:scale-105 transition-transform duration-500"
+                  onError={() => {
+                    if (avatarSrc !== './noman-avatar.jpg') {
+                      setAvatarSrc('./noman-avatar.jpg');
+                    } else if (avatarSrc !== './eftekar-avatar.jpg') {
+                      setAvatarSrc('./eftekar-avatar.jpg');
+                    }
+                  }}
+                  className="w-full h-full object-cover object-center filter contrast-[1.04] brightness-[1.02] group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_0_0_25px_rgba(2,11,14,0.5)] border border-white/10" />
+
+                {/* Curved Glass Specular Highlight (Optical Glass Glare) */}
+                <div className="absolute inset-0 rounded-full pointer-events-none bg-[radial-gradient(ellipse_at_35%_25%,_rgba(255,255,255,0.4)_0%,_rgba(255,255,255,0.1)_35%,_transparent_65%)]" />
+
+                {/* Animated Glass Shimmer Sweep (Motion Sheen) */}
+                <motion.div
+                  initial={{ x: '-150%', opacity: 0 }}
+                  animate={{
+                    x: ['-150%', '160%'],
+                    opacity: [0, 0.65, 0],
+                  }}
+                  transition={{
+                    duration: 2.8,
+                    repeat: Infinity,
+                    repeatDelay: 2.5,
+                    ease: 'easeInOut',
+                  }}
+                  className="absolute inset-0 w-1/2 h-full -skew-x-25 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none blur-[1px]"
+                />
+
+                {/* Fine Glass Outer Edge Accent */}
+                <div className="absolute inset-0 rounded-full pointer-events-none border border-white/20" />
               </div>
             </motion.div>
           </div>
