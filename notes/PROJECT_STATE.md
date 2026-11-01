@@ -56,19 +56,7 @@
   - [x] Added Admin Studio triggers in Navbar, PortfolioSection, and Footer.
   - [x] Added unit tests in `tests/firebase.test.js` (7/7 tests passing).
   - [x] Production build passed (`vite build`) and live deployed to GitHub Pages `gh-pages` branch.
-- [x] **Phase 11: 3D Holographic Orbit, Exact Tool Badges & Centered Layout**:
-  - [x] Extracted authentic, symmetrical circular portrait from uploaded reference image (`media_1793501195445_2479b99e.png`) at `(cx=294, cy=303, r=142)`.
-  - [x] Saved high-resolution assets to `public/noman-avatar.png` (transparent RGBA cutout) and `public/noman-avatar.jpg` (studio RGB with dark background).
-  - [x] Implemented exact 6 software badges in clockwise order matching reference:
-    1. **Meta Video Marketing** (12 o'clock, white card with Meta infinity loop and bold black text)
-    2. **Adobe Photoshop (Ps)** (2 o'clock, cyan glow)
-    3. **Adobe Illustrator (Ai)** (4 o'clock, golden amber glow)
-    4. **Adobe Premiere Pro (Pr)** (6 o'clock, magenta glow)
-    5. **Adobe After Effects (Ae)** (8 o'clock, purple glow)
-    6. **CapCut Video Editor** (10 o'clock, white halo glow)
-  - [x] Fixed hero layout symmetry: converted uneven `lg:grid-cols-12` (7/5 split) into balanced `lg:grid-cols-2` (50/50 split), eliminating the lopsided shift to the right edge.
-  - [x] Added cyan holographic ambient spotlight behind orbit (`radial-gradient`) and smooth vertical floating bobbing on avatar.
-  - [x] Passed 7/7 unit tests (`npm test`), built production assets (`npm run build`), and pushed to GitHub `main` and `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode).
+

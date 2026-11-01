@@ -21,80 +21,72 @@ import { ArrowDown, FileDown, Send, Sparkles } from 'lucide-react';
 
 const ORBIT_TOOLS = [
   {
-    id: 'meta',
-    name: 'Meta Video Marketing',
-    left: '50%',
-    top: '0%',
-    renderLogo: () => <MetaMarketingIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(255,255,255,0.8)] border-2 border-white',
-  },
-  {
     id: 'ps',
     name: 'Adobe Photoshop',
-    left: '93.3%',
-    top: '25%',
+    left: '50%',
+    top: '0%',
     renderLogo: () => <PhotoshopIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(49,168,255,0.85)] border-2 border-[#31A8FF]',
+    borderGlow: 'shadow-[0_0_18px_rgba(49,168,255,0.7)] border-2 border-[#31A8FF]',
   },
   {
     id: 'ai',
     name: 'Adobe Illustrator',
     left: '93.3%',
-    top: '75%',
+    top: '25%',
     renderLogo: () => <IllustratorIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(255,154,0,0.85)] border-2 border-[#FF9A00]',
+    borderGlow: 'shadow-[0_0_18px_rgba(255,154,0,0.7)] border-2 border-[#FF9A00]',
   },
   {
     id: 'pr',
     name: 'Adobe Premiere Pro',
-    left: '50%',
-    top: '100%',
+    left: '93.3%',
+    top: '75%',
     renderLogo: () => <PremiereProIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(234,119,255,0.85)] border-2 border-[#EA77FF]',
+    borderGlow: 'shadow-[0_0_18px_rgba(234,119,255,0.7)] border-2 border-[#EA77FF]',
   },
   {
     id: 'ae',
     name: 'Adobe After Effects',
-    left: '6.7%',
-    top: '75%',
+    left: '50%',
+    top: '100%',
     renderLogo: () => <AfterEffectsIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(153,153,255,0.85)] border-2 border-[#9999FF]',
+    borderGlow: 'shadow-[0_0_18px_rgba(153,153,255,0.7)] border-2 border-[#9999FF]',
   },
   {
     id: 'capcut',
     name: 'CapCut Video Editor',
     left: '6.7%',
-    top: '25%',
+    top: '75%',
     renderLogo: () => <CapCutIcon />,
-    borderGlow: 'shadow-[0_0_22px_rgba(255,255,255,0.8)] border-2 border-white',
+    borderGlow: 'shadow-[0_0_18px_rgba(255,255,255,0.7)] border-2 border-white',
+  },
+  {
+    id: 'meta',
+    name: 'Meta Video Marketing',
+    left: '6.7%',
+    top: '25%',
+    renderLogo: () => <MetaMarketingIcon />,
+    borderGlow: 'shadow-[0_0_18px_rgba(0,198,255,0.7)] border-2 border-[#00c6ff]',
   },
 ];
 
 function OrbitRing({ isMobile = false, isFastOrbit = false }) {
-  const badgeSize = isMobile
-    ? 'w-[44px] h-[44px] sm:w-[50px] sm:h-[50px]'
-    : 'w-[54px] h-[54px] xl:w-[62px] xl:h-[62px]';
-  const duration = isFastOrbit ? 5 : isMobile ? 22 : 28;
+  const badgeSize = isMobile ? 'w-[42px] h-[42px] sm:w-[46px] sm:h-[46px]' : 'w-14 h-14 xl:w-16 xl:h-16';
+  const duration = isFastOrbit ? 4.5 : isMobile ? 22 : 26;
 
   return (
     <div
       className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none z-20 ${
-        isMobile ? 'w-[285px] h-[285px] sm:w-[340px] sm:h-[340px]' : 'w-[410px] h-[410px] xl:w-[460px] xl:h-[460px]'
+        isMobile ? 'w-[280px] h-[280px] sm:w-[340px] sm:h-[340px]' : 'w-[430px] h-[430px] xl:w-[500px] xl:h-[500px]'
       }`}
     >
-      {/* Outer Holographic Dashed Orbit Track */}
       <div
-        className={`absolute inset-0 rounded-full border border-dashed transition-all duration-500 pointer-events-none ${
+        className={`absolute inset-0 rounded-full border border-dashed transition-all duration-300 pointer-events-none ${
           isFastOrbit
-            ? 'border-[#00E5FF] shadow-[0_0_35px_rgba(0,229,255,0.6)] scale-102'
-            : 'border-[#00E5FF]/40 shadow-[0_0_20px_rgba(0,229,255,0.25)]'
+            ? 'border-[#00E5FF]/70 shadow-[0_0_30px_rgba(0,229,255,0.45)]'
+            : 'border-[#00E5FF]/40 shadow-[0_0_20px_rgba(0,229,255,0.2)]'
         }`}
       />
-
-      {/* Subtle outer tech halo */}
-      <div className="absolute -inset-3.5 rounded-full border border-[#00E5FF]/10 pointer-events-none" />
-
-      {/* Rotating Ring Container */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration, repeat: Infinity, ease: 'linear' }}
@@ -109,7 +101,7 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration, repeat: Infinity, ease: 'linear' }}
-              whileHover={{ scale: 1.28, transition: { type: 'spring', stiffness: 450, damping: 14 } }}
+              whileHover={{ scale: 1.25, transition: { type: 'spring', stiffness: 400, damping: 14 } }}
               className="relative cursor-pointer select-none group"
               title={tool.name}
             >
@@ -127,7 +119,7 @@ function OrbitRing({ isMobile = false, isFastOrbit = false }) {
 }
 
 export function Hero({ onOpenCV }) {
-  const [avatarSrc, setAvatarSrc] = useState('./noman-avatar.png');
+  const [avatarSrc, setAvatarSrc] = useState(profileData.avatarUrl);
   const [isFastOrbit, setIsFastOrbit] = useState(false);
   const { t } = useLanguage();
 
@@ -142,15 +134,15 @@ export function Hero({ onOpenCV }) {
   ];
 
   return (
-    <section className="relative pt-8 sm:pt-14 pb-20 sm:pb-32 overflow-hidden">
+    <section className="relative pt-10 sm:pt-16 pb-20 sm:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-6 sm:space-y-8 text-center lg:text-left z-10"
+            className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left z-10"
           >
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
@@ -233,11 +225,8 @@ export function Hero({ onOpenCV }) {
             </div>
           </motion.div>
 
-          {/* 3D Holographic Orbit and Centered Avatar */}
-          <div className="relative flex items-center justify-center py-6 sm:py-10 z-10">
-            {/* Ambient Cyan Holographic Glow behind Orbit */}
-            <div className="absolute w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] rounded-full bg-[radial-gradient(circle,_rgba(0,229,255,0.2)_0%,_rgba(7,26,34,0.1)_50%,_transparent_70%)] blur-2xl pointer-events-none" />
-
+          {/* Avatar and Animated Orbit */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
             {/* Desktop Orbit Ring */}
             <div className="hidden sm:block">
               <OrbitRing isMobile={false} isFastOrbit={isFastOrbit} />
@@ -247,28 +236,20 @@ export function Hero({ onOpenCV }) {
               <OrbitRing isMobile={true} isFastOrbit={isFastOrbit} />
             </div>
 
-            {/* Central Holographic Avatar */}
+            {/* Central Avatar */}
             <motion.div
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               onHoverStart={() => setIsFastOrbit(true)}
               onHoverEnd={() => setIsFastOrbit(false)}
-              className="relative w-48 h-48 sm:w-60 sm:h-60 xl:w-68 xl:h-68 rounded-full p-2 bg-gradient-to-tr from-[#00E5FF] via-[#00E5FF]/40 to-transparent shadow-[0_0_50px_rgba(0,229,255,0.5)] cursor-pointer z-30 transition-all duration-300 hover:scale-105"
+              className="relative w-52 h-52 sm:w-64 sm:h-64 xl:w-72 xl:h-72 rounded-full p-2 bg-gradient-to-tr from-[#00E5FF] via-[#0284c7]/50 to-transparent shadow-[0_0_50px_rgba(0,229,255,0.4)] cursor-pointer z-30 transition-transform duration-300 hover:scale-105"
             >
-              <div className="w-full h-full rounded-full overflow-hidden border-[3.5px] border-[#00E5FF] bg-[#071A22] relative group shadow-[inset_0_0_25px_rgba(0,229,255,0.35)]">
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-[#00E5FF]/50 bg-[#071A22] relative group">
                 <img
                   src={avatarSrc}
                   alt={profileData.name}
-                  onError={() => {
-                    if (avatarSrc !== './noman-avatar.jpg') {
-                      setAvatarSrc('./noman-avatar.jpg');
-                    } else if (avatarSrc !== './eftekar-avatar.jpg') {
-                      setAvatarSrc('./eftekar-avatar.jpg');
-                    }
-                  }}
-                  className="w-full h-full object-cover object-center filter contrast-[1.04] brightness-[1.02] group-hover:scale-105 transition-transform duration-500"
+                  onError={() => setAvatarSrc(profileData.avatarExternal)}
+                  className="w-full h-full object-cover object-center filter contrast-[1.03] brightness-[1.02] group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_0_0_20px_rgba(2,11,14,0.6)]" />
+                <div className="absolute inset-0 rounded-full pointer-events-none shadow-[inset_0_0_25px_rgba(2,11,14,0.5)] border border-white/10" />
               </div>
             </motion.div>
           </div>

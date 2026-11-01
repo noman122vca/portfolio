@@ -190,7 +190,7 @@ export function CapCutIcon({ className = "w-full h-full" }) {
 
 export function MetaMarketingIcon({ className = "w-full h-full" }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Meta">
+    <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Meta Video Marketing">
       <defs>
         <linearGradient id="metaSharedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#0064e0" />
@@ -198,26 +198,12 @@ export function MetaMarketingIcon({ className = "w-full h-full" }) {
           <stop offset="100%" stopColor="#00c6ff" />
         </linearGradient>
       </defs>
-      <rect width="100" height="100" rx="22" fill="#FFFFFF" />
-      <rect x="2" y="2" width="96" height="96" rx="20" stroke="#E2E8F0" strokeWidth="2.5" />
-      <g transform="translate(0, -7)">
-        <path
-          d="M50 48.5c-4.2-6.5-8.5-11-13.8-11-7.2 0-12.7 5.8-12.7 13.5 0 8.2 5.8 14 13.2 14 6.2 0 10.8-4.5 13.3-8.8 2.5 4.3 7.1 8.8 13.3 8.8 7.4 0 13.2-5.8 13.2-14 0-7.7-5.5-13.5-12.7-13.5-5.3 0-9.6 4.5-13.8 11zm0 0c-3.1 4.8-6.6 8.5-10.5 8.5-4.5 0-7.8-3.6-7.8-8.5 0-4.8 3.3-8.5 7.8-8.5 3.9 0 7.4 3.7 10.5 8.5zm0 0c3.1-4.8 6.6-8.5 10.5-8.5 4.5 0 7.8 3.7 7.8 8.5 0 4.9-3.3 8.5-7.8 8.5-3.9 0-7.4-3.7-10.5-8.5z"
-          fill="url(#metaSharedGrad)"
-        />
-      </g>
-      <text
-        x="50"
-        y="85"
-        textAnchor="middle"
-        fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-        fontWeight="800"
-        fontSize="18"
-        fill="#000000"
-        letterSpacing="-0.5"
-      >
-        Meta
-      </text>
+      <rect width="100" height="100" rx="22" fill="#04121F" />
+      <rect x="3" y="3" width="94" height="94" rx="19" stroke="#0082fb" strokeWidth="2.5" />
+      <path
+        d="M50 48.5c-4.2-6.5-8.5-11-13.8-11-7.2 0-12.7 5.8-12.7 13.5 0 8.2 5.8 14 13.2 14 6.2 0 10.8-4.5 13.3-8.8 2.5 4.3 7.1 8.8 13.3 8.8 7.4 0 13.2-5.8 13.2-14 0-7.7-5.5-13.5-12.7-13.5-5.3 0-9.6 4.5-13.8 11zm0 0c-3.1 4.8-6.6 8.5-10.5 8.5-4.5 0-7.8-3.6-7.8-8.5 0-4.8 3.3-8.5 7.8-8.5 3.9 0 7.4 3.7 10.5 8.5zm0 0c3.1-4.8 6.6-8.5 10.5-8.5 4.5 0 7.8 3.7 7.8 8.5 0 4.9-3.3 8.5-7.8 8.5-3.9 0-7.4-3.7-10.5-8.5z"
+        fill="url(#metaSharedGrad)"
+      />
     </svg>
   );
 }
