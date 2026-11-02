@@ -19,17 +19,28 @@ function getYouTubeId(url) {
 }
 
 const FB_SHARE_MAP = {
+  // Landscape videos
   '1PvJ2AVPcW': 'https://www.facebook.com/reel/1363652169086347/',
   '1JHsYSCzHV': 'https://www.facebook.com/reel/1087490990911079/',
   '14tbBerDfhX': 'https://www.facebook.com/reel/2405190683344268/',
   '1dpxHiLsvR': 'https://www.facebook.com/reel/969138829584724/',
+  '1DmZfpqZkk': 'https://www.facebook.com/reel/2328405841255761/',
   '1BpqhUz3P6': 'https://www.facebook.com/reel/2328405841255761/',
-  '1Dq2NQ4pK8': 'https://www.facebook.com/reel/1074169458775398/',
-  '1DnvPg6csm': 'https://www.facebook.com/reel/27212899438408418/',
-  '18XgyxBSfG': 'https://www.facebook.com/reel/4306337859656139/',
-  '1BTQ4SN7Hb': 'https://www.facebook.com/reel/2226215068110349/',
-  '19yYLp9Wqg': 'https://www.facebook.com/reel/1646995013757948/',
+  '1GDeoXwAcb': 'https://www.facebook.com/reel/1594156038557415/',
   '19jUy8CUcK': 'https://www.facebook.com/reel/1594156038557415/',
+  '1ByPF7pwgD': 'https://www.facebook.com/reel/2064454804256757/',
+
+  // Reel videos (9:16)
+  '1caZqeSNkx': 'https://www.facebook.com/reel/1074169458775398/',
+  '1Dq2NQ4pK8': 'https://www.facebook.com/reel/1074169458775398/',
+  '19bepgBYiV': 'https://www.facebook.com/reel/27212899438408418/',
+  '1DnvPg6csm': 'https://www.facebook.com/reel/27212899438408418/',
+  '1C2Yh3Rr8H': 'https://www.facebook.com/reel/4306337859656139/',
+  '18XgyxBSfG': 'https://www.facebook.com/reel/4306337859656139/',
+  '1JthqMx8Ce': 'https://www.facebook.com/reel/2226215068110349/',
+  '1BTQ4SN7Hb': 'https://www.facebook.com/reel/2226215068110349/',
+  '1FBd4fSycL': 'https://www.facebook.com/reel/1646995013757948/',
+  '19yYLp9Wqg': 'https://www.facebook.com/reel/1646995013757948/',
 };
 
 function resolveVideoEmbed(url) {

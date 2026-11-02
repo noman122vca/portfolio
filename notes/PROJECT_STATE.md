@@ -271,6 +271,24 @@
   - [x] **Clean Admin Path (Eliminated `#admin`)**: Updated `public/admin/index.html` and `public/404.html` to route to root path without `#admin`, and added `window.history.replaceState` in `src/App.jsx` to immediately clean any hash from the browser address bar. Navigating to `/admin` opens Admin Studio while preserving a clean URL.
   - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), production build completes in 3.96s (`npm run build`).
 
+- [x] **Phase 19: Portfolio Content Expansion (2 Landscape Videos, 5 Reel Videos & Aspect Ratio Conversion)**:
+  - [x] **2 Landscape (16:9) Videos Added**:
+    - [x] `https://www.facebook.com/share/v/1DmZfpqZkk/` ("Basic Saas Motion | Noman Visuals", Reel ID: `2328405841255761`, thumb: `./portfolio/fb_reel_5.jpg`)
+    - [x] `https://www.facebook.com/share/v/1GDeoXwAcb/` ("As-Sunnah Skill Ads (Batch 41, Roll 4124) | Noman Visuals", Reel ID: `1594156038557415`, thumb: `./portfolio/fb_reel_11.jpg`)
+  - [x] **5 Reel (9:16) Videos Added**:
+    - [x] `https://www.facebook.com/share/v/1caZqeSNkx/` ("Skill Motion Project | Noman Visuals", Reel ID: `1074169458775398`, thumb: `./portfolio/fb_reel_6.jpg`)
+    - [x] `https://www.facebook.com/share/r/19bepgBYiV/` ("Instagram Reels Dynamic Edit | Noman Visuals", Reel ID: `27212899438408418`, thumb: `./portfolio/fb_reel_7.jpg`)
+    - [x] `https://www.facebook.com/share/v/1C2Yh3Rr8H/` ("Animation & Motion Design Reel | Noman Visuals", Reel ID: `4306337859656139`, thumb: `./portfolio/fb_reel_8.jpg`)
+    - [x] `https://www.facebook.com/share/v/1JthqMx8Ce/` ("Product Promotional Video Reel | Noman Visuals", Reel ID: `2226215068110349`, thumb: `./portfolio/fb_reel_9.jpg`)
+    - [x] `https://www.facebook.com/share/v/1FBd4fSycL/` ("Steal Like An Artist | Noman Visuals", Reel ID: `1646995013757948`, thumb: `./portfolio/fb_reel_10.jpg`)
+  - [x] **1 Existing Reel Converted to Landscape (16:9)**:
+    - [x] `https://www.facebook.com/share/v/1ByPF7pwgD/` ("Turning Ideas into Visual Stories | Noman Visuals", Reel ID: `2064454804256757`, downloaded authentic 640x360 landscape thumbnail to `public/portfolio/fb_reel_12.jpg`, converted `videoFormat` to `'landscape'`).
+  - [x] **Deep Linking & Fallback Mapping**:
+    - [x] Added all share keys and canonical reel IDs to `FB_SHARE_MAP` in `src/components/modals/MediaDetailModal.jsx`.
+    - [x] Added thumbnail mappings in `src/components/admin/AdminDashboardModal.jsx`.
+    - [x] Bumped local storage cache key to `noman_portfolio_items_v7` in `src/App.jsx` and purged prior versions so client instantly loads all 12 video items and 4 graphic artworks.
+  - [x] **Quality Gates**: All 10 unit tests pass (`npm test`), production build completes in 3.28s (`npm run build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
 
