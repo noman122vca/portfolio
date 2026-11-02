@@ -30,8 +30,8 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
 
     assert.strictEqual(videoItems.length, 12, 'Should have 12 authentic Facebook video productions');
     assert.strictEqual(graphicItems.length, 4, 'Should have 4 graphic design works');
-    assert.strictEqual(videoItems.filter(v => v.videoFormat === 'landscape').length, 7, 'Should have 7 landscape videos');
-    assert.strictEqual(videoItems.filter(v => v.videoFormat === 'reel').length, 5, 'Should have 5 reel videos');
+    assert.strictEqual(videoItems.filter(v => v.videoFormat === 'landscape').length, 6, 'Should have 6 landscape videos');
+    assert.strictEqual(videoItems.filter(v => v.videoFormat === 'reel').length, 6, 'Should have 6 reel videos');
     assert.ok(videoItems.every((v) => v.mediaUrl.includes('facebook.com')), 'All video productions must be authentic Facebook links');
     assert.ok(graphicItems.every((g) => g.externalUrl && g.externalUrl.includes('facebook.com')), 'All graphic works must be authentic Facebook links');
 

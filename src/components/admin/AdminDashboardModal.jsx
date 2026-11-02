@@ -40,6 +40,8 @@ const FB_SHARE_THUMB_MAP = {
   '1JHsYSCzHV': './portfolio/fb_reel_2.jpg',
   '14tbBerDfhX': './portfolio/fb_reel_3.jpg',
   '1dpxHiLsvR': './portfolio/fb_reel_4.jpg',
+  '1CmsXjSNzJ': './portfolio/fb_reel_4.jpg',
+  '969138829584724': './portfolio/fb_reel_4.jpg',
   '1DmZfpqZkk': './portfolio/fb_reel_5.jpg',
   '1BpqhUz3P6': './portfolio/fb_reel_5.jpg',
   '1caZqeSNkx': './portfolio/fb_reel_6.jpg',

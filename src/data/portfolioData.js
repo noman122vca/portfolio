@@ -58,25 +58,6 @@ export const defaultPortfolioItems = [
     isHighlighted: true
   },
   {
-    id: "video-noman-fb-4",
-    title: "After Effects Basic Motion | Noman Visuals",
-    category: "Video Editing",
-    mediaType: "video",
-    videoFormat: "landscape",
-    thumbnailUrl: "./portfolio/fb_reel_4.jpg",
-    mediaUrl: "https://www.facebook.com/reel/969138829584724/",
-    description: "Motion graphics study showcasing smooth kinetic easing curves, vector animation principles, and visual rhythm in Adobe After Effects.",
-    tags: [
-      "Motion Graphics",
-      "After Effects",
-      "Kinetic Motion",
-      "Animation",
-      "Noman Visuals"
-    ],
-    dateAdded: "2026",
-    isHighlighted: false
-  },
-  {
     id: "video-noman-fb-5",
     title: "Basic Saas Motion | Noman Visuals",
     category: "Video Editing",
@@ -135,6 +116,25 @@ export const defaultPortfolioItems = [
   },
 
   // --- REELS & VERTICAL SHORTS (9:16) ---
+  {
+    id: "video-noman-fb-4",
+    title: "After Effects Basic Motion | Noman Visuals",
+    category: "Video Editing",
+    mediaType: "video",
+    videoFormat: "reel",
+    thumbnailUrl: "./portfolio/fb_reel_4.jpg",
+    mediaUrl: "https://www.facebook.com/share/v/1CmsXjSNzJ/",
+    description: "Motion graphics study showcasing smooth kinetic easing curves, vector animation principles, and visual rhythm in Adobe After Effects.",
+    tags: [
+      "Motion Graphics",
+      "After Effects",
+      "Kinetic Motion",
+      "Animation",
+      "Noman Visuals"
+    ],
+    dateAdded: "2026",
+    isHighlighted: true
+  },
   {
     id: "video-noman-fb-8",
     title: "Skill Motion Project | Noman Visuals",

@@ -289,6 +289,14 @@
     - [x] Bumped local storage cache key to `noman_portfolio_items_v7` in `src/App.jsx` and purged prior versions so client instantly loads all 12 video items and 4 graphic artworks.
   - [x] **Quality Gates**: All 10 unit tests pass (`npm test`), production build completes in 3.28s (`npm run build`).
 
+- [x] **Phase 20: Video Aspect Ratio Conversion (After Effects Basic Motion to 9:16 Reel)**:
+  - [x] Converted `https://www.facebook.com/share/v/1CmsXjSNzJ/` (`video-noman-fb-4`, Reel ID: `969138829584724`) from landscape to **reel** (9:16 vertical) format in `src/data/portfolioData.js`.
+  - [x] Mapped share key `1CmsXjSNzJ` to canonical Facebook Reel player URL in `src/components/modals/MediaDetailModal.jsx`.
+  - [x] Mapped share key `1CmsXjSNzJ` and Reel ID `969138829584724` to `./portfolio/fb_reel_4.jpg` in `src/components/admin/AdminDashboardModal.jsx`.
+  - [x] Bumped storage key to `noman_portfolio_items_v8` in `src/App.jsx` and added `v7` cache purging.
+  - [x] Portfolio balance updated: 6 Landscape videos (16:9), 6 Reel videos (9:16), 4 Graphic designs (total 16 projects).
+  - [x] **Quality Gates**: All 10 unit tests pass (`npm test`), production build completes in 3.27s (`npm run build`).
+
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
 

@@ -19,8 +19,8 @@ import { AdminDashboardModal } from './components/admin/AdminDashboardModal';
 import { subscribeToPortfolio, deleteProjectFromCloud } from './config/firebase';
 import { CheckCircle2 } from 'lucide-react';
 
-const STORAGE_KEY = 'noman_portfolio_items_v7';
-const LEGACY_STORAGE_KEY = 'noman_portfolio_items_v6';
+const STORAGE_KEY = 'noman_portfolio_items_v8';
+const LEGACY_STORAGE_KEY = 'noman_portfolio_items_v7';
 
 export function App() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -73,6 +73,7 @@ export function App() {
       localStorage.removeItem('noman_portfolio_items_v4');
       localStorage.removeItem('noman_portfolio_items_v5');
       localStorage.removeItem('noman_portfolio_items_v6');
+      localStorage.removeItem('noman_portfolio_items_v7');
 
       const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
       if (saved) {

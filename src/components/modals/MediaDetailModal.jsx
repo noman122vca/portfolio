@@ -23,7 +23,6 @@ const FB_SHARE_MAP = {
   '1PvJ2AVPcW': 'https://www.facebook.com/reel/1363652169086347/',
   '1JHsYSCzHV': 'https://www.facebook.com/reel/1087490990911079/',
   '14tbBerDfhX': 'https://www.facebook.com/reel/2405190683344268/',
-  '1dpxHiLsvR': 'https://www.facebook.com/reel/969138829584724/',
   '1DmZfpqZkk': 'https://www.facebook.com/reel/2328405841255761/',
   '1BpqhUz3P6': 'https://www.facebook.com/reel/2328405841255761/',
   '1GDeoXwAcb': 'https://www.facebook.com/reel/1594156038557415/',
@@ -31,6 +30,8 @@ const FB_SHARE_MAP = {
   '1ByPF7pwgD': 'https://www.facebook.com/reel/2064454804256757/',
 
   // Reel videos (9:16)
+  '1CmsXjSNzJ': 'https://www.facebook.com/reel/969138829584724/',
+  '1dpxHiLsvR': 'https://www.facebook.com/reel/969138829584724/',
   '1caZqeSNkx': 'https://www.facebook.com/reel/1074169458775398/',
   '1Dq2NQ4pK8': 'https://www.facebook.com/reel/1074169458775398/',
   '19bepgBYiV': 'https://www.facebook.com/reel/27212899438408418/',
