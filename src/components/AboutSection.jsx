@@ -101,8 +101,8 @@ export function AboutSection() {
                 <span className="text-xs text-neutral-400">{t.about?.stats?.support || 'Direct Communication'}</span>
               </div>
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 text-center col-span-2 sm:col-span-1">
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#00E5FF] block font-mono">CBT&A 3</span>
-                <span className="text-xs text-neutral-400">{t.about?.stats?.nsdaLevel || 'Govt. Accredited'}</span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#00E5FF] block font-mono">Batch 41</span>
+                <span className="text-xs text-neutral-400">{t.about?.stats?.batchLevel || t.about?.stats?.nsdaLevel || 'As-Sunnah SDI Certified'}</span>
               </div>
             </div>
           </div>

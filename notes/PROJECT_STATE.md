@@ -217,14 +217,13 @@
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
   - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
-- [x] **Phase 24: Admin Role Gating & Visitor UI Separation (Header-Exclusive Authentication)**:
-  - [x] **Spec Authored**: Created `specs/admin-role-gating-and-header-auth-spec.md` detailing technical architecture, state contracts, and Gherkin BDD scenarios.
-  - [x] **Visitor UI Cleaned**: Removed all admin action buttons (`Admin Studio (Login)`, `+ Add Video`, `+ Add Graphic`) from `#projects` when `!isAdmin`. Regular visitors see a 100% clean, professional portfolio showcase.
-  - [x] **Header-Exclusive Admin Authentication**: Admin login is initiated exclusively via the Header/Navbar `[ 🛡️ Admin ]` button with password `noman@admin2026`.
-  - [x] **Active Admin Session Unlock**: Upon logging in via Header, `#projects` unlocks the active Admin Toolbar (`CMS Studio`, `+ Add Video`, `+ Add Graphic`, `Logout`), individual card deletion (`[ 🗑️ মুছুন ]`), and modal deletion.
-  - [x] **Instant Logout Reversion**: Clicking `Logout` immediately removes all administrative controls and restores the clean visitor showcase.
-  - [x] **Unit Testing**: Added automated unit test in `tests/site.test.js` verifying role-gating separation. 9/9 unit tests pass (`npm test`).
-  - [x] **Production Verification**: Built with `vite build` and live deployed to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
+- [x] **Phase 25: NSDA Removal & As-Sunnah Skill Development Batch 41 Update**:
+  - [x] **NSDA Card Removed**: Completely removed the National Skills Development Authority (NSDA) card from the "MY SKILLS & EXPERTISE" section (`src/components/SkillsAndTraining.jsx`).
+  - [x] **Centered As-Sunnah Card**: Re-architected `SkillsAndTraining.jsx` into a balanced, centered `max-w-4xl mx-auto` container with cyan rim glow, 2x2 competencies grid, and responsive layout.
+  - [x] **Batch Updated to 41**: Updated `asSunnahData.batch` to `Batch 41` in `src/data/trainingData.js`, rendering `SBMC COURSE • BATCH 41`.
+  - [x] **AboutSection Stat Updated**: Updated the 3rd stat card in `src/components/AboutSection.jsx` and `translations.js` to `Batch 41` / `As-Sunnah SDI Certified` so no obsolete NSDA references remain anywhere on the site.
+  - [x] **Unit Testing**: Updated `tests/site.test.js` to assert `Batch 41` and As-Sunnah SDI integrity. All 9 unit tests pass (`npm test`).
+  - [x] **Production Verification**: Built with `npm run build` with zero errors.
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.

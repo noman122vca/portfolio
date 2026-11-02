@@ -61,9 +61,9 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
 
   test('Institutional Certifications integrity', () => {
     assert.strictEqual(asSunnahData.institute, 'As-Sunnah Skill Development Institute');
-    assert.strictEqual(asSunnahData.batch, 'Batch 37');
-    assert.strictEqual(nsdaData.institute, 'National Skills Development Authority (NSDA)');
-    assert.ok(nsdaData.badge.includes('Level 3'));
+    assert.strictEqual(asSunnahData.batch, 'Batch 41');
+    assert.strictEqual(asSunnahData.statusTag, 'Certified');
+    assert.ok(asSunnahData.competencies.length >= 4);
   });
 
   test('Bilingual Translations integrity', () => {

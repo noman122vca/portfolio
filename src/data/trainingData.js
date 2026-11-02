@@ -1,7 +1,7 @@
 export const asSunnahData = {
   "sectionTitle": "Professional Training",
   "institute": "As-Sunnah Skill Development Institute",
-  "batch": "Batch 37",
+  "batch": "Batch 41",
   "courseTag": "SBMC Course",
   "statusTag": "Certified",
   "headline": "As-Sunnah Skill Development Institute",
@@ -32,34 +32,6 @@ export const asSunnahData = {
   "experienceTag": "Hands-on Production Experience",
   "readinessTag": "Industry Ready"
 };
-export const nsdaData = {
-  "sectionTitle": "Government Recognized Accreditation - NSDA",
-  "institute": "National Skills Development Authority (NSDA)",
-  "subTitle": "Digital Marketing - NSDA (NSDC CBT&A Level 3 Competent)",
-  "batch": "NSDC Level 3 CBT&A Competent",
-  "badge": "★ Govt. Certified in Digital Marketing (Level 3)",
-  "description": "National-level assessment and competence certification in Digital Marketing, SEM, and Meta Ads under the Prime Minister's Office National Skills Development Authority (NSDA/NSDC).",
-  "logo": "/nsda-logo.svg",
-  "competencies": [
-    {
-      "id": "nsda-1",
-      "title": "Digital Marketing CBT&A Level 3",
-      "tools": "Competency-Based Training & Assessment (NSDC/NSDA)"
-    },
-    {
-      "id": "nsda-2",
-      "title": "Meta Ads & Campaign Scaling",
-      "tools": "Targeting, Budget Optimization & High ROI"
-    },
-    {
-      "id": "nsda-3",
-      "title": "Search Engine Marketing & Analytics",
-      "tools": "SEM, Keyword Strategy & Tracking Insights"
-    },
-    {
-      "id": "nsda-4",
-      "title": "Performance & Growth Marketing",
-      "tools": "Conversion Funnels, Content Hooks & Retargeting"
-    }
-  ]
-};
+
+export const nsdaData = null;
+

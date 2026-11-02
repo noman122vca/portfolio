@@ -71,7 +71,8 @@ export const translations = {
       "stats": {
         "satisfaction": "Client Satisfaction",
         "support": "Direct Communication",
-        "nsdaLevel": "Govt. Accredited"
+        "batchLevel": "As-Sunnah SDI Certified",
+        "nsdaLevel": "As-Sunnah SDI Certified"
       }
     },
     "portfolio": {
@@ -308,7 +309,8 @@ export const translations = {
       "stats": {
         "satisfaction": "ক্লায়েন্ট সন্তুষ্টি",
         "support": "সরাসরি যোগাযোগ",
-        "nsdaLevel": "সরকারি সনদপ্রাপ্ত"
+        "batchLevel": "আস-সুন্নাহ এসডিআই সার্টিফাইড",
+        "nsdaLevel": "আস-সুন্নাহ এসডিআই সার্টিফাইড"
       }
     },
     "portfolio": {
