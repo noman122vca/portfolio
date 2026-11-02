@@ -76,7 +76,7 @@ export function AdminDashboardModal({
   const isFb = videoUrl.includes('facebook.com') || videoUrl.includes('fb.watch') || videoUrl.includes('fb.com');
   const isChannel = videoUrl.includes('/@') || videoUrl.includes('/channel/');
   const autoYtThumb = detectedYtId ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg` : '';
-  const finalVideoThumb = videoCustomThumb.trim() || autoYtThumb || (isFb ? 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1000&q=80' : 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1000&q=80');
+  const finalVideoThumb = videoCustomThumb.trim() || autoYtThumb || './portfolio/video_fallback.svg';
 
   const handleVideoThumbUpload = (e) => {
     const file = e.target.files?.[0];
@@ -202,6 +202,23 @@ export function AdminDashboardModal({
     if (manageSearch.trim() && !item.title.toLowerCase().includes(manageSearch.toLowerCase().trim())) return false;
     return true;
   });
+
+  const handleUpdateItemThumbnail = (item, file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newThumb = reader.result;
+      const updatedItem = { ...item, thumbnailUrl: newThumb };
+      if (onAddLocalProject) {
+        onAddLocalProject(updatedItem);
+      }
+      if (item.isCloud) {
+        addProjectToCloud(updatedItem, 3000).catch((e) => console.warn('Cloud thumb sync:', e));
+      }
+      onNotify(isBN ? `✓ "${item.title}" এর থাম্বনেইল সফলভাবে আপডেট হয়েছে!` : `✓ Thumbnail updated for "${item.title}"!`);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleDeleteItem = async (item) => {
     if (window.confirm(isBN ? `আপনি কি "${item.title}" প্রজেক্টটি মুছে ফেলতে চান?` : `Delete "${item.title}"?`)) {
@@ -358,44 +375,59 @@ export function AdminDashboardModal({
                   </div>
                 )}
 
-                <div className="space-y-2">
-                  <label className="block text-xs font-mono text-neutral-300">
-                    {isBN ? 'থাম্বনেইল ইমেজ (স্বয়ংক্রিয় বা কাস্টম ছবি)' : 'Thumbnail Image (Auto or Custom)'}
-                  </label>
+                <div className="space-y-2.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-mono font-bold text-[#00E5FF]">
+                      {isBN ? '📷 ভিডিও থাম্বনেইল ছবি (ডিভাইস থেকে সিলেক্ট করুন)' : '📷 Video Thumbnail Cover (Select from Device)'}
+                    </label>
+                    {isFb && !videoCustomThumb && (
+                      <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
+                        {isBN ? 'ফেসবুকের জন্য কাস্টম ছবি আবশ্যক' : 'Custom Image Recommended'}
+                      </span>
+                    )}
+                  </div>
                   <div className="flex flex-col sm:flex-row gap-2">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleVideoThumbUpload}
-                      className="text-xs text-neutral-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-[#00E5FF]/20 file:text-[#00E5FF] cursor-pointer"
-                    />
+                    <label className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#00E5FF]/10 hover:bg-[#00E5FF]/20 border border-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold cursor-pointer transition-all">
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>{isBN ? '📁 কম্পিউটার / ফোন থেকে ছবি নির্বাচন করুন' : '📁 Choose Image from Device'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleVideoThumbUpload}
+                        className="hidden"
+                      />
+                    </label>
                     <input
                       type="url"
-                      placeholder="Or direct image URL..."
+                      placeholder={isBN ? 'বা ছবির অনলাইন লিংক (Or Image URL)...' : 'Or direct image URL...'}
                       value={videoCustomThumb.startsWith('data:') ? '' : videoCustomThumb}
                       onChange={(e) => setVideoCustomThumb(e.target.value)}
-                      className="flex-1 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs"
+                      className="flex-1 px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs placeholder-neutral-500"
                     />
                   </div>
-                </div>
 
-                {finalVideoThumb && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/20">
-                    <img
-                      src={finalVideoThumb}
-                      alt="Preview"
-                      className="w-20 aspect-video object-cover rounded-lg bg-neutral-900"
-                    />
-                    <div className="text-xs truncate">
-                      <span className="text-[#00E5FF] font-bold block">
-                        {detectedYtId ? `✓ YouTube ID: ${detectedYtId}` : '✓ Thumbnail Ready'}
-                      </span>
-                      <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
-                        {videoUrl || 'Waiting for URL...'}
-                      </span>
+                  {finalVideoThumb && (
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/20">
+                      <img
+                        src={finalVideoThumb}
+                        alt="Preview"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = './portfolio/video_fallback.svg';
+                        }}
+                        className="w-20 aspect-video object-cover rounded-lg bg-neutral-900 shrink-0 border border-white/10"
+                      />
+                      <div className="text-xs truncate">
+                        <span className="text-[#00E5FF] font-bold block">
+                          {detectedYtId ? `✓ YouTube ID: ${detectedYtId}` : (videoCustomThumb ? (isBN ? '✓ কাস্টম থাম্বনেইল প্রস্তুত' : '✓ Custom Thumbnail Ready') : (isBN ? '✓ ডিফল্ট হাই-টেক মোশন ব্যাকগ্রাউন্ড' : '✓ High-Tech Motion Fallback Ready'))}
+                        </span>
+                        <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
+                          {videoUrl || 'Waiting for URL...'}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -657,11 +689,29 @@ export function AdminDashboardModal({
                         className="p-3 rounded-2xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/15 flex items-center justify-between gap-4 transition-all"
                       >
                         <div className="flex items-center gap-3 overflow-hidden">
-                          <img
-                            src={item.thumbnailUrl}
-                            alt={item.title}
-                            className="w-16 h-12 object-cover rounded-xl bg-black shrink-0 border border-white/10"
-                          />
+                          <div className="relative group/thumb w-16 h-12 shrink-0">
+                            <img
+                              src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
+                              alt={item.title}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = './portfolio/video_fallback.svg';
+                              }}
+                              className="w-16 h-12 object-cover rounded-xl bg-black border border-white/10"
+                            />
+                            <label
+                              className="absolute inset-0 bg-black/70 opacity-0 group-hover/thumb:opacity-100 rounded-xl flex items-center justify-center cursor-pointer transition-opacity text-[#00E5FF]"
+                              title={isBN ? 'থাম্বনেইল পরিবর্তন করুন' : 'Change Thumbnail'}
+                            >
+                              <ImageIcon className="w-4 h-4" />
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleUpdateItemThumbnail(item, e.target.files?.[0])}
+                                className="hidden"
+                              />
+                            </label>
+                          </div>
                           <div className="truncate text-xs">
                             <span className="font-bold text-white block truncate">{item.title}</span>
                             <span className="text-neutral-400 font-mono flex items-center gap-2 mt-0.5">
@@ -678,7 +728,21 @@ export function AdminDashboardModal({
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          {/* Quick Change Thumbnail Button */}
+                          <label
+                            className="p-2 rounded-xl text-neutral-400 hover:text-[#00E5FF] hover:bg-white/5 transition-colors cursor-pointer flex items-center gap-1"
+                            title={isBN ? 'থাম্বনেইল পরিবর্তন করুন (Upload new thumbnail)' : 'Change Thumbnail'}
+                          >
+                            <ImageIcon className="w-4 h-4" />
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleUpdateItemThumbnail(item, e.target.files?.[0])}
+                              className="hidden"
+                            />
+                          </label>
+
                           {(item.mediaUrl || item.externalUrl) && (
                             <a
                               href={item.externalUrl || item.mediaUrl}

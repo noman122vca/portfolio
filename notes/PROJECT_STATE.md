@@ -246,9 +246,22 @@
     - `clean_header_390_fixed.png`: Mobile view with single-line brand identity, language toggle, and hamburger button.
     - `clean_admin_modal_triggered.png`: Verified that `#admin` immediately triggers the Admin Portal login popup.
   - [x] **Quality Gates**: All 10 unit tests pass (`npm test`), production build completes in 3.38s (`npm run build`).
+- [x] **Phase 16: Admin Password Secrecy, Video Thumbnail Architecture & Facebook Cinema Player**:
+  - [x] **Admin Password Secrecy**: Completely removed the exposed default password display box (`noman@admin2026`) from `src/components/admin/AdminLoginModal.jsx`. Added `autoComplete="new-password"` and `name="admin_pass"` so browsers do not auto-fill or reveal sensitive credentials on screen.
+  - [x] **Video Thumbnail Architecture & Branded Fallback**:
+    - [x] Created `public/portfolio/video_fallback.svg` with dark cyberpunk gradient mesh, illuminated 4K cinema badge, and "MD. EFTEKAR HOSSEN NOMAN | CINEMATIC VIDEO PRODUCTION".
+    - [x] Replaced generic 3D social icons Unsplash photo fallback (`photo-1611162617213-7d7a39e9b1d7`) with `./portfolio/video_fallback.svg` in `AdminDashboardModal.jsx`, `VideoFormModal.jsx`, and `App.jsx`.
+    - [x] Added prominent device file selection button and custom image alert in video publishing forms.
+    - [x] Added dynamic 1-click thumbnail update button (`ImageIcon`) and image error fallback inside the Admin Project Management list so existing projects (`sbmd`, `basic motion`) can have their thumbnails replaced without re-adding.
+  - [x] **Facebook Cinema Player Mode**:
+    - [x] Replaced broken Facebook iframe embed (which displayed "Video unavailable") with a cinema-grade video presentation.
+    - [x] Features high-res thumbnail with glowing animated Play button and 1-click HD launcher button directly to Facebook.
+    - [x] Added optional toggle to try browser iframe playback with instant mode switching.
+  - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), `vite build` completed in 3.06s.
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 
 

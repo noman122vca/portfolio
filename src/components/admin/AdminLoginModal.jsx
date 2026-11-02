@@ -84,7 +84,9 @@ export function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
                   type={showPassword ? 'text' : 'password'}
                   required
                   autoFocus
-                  placeholder="Enter admin password..."
+                  autoComplete="new-password"
+                  name="admin_pass"
+                  placeholder={isBN ? 'অ্যাডমিন সিক্রেট পাসওয়ার্ড দিন...' : 'Enter admin password...'}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -113,13 +115,9 @@ export function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
               )}
             </div>
 
-            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-neutral-400 space-y-1 leading-relaxed">
-              <div className="flex items-center gap-1.5 text-neutral-300 font-bold">
-                <KeyRound className="w-3.5 h-3.5 text-[#00E5FF]" />
-                <span>{isBN ? 'ডিফল্ট পাসওয়ার্ড:' : 'Default Access Password:'}</span>
-                <code className="text-[#00E5FF] px-1.5 py-0.5 rounded bg-black/40 font-mono">noman@admin2026</code>
-              </div>
-              <p>{isBN ? 'লগইন করার পর ক্লায়েন্ট সরাসরি ভিডিও ও ডিজাইন পাবলিশ করতে পারবেন।' : 'Allows the client to publish new videos and artworks in real time.'}</p>
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-neutral-400 flex items-center gap-2">
+              <Lock className="w-3.5 h-3.5 text-[#00E5FF] shrink-0" />
+              <span>{isBN ? 'শুধুমাত্র অনুমোদিত অ্যাডমিন অ্যাক্সেস সংরক্ষিত।' : 'Restricted to authorized portfolio administrator.'}</span>
             </div>
 
             <button

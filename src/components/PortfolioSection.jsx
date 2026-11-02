@@ -18,8 +18,12 @@ function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
       {/* Media Thumbnail Container */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#040C0E]">
         <img
-          src={item.thumbnailUrl}
+          src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
           alt={item.title}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = './portfolio/video_fallback.svg';
+          }}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#020B0E] via-transparent to-transparent opacity-80" />

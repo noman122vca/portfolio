@@ -77,23 +77,36 @@ export function App() {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const defaultGraphics = defaultPortfolioItems.filter((item) => item.mediaType === 'graphic');
+          const cleanThumb = (item) => {
+            if (!item) return item;
+            if (
+              !item.thumbnailUrl ||
+              item.thumbnailUrl.includes('photo-1611162617213-7d7a39e9b1d7') ||
+              item.thumbnailUrl.includes('photo-1574717024653-61fd2cf4d44d')
+            ) {
+              return { ...item, thumbnailUrl: './portfolio/video_fallback.svg' };
+            }
+            return item;
+          };
+
           const hasGraphics = parsed.some((item) => item.mediaType === 'graphic');
           if (hasGraphics) {
             return parsed.map((item) => {
-              if (item.mediaType === 'graphic') {
-                const match = defaultGraphics.find((g) => g.id === item.id);
+              let updated = cleanThumb(item);
+              if (updated.mediaType === 'graphic') {
+                const match = defaultGraphics.find((g) => g.id === updated.id);
                 if (match && match.thumbnailUrl.startsWith('/portfolio/')) {
                   return {
-                    ...item,
+                    ...updated,
                     thumbnailUrl: match.thumbnailUrl,
                     mediaUrl: match.mediaUrl,
                   };
                 }
               }
-              return item;
+              return updated;
             });
           }
-          return [...parsed, ...defaultGraphics];
+          return [...parsed.map(cleanThumb), ...defaultGraphics];
         }
       }
     } catch (e) {
@@ -102,11 +115,20 @@ export function App() {
     return defaultPortfolioItems;
   });
 
-  // Merge cloud items on top of local portfolio items (eliminating duplicate IDs)
+  // Merge cloud items on top of local portfolio items (eliminating duplicate IDs and broken stock thumbnails)
   const displayedPortfolioItems = [
     ...cloudPortfolioItems,
     ...portfolioItems.filter((local) => !cloudPortfolioItems.some((cloud) => cloud.id === local.id)),
-  ];
+  ].map((item) => {
+    if (
+      !item.thumbnailUrl ||
+      item.thumbnailUrl.includes('photo-1611162617213-7d7a39e9b1d7') ||
+      item.thumbnailUrl.includes('photo-1574717024653-61fd2cf4d44d')
+    ) {
+      return { ...item, thumbnailUrl: './portfolio/video_fallback.svg' };
+    }
+    return item;
+  });
 
   const updatePortfolioItems = (newItems, message = null) => {
     setPortfolioItems(newItems);
@@ -307,7 +329,10 @@ export function App() {
           allPortfolioItems={portfolioItems}
           onLogout={handleLogoutAdmin}
           onNotify={(msg) => showToast(msg)}
-          onAddLocalProject={(newItem) => updatePortfolioItems([newItem, ...portfolioItems])}
+          onAddLocalProject={(newItem) => {
+            const remaining = portfolioItems.filter((i) => i.id !== newItem.id);
+            updatePortfolioItems([newItem, ...remaining]);
+          }}
           onDeleteProject={handleDeleteProject}
           onClearCategory={(type) => {
             const updated = portfolioItems.filter((item) => item.mediaType !== type);

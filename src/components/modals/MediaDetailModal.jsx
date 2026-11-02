@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, Tag, Trash2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ExternalLink, Calendar, Tag, Trash2, Play, RefreshCw, Film } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 function getYouTubeId(url) {
   if (!url) return null;
@@ -84,6 +85,13 @@ function resolveVideoEmbed(url) {
 }
 
 export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAdmin = false, onDeleteItem }) {
+  const { isBN } = useLanguage ? useLanguage() : { isBN: false };
+  const [tryIframe, setTryIframe] = useState(false);
+
+  useEffect(() => {
+    setTryIframe(false);
+  }, [item?.id]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -198,26 +206,113 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAd
                     className={`w-full ${isReel ? 'max-h-[65vh] aspect-[9/16]' : 'aspect-video'}`}
                   />
                 ) : videoMeta.type === 'facebook' ? (
-                  <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[65vh]' : 'aspect-video'} bg-black flex flex-col items-center justify-center`}>
-                    <iframe
-                      src={videoMeta.embedUrl}
-                      title={item.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="w-full h-full border-0"
-                    />
-                    <div className="absolute top-3 right-3 z-20 pointer-events-auto">
-                      <a
-                        href={item.mediaUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold shadow-[0_0_15px_rgba(24,119,242,0.5)] transition-all"
-                      >
-                        <span>Watch on Facebook</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                  tryIframe ? (
+                    <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[70vh]' : 'aspect-video'} bg-black flex flex-col items-center justify-center`}>
+                      <iframe
+                        src={videoMeta.embedUrl}
+                        title={item.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="w-full h-full border-0"
+                      />
+                      <div className="absolute top-3 right-3 z-20 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setTryIframe(false)}
+                          className="px-3 py-1.5 rounded-xl bg-black/80 hover:bg-black text-white text-xs font-mono border border-white/20 transition-all cursor-pointer"
+                        >
+                          {isBN ? '🎬 পোস্টার মোড' : '🎬 Cinema Mode'}
+                        </button>
+                        <a
+                          href={item.mediaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold shadow-[0_0_15px_rgba(24,119,242,0.5)] transition-all"
+                        >
+                          <span>{isBN ? 'ফেসবুকে দেখুন' : 'Watch on Facebook'}</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[70vh]' : 'aspect-video'} bg-neutral-950 rounded-2xl overflow-hidden group flex items-center justify-center border border-white/10`}>
+                      {/* Cinema Video Poster */}
+                      <img
+                        src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
+                        alt={item.title}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = './portfolio/video_fallback.svg';
+                        }}
+                        className="absolute inset-0 w-full h-full object-cover filter brightness-[0.6] group-hover:scale-105 group-hover:brightness-[0.7] transition-all duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+                      {/* Top Badges */}
+                      <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-[#1877F2]/90 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg backdrop-blur-md">
+                          <Film className="w-3.5 h-3.5" />
+                          <span>Facebook Cinema HD</span>
+                        </span>
+                      </div>
+
+                      <div className="absolute top-4 right-4 z-20">
+                        <a
+                          href={item.mediaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white text-xs font-bold shadow-[0_0_20px_rgba(24,119,242,0.6)] transition-all cursor-pointer"
+                        >
+                          <span>{isBN ? 'ফেসবুকে খুলুন' : 'Open Facebook'}</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+
+                      {/* Central Glowing Play Launcher */}
+                      <div className="relative z-20 flex flex-col items-center justify-center text-center p-6 space-y-4 max-w-md">
+                        <a
+                          href={item.mediaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative group/play flex items-center justify-center cursor-pointer"
+                          title={isBN ? 'ফেসবুকে ফুল এইচডি ভিডিওটি প্লে করুন' : 'Play video on Facebook in HD'}
+                        >
+                          <span className="absolute -inset-4 rounded-full bg-[#1877F2]/30 animate-ping opacity-75" />
+                          <span className="absolute -inset-2 rounded-full bg-[#00E5FF]/40 blur-md group-hover:blur-lg transition-all" />
+                          <div className="relative w-20 h-20 rounded-full bg-[#1877F2] hover:bg-[#166FE5] border-2 border-white/40 flex items-center justify-center text-white shadow-[0_0_35px_rgba(24,119,242,0.8)] transition-all transform group-hover/play:scale-110">
+                            <Play className="w-8 h-8 fill-current ml-1 text-white" />
+                          </div>
+                        </a>
+
+                        <div className="space-y-2">
+                          <a
+                            href={item.mediaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#1877F2] hover:bg-[#166FE5] text-white font-extrabold text-sm shadow-[0_0_25px_rgba(24,119,242,0.5)] transition-all cursor-pointer hover:scale-105 active:scale-95"
+                          >
+                            <Play className="w-4 h-4 fill-current" />
+                            <span>{isBN ? 'ফেসবুকে ফুল এইচডি ভিডিওটি দেখুন' : 'Watch Full HD Video on Facebook'}</span>
+                            <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
+                          </a>
+                          <p className="text-[11px] text-neutral-300 font-light leading-relaxed max-w-xs mx-auto drop-shadow-md">
+                            {isBN
+                              ? 'ফেসবুকের ক্রস-সাইট সিকিউরিটি বিধিনিষেধের কারণে সর্বোচ্চ ৪K/এইচডি কোয়ালিটি ও অরিজিনাল সাউন্ড সহ দেখতে সরাসরি ফেসবুকে প্লে করুন।'
+                              : 'Due to Facebook cross-site permissions, launch directly in Facebook for full 4K/HD fidelity and original audio.'}
+                          </p>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => setTryIframe(true)}
+                          className="text-[11px] text-neutral-400 hover:text-white underline transition-colors cursor-pointer pt-1 flex items-center gap-1 mx-auto"
+                        >
+                          <RefreshCw className="w-3 h-3" />
+                          <span>{isBN ? 'ব্রাউজার আইফ্রেমে লোড করার চেষ্টা করুন' : 'Try embedding inside browser'}</span>
+                        </button>
+                      </div>
+                    </div>
+                  )
                 ) : (
                   <div className={`w-full ${isReel ? 'aspect-[9/16] max-h-[65vh]' : 'aspect-video'}`}>
                     <iframe
