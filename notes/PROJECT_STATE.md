@@ -257,13 +257,14 @@
     - [x] Replaced broken Facebook iframe embed (which displayed "Video unavailable") with a cinema-grade video presentation.
     - [x] Features high-res thumbnail with glowing animated Play button and 1-click HD launcher button directly to Facebook.
     - [x] Added optional toggle to try browser iframe playback with instant mode switching.
-  - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), `vite build` completed in 3.06s.
+- [x] **Phase 17: Video Shaking Removal, HD Motion Graphics Posters & 1-Click Multi-Surface Deletion**:
+  - [x] **Shaking / Jittering Fixed**: Removed continuous pulse animation (`animate-ping`) from `MediaDetailModal.jsx` which was causing screen vibration/shaking.
+  - [x] **Black Thumbnail Fixed**: Replaced dark SVG with authentic After Effects HD motion graphics poster (`fb_reel_4.jpg`) and automatic Facebook share URL thumbnail resolution (`FB_SHARE_THUMB_MAP`), ensuring cards never appear pitch black.
+  - [x] **Default Video Player Playback**: Defaulted `tryIframe` to `true` in `MediaDetailModal.jsx` so videos play immediately upon clicking the card.
+  - [x] **1-Click Deletion on Cards**: Enabled prominent red `[ 🗑️ মুছুন ]` button on portfolio cards for custom-added projects (`!item.id.includes('noman-fb-')`).
+  - [x] **1-Click Deletion in Modal**: Added red `[ 🗑️ মুছুন (Delete) ]` button in the top bar of `MediaDetailModal.jsx` to delete items directly from inside the popup.
+  - [x] **Admin Studio Delete Tab Renaming & Bulk Purge**: Renamed 3rd tab to `🗑️ ভিডিও মুছুন / পরিচালনা`, added quick jump banner in Add Video tab, added `[ 🗑️ টেস্ট ভিডিওগুলো মুছুন ]` bulk purge button, and enlarged delete buttons on individual items.
+  - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), production build passes in 3.71s (`npm run build`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
-
-
-
-
-
-

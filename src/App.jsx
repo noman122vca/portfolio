@@ -81,10 +81,11 @@ export function App() {
             if (!item) return item;
             if (
               !item.thumbnailUrl ||
+              item.thumbnailUrl.includes('video_fallback.svg') ||
               item.thumbnailUrl.includes('photo-1611162617213-7d7a39e9b1d7') ||
               item.thumbnailUrl.includes('photo-1574717024653-61fd2cf4d44d')
             ) {
-              return { ...item, thumbnailUrl: './portfolio/video_fallback.svg' };
+              return { ...item, thumbnailUrl: './portfolio/fb_reel_4.jpg' };
             }
             return item;
           };
@@ -122,10 +123,11 @@ export function App() {
   ].map((item) => {
     if (
       !item.thumbnailUrl ||
+      item.thumbnailUrl.includes('video_fallback.svg') ||
       item.thumbnailUrl.includes('photo-1611162617213-7d7a39e9b1d7') ||
       item.thumbnailUrl.includes('photo-1574717024653-61fd2cf4d44d')
     ) {
-      return { ...item, thumbnailUrl: './portfolio/video_fallback.svg' };
+      return { ...item, thumbnailUrl: './portfolio/fb_reel_4.jpg' };
     }
     return item;
   });

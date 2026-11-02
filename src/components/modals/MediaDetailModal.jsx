@@ -86,10 +86,10 @@ function resolveVideoEmbed(url) {
 
 export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAdmin = false, onDeleteItem }) {
   const { isBN } = useLanguage ? useLanguage() : { isBN: false };
-  const [tryIframe, setTryIframe] = useState(false);
+  const [tryIframe, setTryIframe] = useState(true);
 
   useEffect(() => {
-    setTryIframe(false);
+    setTryIframe(true);
   }, [item?.id]);
 
   useEffect(() => {
@@ -159,15 +159,20 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAd
             </div>
 
             <div className="flex items-center gap-2">
-              {isAdmin && (
+              {(isAdmin || !item?.id?.includes('noman-fb-')) && (
                 <button
                   type="button"
-                  onClick={() => onDeleteItem && onDeleteItem(item.id, item.title)}
-                  className="px-3 py-1.5 rounded-xl bg-rose-600/90 hover:bg-rose-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(225,29,72,0.5)] cursor-pointer mr-2 border border-rose-400/40"
-                  title="এই প্রজেক্টটি স্থায়ীভাবে ডিলিট করুন (Delete Project)"
+                  onClick={() => {
+                    if (window.confirm(isBN ? `আপনি কি "${item.title}" ভিডিওটি স্থায়ীভাবে মুছে ফেলতে চান?` : `Are you sure you want to delete "${item.title}"?`)) {
+                      if (onDeleteItem) onDeleteItem(item.id, item.title);
+                      onClose();
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(239,68,68,0.5)] cursor-pointer mr-2 border border-red-400/40"
+                  title={isBN ? "এই প্রজেক্টটি স্থায়ীভাবে ডিলিট করুন" : "Delete Project"}
                 >
                   <Trash2 className="w-3.5 h-3.5 text-white" />
-                  <span>মুছুন (Delete)</span>
+                  <span>{isBN ? 'মুছুন (Delete)' : 'Delete'}</span>
                 </button>
               )}
               <button
@@ -238,11 +243,11 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAd
                     <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[70vh]' : 'aspect-video'} bg-neutral-950 rounded-2xl overflow-hidden group flex items-center justify-center border border-white/10`}>
                       {/* Cinema Video Poster */}
                       <img
-                        src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
+                        src={item.thumbnailUrl || './portfolio/fb_reel_4.jpg'}
                         alt={item.title}
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = './portfolio/video_fallback.svg';
+                          e.target.src = './portfolio/fb_reel_4.jpg';
                         }}
                         className="absolute inset-0 w-full h-full object-cover filter brightness-[0.6] group-hover:scale-105 group-hover:brightness-[0.7] transition-all duration-700"
                       />
@@ -270,19 +275,18 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAd
 
                       {/* Central Glowing Play Launcher */}
                       <div className="relative z-20 flex flex-col items-center justify-center text-center p-6 space-y-4 max-w-md">
-                        <a
-                          href={item.mediaUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          type="button"
+                          onClick={() => setTryIframe(true)}
                           className="relative group/play flex items-center justify-center cursor-pointer"
-                          title={isBN ? 'ফেসবুকে ফুল এইচডি ভিডিওটি প্লে করুন' : 'Play video on Facebook in HD'}
+                          title={isBN ? 'ভিডিওটি প্লে করুন' : 'Play video'}
                         >
-                          <span className="absolute -inset-4 rounded-full bg-[#1877F2]/30 animate-ping opacity-75" />
+                          <span className="absolute -inset-3 rounded-full bg-[#1877F2]/20 opacity-50" />
                           <span className="absolute -inset-2 rounded-full bg-[#00E5FF]/40 blur-md group-hover:blur-lg transition-all" />
-                          <div className="relative w-20 h-20 rounded-full bg-[#1877F2] hover:bg-[#166FE5] border-2 border-white/40 flex items-center justify-center text-white shadow-[0_0_35px_rgba(24,119,242,0.8)] transition-all transform group-hover/play:scale-110">
+                          <div className="relative w-20 h-20 rounded-full bg-[#1877F2] hover:bg-[#166FE5] border-2 border-white/40 flex items-center justify-center text-white shadow-[0_0_35px_rgba(24,119,242,0.8)] transition-all transform group-hover/play:scale-105 active:scale-95">
                             <Play className="w-8 h-8 fill-current ml-1 text-white" />
                           </div>
-                        </a>
+                        </button>
 
                         <div className="space-y-2">
                           <a

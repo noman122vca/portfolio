@@ -41,7 +41,7 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
   const autoThumbnail = detectedYtId
     ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg`
     : '';
-  const finalThumbnail = customThumbnail.trim() || autoThumbnail || './portfolio/video_fallback.svg';
+  const finalThumbnail = customThumbnail.trim() || autoThumbnail || './portfolio/fb_reel_4.jpg';
 
   const handleThumbnailUpload = (e) => {
     const file = e.target.files?.[0];

@@ -18,11 +18,11 @@ function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
       {/* Media Thumbnail Container */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#040C0E]">
         <img
-          src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
+          src={item.thumbnailUrl || './portfolio/fb_reel_4.jpg'}
           alt={item.title}
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = './portfolio/video_fallback.svg';
+            e.target.src = './portfolio/fb_reel_4.jpg';
           }}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -40,16 +40,18 @@ function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
           )}
         </div>
 
-        {/* Admin Direct 1-Click Delete Button (Only visible when logged in as admin) */}
-        {isAdmin && (
+        {/* 1-Click Delete Button (Active for Admin or any custom-added project) */}
+        {(isAdmin || !item.id.includes('noman-fb-')) && (
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              onDeleteItem(item.id, item.title);
+              if (window.confirm(`আপনি কি "${item.title}" প্রজেক্টটি মুছে ফেলতে চান?`)) {
+                onDeleteItem(item.id, item.title);
+              }
             }}
-            className="absolute top-3 right-3 z-30 px-2.5 py-1.5 rounded-xl bg-rose-600/95 hover:bg-rose-500 text-white shadow-[0_0_15px_rgba(225,29,72,0.7)] backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 flex items-center gap-1.5 text-xs font-bold border border-rose-400/50"
-            title="ভুলবশত যোগ হওয়া এই প্রজেক্টটি সরাসরি ডিলিট করুন (Delete Project)"
+            className="absolute top-3 right-3 z-30 px-2.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white shadow-[0_0_15px_rgba(225,29,72,0.8)] backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 flex items-center gap-1.5 text-xs font-bold border border-red-400/50"
+            title="এই প্রজেক্টটি সরাসরি ডিলিট করুন (Delete Project)"
           >
             <Trash2 className="w-3.5 h-3.5 text-white" />
             <span>মুছুন</span>

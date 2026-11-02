@@ -32,8 +32,32 @@ function extractYouTubeId(url) {
   const m4 = trimmed.match(/\/embed\/([a-zA-Z0-9_-]{11})/);
   if (m4) return m4[1];
   const m5 = trimmed.match(/\/live\/([a-zA-Z0-9_-]{11})/);
-  if (m5) return m5[1];
   return null;
+}
+
+const FB_SHARE_THUMB_MAP = {
+  '1PvJ2AVPcW': './portfolio/fb_reel_1.jpg',
+  '1JHsYSCzHV': './portfolio/fb_reel_2.jpg',
+  '14tbBerDfhX': './portfolio/fb_reel_3.jpg',
+  '1dpxHiLsvR': './portfolio/fb_reel_4.jpg',
+  '1BpqhUz3P6': './portfolio/fb_reel_5.jpg',
+  '1Dq2NQ4pK8': './portfolio/fb_reel_6.jpg',
+  '1DnvPg6csm': './portfolio/fb_reel_7.jpg',
+  '18XgyxBSfG': './portfolio/fb_reel_8.jpg',
+  '1BTQ4SN7Hb': './portfolio/fb_reel_9.jpg',
+  '19yYLp9Wqg': './portfolio/fb_reel_10.jpg',
+  '19jUy8CUcK': './portfolio/fb_reel_11.jpg',
+};
+
+function resolveAutoVideoThumbnail(url, detectedYtId) {
+  if (detectedYtId) {
+    return `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg`;
+  }
+  if (!url) return './portfolio/fb_reel_4.jpg';
+  for (const [key, thumb] of Object.entries(FB_SHARE_THUMB_MAP)) {
+    if (url.includes(key)) return thumb;
+  }
+  return './portfolio/fb_reel_4.jpg';
 }
 
 export function AdminDashboardModal({
@@ -74,9 +98,8 @@ export function AdminDashboardModal({
 
   const detectedYtId = extractYouTubeId(videoUrl);
   const isFb = videoUrl.includes('facebook.com') || videoUrl.includes('fb.watch') || videoUrl.includes('fb.com');
-  const isChannel = videoUrl.includes('/@') || videoUrl.includes('/channel/');
-  const autoYtThumb = detectedYtId ? `https://img.youtube.com/vi/${detectedYtId}/hqdefault.jpg` : '';
-  const finalVideoThumb = videoCustomThumb.trim() || autoYtThumb || './portfolio/video_fallback.svg';
+  const autoVideoThumb = resolveAutoVideoThumbnail(videoUrl, detectedYtId);
+  const finalVideoThumb = videoCustomThumb.trim() || autoVideoThumb;
 
   const handleVideoThumbUpload = (e) => {
     const file = e.target.files?.[0];
@@ -329,12 +352,12 @@ export function AdminDashboardModal({
               onClick={() => setActiveTab('manage')}
               className={`pb-3 px-3 text-xs sm:text-sm font-bold flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === 'manage'
-                  ? 'border-[#00E5FF] text-[#00E5FF]'
-                  : 'border-transparent text-neutral-400 hover:text-white'
+                  ? 'border-red-400 text-red-400'
+                  : 'border-transparent text-neutral-300 hover:text-white'
               }`}
             >
-              <Layers className="w-4 h-4" />
-              <span>{isBN ? 'প্রজেক্ট ম্যানেজ করুন' : 'Manage Projects'} ({displayManageItems.length})</span>
+              <Trash2 className="w-4 h-4 text-red-400" />
+              <span className="text-red-300 font-extrabold">{isBN ? '🗑️ ভিডিও মুছুন / পরিচালনা' : '🗑️ Delete / Manage Videos'} ({displayManageItems.length})</span>
             </button>
           </div>
 
@@ -343,6 +366,20 @@ export function AdminDashboardModal({
             {/* Tab 1: Add Video */}
             {activeTab === 'add-video' && (
               <form onSubmit={handlePublishVideo} className="space-y-4">
+                {/* Fast Banner to Jump to Delete Tab */}
+                <div className="p-3 rounded-2xl bg-red-500/10 border border-red-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <span className="text-neutral-300 font-medium">
+                    {isBN ? '💡 পূর্বে যোগ করা কোনো ভিডিও মুছতে চান?' : '💡 Want to delete an already added video?'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('manage')}
+                    className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-[0_0_12px_rgba(239,68,68,0.4)]"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>{isBN ? 'ভিডিও মুছুন অপশনে যান' : 'Go to Delete Tab'}</span>
+                  </button>
+                </div>
                 <div className="space-y-2">
                   <label className="block text-xs font-mono text-neutral-300">
                     {isBN ? 'ভিডিও লিংক (YouTube / Facebook / Reels / Shorts) *' : 'Video URL (YouTube / Facebook / Reels / Shorts) *'}
@@ -631,6 +668,27 @@ export function AdminDashboardModal({
 
                   {/* Bulk Actions */}
                   <div className="flex flex-wrap items-center gap-2">
+                    {onDeleteProject && allMergedItems.some(i => !i.id.includes('noman-fb-') && i.mediaType === 'video') && (
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (window.confirm(isBN ? 'আপনি কি অতিরিক্ত সকল নতুন টেস্ট ভিডিও (sbmd, basic motion ইত্যাদি) একসাথে মুছে ফেলতে চান?' : 'Delete all newly added custom test videos?')) {
+                            const customVideos = allMergedItems.filter(i => !i.id.includes('noman-fb-') && i.mediaType === 'video');
+                            for (const cv of customVideos) {
+                              if (cv.isCloud) {
+                                try { await deleteProjectFromCloud(cv.id, 2000); } catch (e) {}
+                              }
+                              onDeleteProject(cv.id);
+                            }
+                            if (onNotify) onNotify(isBN ? 'টেস্ট ভিডিওগুলো সফলভাবে মুছে ফেলা হয়েছে' : 'Test videos removed');
+                          }
+                        }}
+                        className="px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white text-[11px] font-bold transition-all cursor-pointer shadow-[0_0_12px_rgba(239,68,68,0.5)] flex items-center gap-1.5"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>{isBN ? '🗑️ টেস্ট ভিডিওগুলো মুছুন' : 'Purge Test Videos'}</span>
+                      </button>
+                    )}
                     {onClearCategory && (
                       <>
                         <button
@@ -708,11 +766,11 @@ export function AdminDashboardModal({
                         <div className="flex items-center gap-3 overflow-hidden">
                           <div className="relative group/thumb w-16 h-12 shrink-0">
                             <img
-                              src={item.thumbnailUrl || './portfolio/video_fallback.svg'}
+                              src={item.thumbnailUrl || './portfolio/fb_reel_4.jpg'}
                               alt={item.title}
                               onError={(e) => {
                                 e.target.onerror = null;
-                                e.target.src = './portfolio/video_fallback.svg';
+                                e.target.src = './portfolio/fb_reel_4.jpg';
                               }}
                               className="w-16 h-12 object-cover rounded-xl bg-black border border-white/10"
                             />
@@ -745,7 +803,7 @@ export function AdminDashboardModal({
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-1.5 shrink-0">
+                        <div className="flex items-center gap-2 shrink-0">
                           {/* Quick Change Thumbnail Button */}
                           <label
                             className="p-2 rounded-xl text-neutral-400 hover:text-[#00E5FF] hover:bg-white/5 transition-colors cursor-pointer flex items-center gap-1"
@@ -774,10 +832,11 @@ export function AdminDashboardModal({
                           <button
                             type="button"
                             onClick={() => handleDeleteItem(item)}
-                            className="p-2 rounded-xl text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
+                            className="px-3 py-1.5 rounded-xl bg-red-600/20 hover:bg-red-600 border border-red-500/40 text-red-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-[0_0_10px_rgba(239,68,68,0.2)]"
                             title={isBN ? 'মুছে ফেলুন' : 'Delete Project'}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>{isBN ? 'মুছুন' : 'Delete'}</span>
                           </button>
                         </div>
                       </div>
