@@ -217,15 +217,28 @@
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
   - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
-- [x] **Phase 27: Official As-Sunnah Logo Installation & AI Button Removal (US8)**:
-  - [x] **Official Logo Installed**: Installed authentic As-Sunnah Skill Development Institute logo (`public/as-sunnah-logo.png` and `public/as-sunnah-logo.jpg`) from user image. Fixed relative path `src="./as-sunnah-logo.png"` in `SkillsAndTraining.jsx` resolving live 404 broken image.
-  - [x] **Logo Badge Aesthetics**: Nested the official logo inside a clean `bg-white p-2 rounded-2xl border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.15)]` container for high contrast and pixel-perfect framing.
-  - [x] **AI Sparkles Button Removed**: Removed the `WHAT I DO & EXPERTISE` badge and its `Sparkles` (AI) icon from `SkillsAndTraining.jsx`. The section heading now opens cleanly with the bold `MY SKILLS & EXPERTISE` title.
-  - [x] **Visual Verification**: Captured headless Chrome screenshot `skills_section_verified.png` confirming pristine rendering.
-  - [x] **Testing & Build**: All 9 unit tests pass (`npm test`) and `npm run build` succeeds cleanly.
+- [x] **Phase 28: Responsive Navbar Layout Collision & Text Wrapping Fix (US8)**:
+  - [x] **Diagnosed Exact Failure Flow**: Analyzed user screenshot `media_1793608610725_e830f052.png` and headless Chrome diagnostics across 1024px, 1200px, 1280px, and 1440px. Identified that `lg:flex` breakpoint on `<nav>` combined with lacking `shrink-0` and `whitespace-nowrap` caused flex shrinkage, wrapping `NOMAN` onto a 2nd line and colliding the cyan verified badge on top of `Projects`.
+  - [x] **Brand Identity Protection**: Added `shrink-0` to the brand identity link, avatar container, name, and role. Applied `whitespace-nowrap` to candidate name `MD. EFTEKAR HOSSEN NOMAN` and verified checkmark badge (`CheckCircle2`). Added responsive text sizing (`text-xs sm:text-sm xl:text-base`).
+  - [x] **Responsive Desktop Breakpoint**: Upgraded `<nav>` breakpoint from `hidden lg:flex` to `hidden xl:flex items-center gap-4 2xl:gap-6 shrink-0` with `whitespace-nowrap`. This completely frees up the 1024px-1279px viewport range from element crowding.
+  - [x] **Right Controls Streamlining**:
+    - Applied `shrink-0 whitespace-nowrap` to Audio TTS button, Language switcher, Resume/CV, Admin Studio trigger, and Let's Talk CTA.
+    - Set `Let's Talk` to `hidden lg:inline-flex` so it only takes space when the viewport has 960px+ of room.
+    - On mobile (< 640px), replaced full 2-pill language switcher with compact single-button toggle (`sm:hidden`).
+    - Added responsive hamburger menu button (`xl:hidden`) providing instant navigation on all screens below 1280px.
+  - [x] **Drawer Responsive Upgrade**: Changed drawer visibility to `xl:hidden` so tablet and laptop users (< 1280px) have full access to all section links (`Projects`, `About`, `Skills`, `Profiles`, `Contact`), Audio TTS greeting, Resume download, and Admin login.
+  - [x] **Visual Evidence Verification**: Captured visual headless Chrome screenshots across all standard resolutions:
+    - `header_390_v2.png`: Clean mobile single-line brand + language toggle + hamburger drawer trigger.
+    - `header_768_v2.png`: Tablet with brand identity + audio + 2-pill language + resume + admin + hamburger.
+    - `header_1024_v2.png`: Small laptop with ample breathing room and 0 overlaps.
+    - `header_1200_fixed.png`: Medium laptop with wide margins and pristine spacing.
+    - `header_1280_fixed.png`: Full desktop with centered nav links and all actions.
+    - `header_1440_fixed.png`: Wide display with balanced cyberpunk aesthetics.
+  - [x] **Quality Gates**: All 9 unit tests pass (`npm test`), production build completes in 3.04s (`npm run build`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 
 

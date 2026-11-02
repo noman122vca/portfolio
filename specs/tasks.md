@@ -170,6 +170,26 @@ flowchart TD
 
 ---
 
+## Phase 11: User Story 8 (US8) - Responsive Navbar Layout Collision & Text Wrapping Fix
+
+**Story Goal**: Eliminate all text wrapping, verified badge collisions, and horizontal crowding in the navigation header across all screen resolutions (mobile 390px, tablet 768px, small laptop 1024px, medium laptop 1200px, desktop 1280px, and wide monitor 1440px+). Ensure candidate name `MD. EFTEKAR HOSSEN NOMAN` is strictly single-line (`whitespace-nowrap shrink-0`), desktop nav links gracefully transition to a responsive drawer below `xl` (1280px), and right action buttons never wrap awkwardly into multiple lines.  
+**Independent Test Criteria**:
+1. Candidate name `MD. EFTEKAR HOSSEN NOMAN` and verified checkmark badge never wrap or collide with links at any viewport size.
+2. At 1024px and 1200px, header elements have zero collision, zero wrapping, and plenty of breathing space.
+3. At 1280px (`xl`) and 1440px (`2xl`), desktop navigation links and all action buttons fit cleanly with ample padding.
+4. Below 1280px (`< xl`), the hamburger menu button and drawer provide complete and accessible navigation.
+5. On mobile (< 640px) and tablet (768px), top bar actions are streamlined without horizontal overflow.
+6. All automated unit tests pass and production build compiles without errors.
+
+- [x] T051 [P] [US8] Add `shrink-0` and `whitespace-nowrap` to candidate identity link, avatar, name, and role in `src/components/Navbar.jsx`
+- [x] T052 [P] [US8] Update desktop navigation links breakpoint to `hidden xl:flex items-center gap-4 2xl:gap-6 shrink-0` with `whitespace-nowrap`
+- [x] T053 [US8] Refactor right action controls with `shrink-0`, responsive button sizing, and icon-only collapsing on smaller breakpoints
+- [x] T054 [US8] Update mobile and tablet navigation drawer to `xl:hidden` with full section links and responsive action buttons
+- [x] T055 [US8] Capture automated visual screenshots across 390px, 768px, 1024px, 1200px, 1280px, and 1440px to verify zero collisions
+- [x] T056 [US8] Run test suite (`npm test`), production build (`npm run build`), and push deployment to GitHub `main` and `gh-pages`
+
+---
+
 ## Parallel Execution Strategy
 
 Tasks marked `[P]` can be developed independently:
@@ -179,5 +199,7 @@ Tasks marked `[P]` can be developed independently:
 - **Batch 4 (Customization & Deployment Readiness)**: T027, T028, T031, T034 can be authored in parallel with T029, T030, T032, T033, T035.
 - **Batch 5 (US6 Refinement & PDF Generation)**: T036, T037, T038 can be authored in parallel before T039, T040, T041, T042.
 - **Batch 6 (US7 Uppercase Standardization & PDF Sync)**: T043, T044, T045 can be authored in parallel before T046, T047, T048, T049, T050.
+- **Batch 7 (US8 Responsive Navbar Layout Collision Fix)**: T051, T052 can be authored in parallel before T053, T054, T055, T056.
+
 
 
