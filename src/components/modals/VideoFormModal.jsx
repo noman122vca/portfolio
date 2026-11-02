@@ -219,27 +219,44 @@ export function VideoFormModal({ isOpen, onClose, items, onUpdateItems, onResetD
                   />
                 </div>
 
-                {finalThumbnail && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/20">
-                    <img
-                      src={finalThumbnail}
-                      alt="Preview"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = './portfolio/video_fallback.svg';
-                      }}
-                      className="w-20 aspect-video object-cover rounded-lg shrink-0 bg-neutral-900 border border-white/10"
-                    />
-                    <div className="text-xs truncate">
-                      <span className="text-[#00E5FF] font-bold block">
-                        {detectedYtId ? `✓ YouTube ID: ${detectedYtId}` : (customThumbnail ? (isBN ? '✓ কাস্টম থাম্বনেইল প্রস্তুত' : '✓ Custom Thumbnail Loaded') : (isBN ? '✓ ডিফল্ট হাই-টেক মোশন ব্যাকগ্রাউন্ড' : '✓ High-Tech Motion Fallback Ready'))}
-                      </span>
-                      <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
-                        {videoUrl || 'Waiting for URL...'}
-                      </span>
+                {customThumbnail.trim() || autoThumbnail ? (
+                  <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/30">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                      <img
+                        src={customThumbnail.trim() || autoThumbnail}
+                        alt="Preview"
+                        className="w-20 aspect-video object-cover rounded-lg shrink-0 bg-neutral-900 border border-white/10"
+                      />
+                      <div className="text-xs truncate">
+                        <span className="text-[#00E5FF] font-bold block">
+                          {detectedYtId ? `✓ YouTube Thumbnail (${detectedYtId})` : (isBN ? '✓ থাম্বনেইল ছবি যুক্ত হয়েছে' : '✓ Custom Thumbnail Loaded')}
+                        </span>
+                        <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
+                          {videoUrl || (isBN ? 'থাম্বনেইল প্রস্তুত' : 'Ready')}
+                        </span>
+                      </div>
                     </div>
+                    {customThumbnail && (
+                      <button
+                        type="button"
+                        onClick={() => setCustomThumbnail('')}
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-neutral-400 hover:text-rose-400 transition-colors text-xs cursor-pointer"
+                        title={isBN ? 'ছবি সরান' : 'Remove Image'}
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
-                )}
+                ) : isFb ? (
+                  <div className="p-2.5 rounded-xl bg-[#1877F2]/10 border border-[#1877F2]/20 text-[11px] text-sky-300 flex items-center gap-2">
+                    <Info className="w-4 h-4 shrink-0 text-[#1877F2]" />
+                    <span>
+                      {isBN
+                        ? 'ফেসবুক ভিডিওর জন্য ওপরের বাটন চেপে একটি আকর্ষণীয় কাভার ছবি আপলোড করতে পারেন।'
+                        : 'You can upload a custom cover image from your device for this Facebook video.'}
+                    </span>
+                  </div>
+                ) : null}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

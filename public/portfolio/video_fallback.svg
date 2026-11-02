@@ -1,20 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#02090F" />
-      <stop offset="50%" stop-color="#071A24" />
-      <stop offset="100%" stop-color="#010408" />
+      <stop offset="0%" stop-color="#021019" />
+      <stop offset="50%" stop-color="#052538" />
+      <stop offset="100%" stop-color="#02090F" />
     </linearGradient>
     <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#00E5FF" />
-      <stop offset="100%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#38BDF8" />
     </linearGradient>
     <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.3" />
-      <stop offset="100%" stop-color="#00E5FF" stop-opacity="0" />
+      <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#0284C7" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#02090F" stop-opacity="0" />
     </radialGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 229, 255, 0.08)" stroke-width="1" />
     </pattern>
   </defs>
 
@@ -22,41 +23,54 @@
   <rect width="1280" height="720" fill="url(#bg)" />
   <rect width="1280" height="720" fill="url(#grid)" />
 
-  <!-- Center Glow -->
-  <circle cx="640" cy="360" r="320" fill="url(#glow)" />
+  <!-- Center Ambient Glow -->
+  <circle cx="640" cy="340" r="360" fill="url(#glow)" />
 
-  <!-- Abstract Frame Borders -->
-  <rect x="60" y="60" width="1160" height="600" rx="24" fill="none" stroke="rgba(0, 229, 255, 0.15)" stroke-width="2" />
-  <rect x="70" y="70" width="1140" height="580" rx="18" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1" />
+  <!-- Outer Framing Glass Lines -->
+  <rect x="50" y="50" width="1180" height="620" rx="28" fill="none" stroke="rgba(0, 229, 255, 0.3)" stroke-width="2.5" />
+  <rect x="65" y="65" width="1150" height="590" rx="20" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.5" />
 
   <!-- Top Badges -->
-  <rect x="100" y="100" width="160" height="34" rx="17" fill="rgba(0, 229, 255, 0.1)" stroke="#00E5FF" stroke-width="1.5" />
-  <text x="180" y="122" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700" fill="#00E5FF" text-anchor="middle" letter-spacing="2">4K CINEMA</text>
-
-  <rect x="275" y="100" width="170" height="34" rx="17" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" />
-  <text x="360" y="122" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="600" fill="#94A3B8" text-anchor="middle" letter-spacing="1">PREMIERE PRO</text>
-
-  <!-- Central Play Button Orb -->
-  <g transform="translate(640, 340)">
-    <!-- Outer Rings -->
-    <circle r="68" fill="none" stroke="rgba(0, 229, 255, 0.3)" stroke-width="2" stroke-dasharray="8 6" />
-    <circle r="56" fill="url(#cyanGrad)" opacity="0.15" />
-    <circle r="48" fill="#071A24" stroke="#00E5FF" stroke-width="3" filter="drop-shadow(0px 0px 15px rgba(0, 229, 255, 0.6))" />
-    <!-- Play Triangle -->
-    <polygon points="-10,-18 20,0 -10,18" fill="#00E5FF" />
+  <g transform="translate(100, 100)">
+    <rect width="170" height="38" rx="19" fill="rgba(0, 229, 255, 0.15)" stroke="#00E5FF" stroke-width="2" />
+    <text x="85" y="25" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="800" fill="#00E5FF" text-anchor="middle" letter-spacing="2">4K CINEMA</text>
   </g>
 
-  <!-- Title & Branding -->
-  <text x="640" y="470" font-family="'Syne', 'Inter', system-ui, sans-serif" font-size="34" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">
+  <g transform="translate(290, 100)">
+    <rect width="190" height="38" rx="19" fill="rgba(56, 189, 248, 0.12)" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1.5" />
+    <text x="95" y="25" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="700" fill="#E2E8F0" text-anchor="middle" letter-spacing="1">PREMIERE PRO</text>
+  </g>
+
+  <!-- Central Glowing Play Orb -->
+  <g transform="translate(640, 320)">
+    <!-- Rotating Dashed Orbit -->
+    <circle r="80" fill="none" stroke="rgba(0, 229, 255, 0.5)" stroke-width="2.5" stroke-dasharray="10 8" />
+    <circle r="66" fill="rgba(0, 229, 255, 0.12)" />
+    <!-- Glass Sphere Core -->
+    <circle r="56" fill="#071E2C" stroke="#00E5FF" stroke-width="3.5" filter="drop-shadow(0px 0px 20px rgba(0, 229, 255, 0.9))" />
+    <!-- Play Triangle -->
+    <polygon points="-12,-20 24,0 -12,20" fill="#00E5FF" />
+  </g>
+
+  <!-- Typography -->
+  <text x="640" y="465" font-family="'Syne', 'Inter', system-ui, sans-serif" font-size="38" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">
     MD. EFTEKAR HOSSEN NOMAN
   </text>
-  <text x="640" y="510" font-family="'Space Grotesk', system-ui, sans-serif" font-size="17" font-weight="600" fill="#38BDF8" text-anchor="middle" letter-spacing="5">
+  <text x="640" y="510" font-family="'Space Grotesk', system-ui, sans-serif" font-size="18" font-weight="700" fill="#38BDF8" text-anchor="middle" letter-spacing="6">
     CINEMATIC VIDEO PRODUCTION &bull; MOTION GRAPHICS
   </text>
 
-  <!-- Bottom Accent Wave -->
+  <!-- Soundwave visualizer lines -->
   <g transform="translate(640, 560)">
-    <line x1="-120" y1="0" x2="120" y2="0" stroke="rgba(0, 229, 255, 0.4)" stroke-width="2" stroke-linecap="round" />
-    <circle cx="0" cy="0" r="4" fill="#00E5FF" />
+    <rect x="-90" y="-12" width="6" height="24" rx="3" fill="#00E5FF" opacity="0.6" />
+    <rect x="-70" y="-20" width="6" height="40" rx="3" fill="#00E5FF" opacity="0.8" />
+    <rect x="-50" y="-8" width="6" height="16" rx="3" fill="#00E5FF" opacity="0.5" />
+    <rect x="-30" y="-28" width="6" height="56" rx="3" fill="#00E5FF" opacity="0.9" />
+    <rect x="-10" y="-36" width="6" height="72" rx="3" fill="#00E5FF" />
+    <rect x="10" y="-36" width="6" height="72" rx="3" fill="#00E5FF" />
+    <rect x="30" y="-28" width="6" height="56" rx="3" fill="#00E5FF" opacity="0.9" />
+    <rect x="50" y="-8" width="6" height="16" rx="3" fill="#00E5FF" opacity="0.5" />
+    <rect x="70" y="-20" width="6" height="40" rx="3" fill="#00E5FF" opacity="0.8" />
+    <rect x="90" y="-12" width="6" height="24" rx="3" fill="#00E5FF" opacity="0.6" />
   </g>
 </svg>
