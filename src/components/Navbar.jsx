@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { profileData } from '../data/profileData';
-import { Menu, X, FileDown, Volume2, VolumeX, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX, CheckCircle2 } from 'lucide-react';
 
 export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -67,8 +67,8 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
             </div>
           </a>
 
-          {/* Desktop Navigation Links (xl and up) */}
-          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6 shrink-0">
+          {/* Desktop Navigation Links (lg and up) */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 shrink-0">
             <a
               href="#projects"
               className="text-xs 2xl:text-sm font-medium text-neutral-300 hover:text-[#00E5FF] transition-colors whitespace-nowrap py-1"
@@ -102,7 +102,7 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
           </nav>
 
           {/* Action Controls & Mobile/Tablet Trigger */}
-          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
             {/* Audio TTS Greeting (hidden on mobile, visible on sm+) */}
             <button
               onClick={handleAudioWelcome}
@@ -117,12 +117,12 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
               {isPlayingAudio ? (
                 <>
                   <VolumeX className="w-4 h-4 animate-pulse text-[#00E5FF] shrink-0" />
-                  <span className="hidden 2xl:inline whitespace-nowrap">{t.nav.stopWelcome}</span>
+                  <span className="hidden xl:inline whitespace-nowrap">{t.nav.stopWelcome}</span>
                 </>
               ) : (
                 <>
                   <Volume2 className="w-4 h-4 shrink-0" />
-                  <span className="hidden 2xl:inline whitespace-nowrap">{t.nav.playWelcome}</span>
+                  <span className="hidden xl:inline whitespace-nowrap">{t.nav.playWelcome}</span>
                 </>
               )}
             </button>
@@ -132,7 +132,7 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
               <button
                 type="button"
                 onClick={() => setLanguage('en')}
-                className={`px-2 sm:px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   language === 'en'
                     ? 'bg-[#00E5FF] text-black shadow-[0_0_15px_rgba(0,229,255,0.5)]'
                     : 'text-neutral-400 hover:text-white'
@@ -144,7 +144,7 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
               <button
                 type="button"
                 onClick={() => setLanguage('bn')}
-                className={`px-2 sm:px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   language === 'bn'
                     ? 'bg-[#00E5FF] text-black shadow-[0_0_15px_rgba(0,229,255,0.5)]'
                     : 'text-neutral-400 hover:text-white'
@@ -165,61 +165,19 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
               {isBN ? 'EN' : 'বাংলা'}
             </button>
 
-            {/* CV Modal Trigger (visible on sm+) */}
-            <button
-              onClick={onOpenCV}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 sm:px-3.5 2xl:px-4 py-2 rounded-xl border border-[#00E5FF]/40 text-[#00E5FF] hover:bg-[#00E5FF]/10 text-xs font-bold tracking-wider transition-all cursor-pointer shadow-[0_0_15px_rgba(0,229,255,0.15)] shrink-0 whitespace-nowrap"
-            >
-              <FileDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-              <span className="whitespace-nowrap">{t.nav.resume}</span>
-            </button>
-
-            {/* Admin Studio Trigger (Header Section) */}
-            {isAdmin ? (
-              <div className="hidden sm:inline-flex items-center gap-1 p-0.5 sm:p-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 shrink-0">
-                <button
-                  type="button"
-                  onClick={onOpenAdmin}
-                  className="px-2 sm:px-2.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 whitespace-nowrap"
-                  title={isBN ? "অ্যাডমিন ড্যাশবোর্ড খুলুন" : "Open Admin Studio"}
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="hidden 2xl:inline whitespace-nowrap">{isBN ? "অ্যাডমিন সক্রিয়" : "Admin Active"}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={onLogoutAdmin}
-                  className="px-2 py-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 text-xs font-bold transition-all cursor-pointer shrink-0 whitespace-nowrap"
-                  title={isBN ? "লগআউট করুন" : "Logout"}
-                >
-                  {isBN ? "লগআউট" : "Logout"}
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={onOpenAdmin}
-                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl border border-white/10 hover:border-[#00E5FF]/40 text-neutral-300 hover:text-[#00E5FF] bg-white/[0.03] hover:bg-[#00E5FF]/5 text-xs font-bold transition-all cursor-pointer shrink-0 whitespace-nowrap"
-                title={isBN ? "অ্যাডমিন লগইন (পাসওয়ার্ড দিন)" : "Admin Login (Enter Password)"}
-              >
-                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00E5FF] shrink-0" />
-                <span className="hidden 2xl:inline whitespace-nowrap">{isBN ? "অ্যাডমিন" : "Admin"}</span>
-              </button>
-            )}
-
-            {/* Let's Talk CTA (visible on lg+) */}
+            {/* Let's Talk CTA */}
             <a
               href="#contact"
-              className="hidden lg:inline-flex items-center justify-center px-3.5 sm:px-4 2xl:px-5 py-2 sm:py-2.5 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-xs tracking-wider transition-all shadow-[0_0_20px_rgba(0,229,255,0.35)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] cursor-pointer shrink-0 whitespace-nowrap"
+              className="hidden sm:inline-flex items-center justify-center px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#00E5FF] hover:bg-[#38BDF8] text-black font-extrabold text-xs tracking-wider transition-all shadow-[0_0_20px_rgba(0,229,255,0.35)] hover:shadow-[0_0_30px_rgba(0,229,255,0.6)] cursor-pointer shrink-0 whitespace-nowrap"
             >
               {t.nav.letsTalk}
             </a>
 
-            {/* Mobile/Tablet Menu Button (< xl) */}
+            {/* Mobile/Tablet Menu Button (< lg) */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 sm:p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:text-[#00E5FF] transition-all cursor-pointer xl:hidden shrink-0"
+              className="p-2 sm:p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:text-[#00E5FF] transition-all cursor-pointer lg:hidden shrink-0"
               aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -228,9 +186,9 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
         </div>
       </div>
 
-      {/* Responsive Navigation Drawer (< xl) */}
+      {/* Responsive Navigation Drawer (< lg) */}
       {isMobileMenuOpen && (
-        <div className="xl:hidden border-b border-white/10 bg-[#020B0E]/95 backdrop-blur-xl px-4 sm:px-6 pt-3 pb-6 space-y-4">
+        <div className="lg:hidden border-b border-white/10 bg-[#020B0E]/95 backdrop-blur-xl px-4 sm:px-6 pt-3 pb-6 space-y-4">
           <nav className="flex flex-col space-y-1">
             <a
               href="#projects"
@@ -269,72 +227,22 @@ export function Navbar({ onOpenCV, onOpenAdmin, isAdmin = false, onLogoutAdmin }
             </a>
           </nav>
 
-          {/* Drawer Actions (visible on mobile / tablet where header actions were hidden) */}
+          {/* Drawer Actions */}
           <div className="pt-3 border-t border-white/10 flex flex-col gap-2.5">
-            {/* Audio Greeting in drawer on mobile */}
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 handleAudioWelcome();
               }}
-              className="sm:hidden w-full py-2.5 px-3 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-white flex items-center justify-center gap-2"
+              className="sm:hidden w-full py-2.5 px-3 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-white flex items-center justify-center gap-2 cursor-pointer"
             >
               <Volume2 className="w-4 h-4 text-[#00E5FF]" />
               <span>{isPlayingAudio ? t.nav.stopWelcome : t.nav.playWelcome}</span>
             </button>
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenCV && onOpenCV();
-              }}
-              className="sm:hidden w-full py-2.5 px-3 rounded-xl border border-[#00E5FF]/40 text-[#00E5FF] bg-[#00E5FF]/5 hover:bg-[#00E5FF]/10 text-sm font-semibold flex items-center justify-center gap-2"
-            >
-              <FileDown className="w-4 h-4" />
-              <span>{t.nav.resume}</span>
-            </button>
-
-            {isAdmin ? (
-              <div className="sm:hidden flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onOpenAdmin && onOpenAdmin();
-                  }}
-                  className="flex-1 py-2.5 px-3 rounded-xl text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  <span>{isBN ? '🛡️ অ্যাডমিন ড্যাশবোর্ড' : '🛡️ Admin Studio'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onLogoutAdmin && onLogoutAdmin();
-                  }}
-                  className="py-2.5 px-3 rounded-xl text-sm font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 cursor-pointer"
-                >
-                  {isBN ? 'লগআউট' : 'Logout'}
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onOpenAdmin && onOpenAdmin();
-                }}
-                className="sm:hidden w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-white bg-white/5 hover:bg-[#00E5FF]/10 hover:text-[#00E5FF] border border-white/10 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <ShieldCheck className="w-4 h-4 text-[#00E5FF]" />
-                <span>{isBN ? 'অ্যাডমিন লগইন' : 'Admin Login'}</span>
-              </button>
-            )}
-
             <a
               href="#contact"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden w-full py-2.5 px-3 rounded-xl bg-[#00E5FF] text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.3)]"
+              className="sm:hidden w-full py-2.5 px-3 rounded-xl bg-[#00E5FF] text-black font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.3)]"
             >
               {t.nav.letsTalk}
             </a>

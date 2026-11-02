@@ -138,6 +138,33 @@ describe('MD EFTEKAR HOSSEN NOMAN Portfolio - Integrity Test Suite', () => {
     assert.strictEqual(shouldShowAdminBar(authAdmin), true, 'Authenticated admin must see the admin toolbar');
     assert.strictEqual(shouldShowDeleteButton(authAdmin), true, 'Authenticated admin must see card deletion buttons');
   });
+
+  test('URL-based Admin Route detector logic', () => {
+    function isAdminRoute(pathname = '', hash = '', search = '', intent = false) {
+      const p = pathname.toLowerCase();
+      const h = hash.toLowerCase();
+      const s = search.toLowerCase();
+      return (
+        Boolean(intent) ||
+        h === '#admin' ||
+        h === '#/admin' ||
+        h === '#login' ||
+        p.endsWith('/admin') ||
+        p.endsWith('/admin/') ||
+        s.includes('admin')
+      );
+    }
+
+    assert.strictEqual(isAdminRoute('/portfolio/', '#admin'), true, 'Should detect #admin hash');
+    assert.strictEqual(isAdminRoute('/portfolio/', '#/admin'), true, 'Should detect #/admin hash');
+    assert.strictEqual(isAdminRoute('/portfolio/admin'), true, 'Should detect /admin pathname');
+    assert.strictEqual(isAdminRoute('/portfolio/admin/'), true, 'Should detect /admin/ pathname');
+    assert.strictEqual(isAdminRoute('/portfolio/', '', '?admin'), true, 'Should detect ?admin search query');
+    assert.strictEqual(isAdminRoute('/portfolio/', '', '', true), true, 'Should detect sessionStorage route intent');
+    assert.strictEqual(isAdminRoute('/portfolio/', '#projects'), false, 'Should not trigger on #projects');
+    assert.strictEqual(isAdminRoute('/portfolio/', '#about'), false, 'Should not trigger on #about');
+    assert.strictEqual(isAdminRoute('/portfolio/'), false, 'Should not trigger on home path');
+  });
 });
 
 

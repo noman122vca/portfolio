@@ -234,10 +234,22 @@
     - `header_1200_fixed.png`: Medium laptop with wide margins and pristine spacing.
     - `header_1280_fixed.png`: Full desktop with centered nav links and all actions.
     - `header_1440_fixed.png`: Wide display with balanced cyberpunk aesthetics.
-  - [x] **Quality Gates**: All 9 unit tests pass (`npm test`), production build completes in 3.04s (`npm run build`).
+- [x] **Phase 29: Header Clean-up (Remove Resume & Admin) & Direct URL Admin Access (US9)**:
+  - [x] **Removed Resume & Admin from Header Bar**: Removed `Resume / CV` button and `Admin` button from both desktop header and mobile drawer in `src/components/Navbar.jsx`. Resume remains directly accessible in the Hero section (`Resume (PDF)`), eliminating duplication.
+  - [x] **URL-Based Admin Route Integration**: Added reactive URL detection in `src/App.jsx` listening to `hashchange`, `popstate`, and initial route for `/admin`, `#admin`, `#/admin`, `?admin`, and `#login`. Navigating to any of these immediately opens the password-protected Admin Studio login modal (or dashboard if already authenticated).
+  - [x] **Static Zero-404 Fallback Handlers**: Created `public/admin/index.html` and `public/404.html` so direct browser requests to `/admin` or `/admin/` on GitHub Pages instantly redirect to `../#admin` and trigger the Admin Studio without ever showing a 404 page.
+  - [x] **Desktop Nav Responsive Optimization**: With Resume and Admin removed, the desktop nav links (`Projects`, `About`, `Skills`, `Official Profiles`, `Contact`) now fit comfortably starting from `lg` (1024px+) with ample breathing room. Hamburger button is active only on screens `< lg` (mobile and tablet).
+  - [x] **Visual Evidence Verification**: Captured visual headless Chrome screenshots:
+    - `clean_header_1440.png`: Wide desktop with spacious center nav links and clean right actions (Audio, Language, Let's Talk).
+    - `clean_header_1024.png`: Small laptop with all 5 nav links visible and generous margins.
+    - `clean_header_768.png`: Tablet view with clean layout.
+    - `clean_header_390_fixed.png`: Mobile view with single-line brand identity, language toggle, and hamburger button.
+    - `clean_admin_modal_triggered.png`: Verified that `#admin` immediately triggers the Admin Portal login popup.
+  - [x] **Quality Gates**: All 10 unit tests pass (`npm test`), production build completes in 3.38s (`npm run build`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+
 
 
 

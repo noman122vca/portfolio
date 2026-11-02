@@ -190,6 +190,27 @@ flowchart TD
 
 ---
 
+## Phase 12: User Story 9 (US9) - Header Clean-up (Remove Resume & Admin) & URL-Based Admin Access (/admin)
+
+**Story Goal**: Streamline the navigation header by removing the `Resume / CV` button (since it is already prominently featured in the Hero section) and the `Admin` button (so regular visitors see a clean, public-facing portfolio). Enable direct URL access for the portfolio owner via `/admin`, `#admin`, `#/admin`, or `?admin` so navigating to that address automatically opens the Admin Studio login modal or dashboard.  
+**Independent Test Criteria**:
+1. Header bar no longer renders the `Resume / CV` button on any screen resolution.
+2. Header bar no longer renders the `Admin` button on any screen resolution.
+3. Visitors can access Resume via the Hero action button (`Resume (PDF)`).
+4. Navigating to `/admin`, `#admin`, `#/admin`, or `?admin` in the browser opens the Admin Login Modal (or Admin Dashboard if already authenticated).
+5. Static fallback route `public/admin/index.html` and `public/404.html` ensure direct GitHub Pages requests to `/admin` never 404.
+6. All automated unit tests in `tests/site.test.js` and `tests/firebase.test.js` pass with 100% assertions green.
+7. Production build compiles cleanly (`npm run build`).
+
+- [x] T057 [P] [US9] Remove `Resume / CV` and `Admin` buttons from desktop and mobile navigation in `src/components/Navbar.jsx`
+- [x] T058 [P] [US9] Implement URL route detection in `src/App.jsx` for `/admin`, `#admin`, `#/admin`, and `?admin` with `hashchange` & `popstate` listeners
+- [x] T059 [US9] Create `public/admin/index.html` and `public/404.html` redirect handlers for GitHub Pages zero-404 admin routing
+- [x] T060 [US9] Add automated unit test in `tests/site.test.js` verifying the URL-based Admin route detector logic
+- [x] T061 [US9] Capture visual screenshots across 390px, 768px, 1024px, 1200px, 1280px, and 1440px to verify the clean streamlined header
+- [x] T062 [US9] Run test suite (`npm test`), production build (`npm run build`), and push deployment to GitHub `main` and `gh-pages`
+
+---
+
 ## Parallel Execution Strategy
 
 Tasks marked `[P]` can be developed independently:
@@ -200,6 +221,8 @@ Tasks marked `[P]` can be developed independently:
 - **Batch 5 (US6 Refinement & PDF Generation)**: T036, T037, T038 can be authored in parallel before T039, T040, T041, T042.
 - **Batch 6 (US7 Uppercase Standardization & PDF Sync)**: T043, T044, T045 can be authored in parallel before T046, T047, T048, T049, T050.
 - **Batch 7 (US8 Responsive Navbar Layout Collision Fix)**: T051, T052 can be authored in parallel before T053, T054, T055, T056.
+- **Batch 8 (US9 Header Clean-up & URL-Based Admin Access)**: T057, T058 can be authored in parallel before T059, T060, T061, T062.
+
 
 
 

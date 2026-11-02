@@ -157,6 +157,42 @@ export function App() {
     showToast('অ্যাডমিন লগআউট সফল হয়েছে (Logged out of Admin)');
   };
 
+  // Handle URL-based Admin access (/admin, #admin, #/admin, ?admin, etc.)
+  useEffect(() => {
+    const checkAdminUrl = () => {
+      const hash = (window.location.hash || '').toLowerCase();
+      const pathname = (window.location.pathname || '').toLowerCase();
+      const search = (window.location.search || '').toLowerCase();
+      const hasIntent = sessionStorage.getItem('noman_admin_route_intent') === 'true';
+
+      const isAdminRoute =
+        hasIntent ||
+        hash === '#admin' ||
+        hash === '#/admin' ||
+        hash === '#login' ||
+        pathname.endsWith('/admin') ||
+        pathname.endsWith('/admin/') ||
+        search.includes('admin');
+
+      if (isAdminRoute) {
+        try {
+          sessionStorage.removeItem('noman_admin_route_intent');
+        } catch (e) {
+          // ignore
+        }
+        handleOpenAdmin();
+      }
+    };
+
+    checkAdminUrl();
+    window.addEventListener('hashchange', checkAdminUrl);
+    window.addEventListener('popstate', checkAdminUrl);
+    return () => {
+      window.removeEventListener('hashchange', checkAdminUrl);
+      window.removeEventListener('popstate', checkAdminUrl);
+    };
+  }, []);
+
   const handleDeleteProject = async (id, title = 'প্রজেক্ট') => {
     const confirmMsg = `আপনি কি নিশ্চিত যে "${title}" প্রজেক্টটি স্থায়ীভাবে মুছে ফেলতে চান?\n(Are you sure you want to delete this project?)`;
     if (!window.confirm(confirmMsg)) return;

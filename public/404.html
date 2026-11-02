@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MD. EFTEKAR HOSSEN NOMAN - Portfolio</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA fallback
+      (function() {
+        var path = window.location.pathname;
+        var isLocalOrSubdir = path.includes('/portfolio');
+        var basePath = isLocalOrSubdir ? '/portfolio/' : '/';
+
+        if (path.endsWith('/admin') || path.endsWith('/admin/')) {
+          try {
+            sessionStorage.setItem('noman_admin_route_intent', 'true');
+          } catch (e) {}
+          window.location.replace(basePath + '#admin');
+        } else {
+          window.location.replace(basePath);
+        }
+      })();
+    </script>
+  </head>
+  <body style="background:#020B0E;color:#00E5FF;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+    <p>Redirecting to Portfolio...</p>
+  </body>
+</html>
