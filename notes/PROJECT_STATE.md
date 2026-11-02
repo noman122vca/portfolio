@@ -217,12 +217,12 @@
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
   - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
-- [x] **Phase 26: Uppercase Name Standardization & CV Modal De-duplication (US7)**:
-  - [x] **CV Modal Title De-duplication**: Fixed `{cvData.fullName} ({cvData.displayName})` duplicate rendering bug in `src/components/modals/CVModal.jsx`. Modal title now cleanly displays single name `MD. EFTEKAR HOSSEN NOMAN`.
-  - [x] **Uppercase Name Standardization**: Standardized candidate name to ALL CAPITAL LETTERS (`MD. EFTEKAR HOSSEN NOMAN`) across `cvData.js`, `profileData.js`, `translations.js`, `portfolioData.js`, `Hero.jsx`, `Navbar.jsx`, `AboutSection.jsx`, `Footer.jsx`, and `CVModal.jsx`.
-  - [x] **Resume PDF Regenerated**: Re-rendered `public/md-eftekar-hossen-noman-cv.pdf` and `dist/md-eftekar-hossen-noman-cv.pdf` using headless Chrome `Page.printToPDF`, featuring `MD. EFTEKAR HOSSEN NOMAN` in all-caps header, Takmil & Fazilat education, and As-Sunnah SBMC Batch 41.
-  - [x] **Automated Testing**: Updated `tests/site.test.js` to assert `MD. EFTEKAR HOSSEN NOMAN`. All 9 unit tests pass (`npm test`).
-  - [x] **Production Build**: Verified with `npm run build` with 0 errors.
+- [x] **Phase 27: Official As-Sunnah Logo Installation & AI Button Removal (US8)**:
+  - [x] **Official Logo Installed**: Installed authentic As-Sunnah Skill Development Institute logo (`public/as-sunnah-logo.png` and `public/as-sunnah-logo.jpg`) from user image. Fixed relative path `src="./as-sunnah-logo.png"` in `SkillsAndTraining.jsx` resolving live 404 broken image.
+  - [x] **Logo Badge Aesthetics**: Nested the official logo inside a clean `bg-white p-2 rounded-2xl border border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.15)]` container for high contrast and pixel-perfect framing.
+  - [x] **AI Sparkles Button Removed**: Removed the `WHAT I DO & EXPERTISE` badge and its `Sparkles` (AI) icon from `SkillsAndTraining.jsx`. The section heading now opens cleanly with the bold `MY SKILLS & EXPERTISE` title.
+  - [x] **Visual Verification**: Captured headless Chrome screenshot `skills_section_verified.png` confirming pristine rendering.
+  - [x] **Testing & Build**: All 9 unit tests pass (`npm test`) and `npm run build` succeeds cleanly.
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.

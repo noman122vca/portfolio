@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { asSunnahData } from '../data/trainingData';
-import { CheckCircle, Sparkles } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 export function SkillsAndTraining() {
   const { t } = useLanguage();
@@ -11,10 +11,6 @@ export function SkillsAndTraining() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] text-xs font-bold tracking-wider uppercase font-mono">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{t.skills?.badge || 'EXPERTISE'}</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             {t.skills?.headline || `${t.skills?.titlePre || 'MY SKILLS &'} ${t.skills?.titleHighlight || 'EXPERTISE'}`}
           </h2>
@@ -30,9 +26,9 @@ export function SkillsAndTraining() {
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white/10 p-1.5 border border-white/20 shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-white p-2 border border-white/30 shrink-0 shadow-[0_0_20px_rgba(255,255,255,0.15)] flex items-center justify-center">
                     <img
-                      src="/as-sunnah-logo.png"
+                      src="./as-sunnah-logo.png"
                       alt={asSunnahData.institute}
                       className="w-full h-full object-contain"
                     />
