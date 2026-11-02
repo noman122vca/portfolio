@@ -10,6 +10,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 
 function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
+  const safeThumbnail = (!item.thumbnailUrl || item.thumbnailUrl.includes('video_fallback'))
+    ? './portfolio/fb_reel_4.jpg'
+    : item.thumbnailUrl;
+
   return (
     <div
       onClick={() => onSelectItem(item)}
@@ -18,7 +22,7 @@ function PortfolioCard({ item, onSelectItem, isAdmin, onDeleteItem }) {
       {/* Media Thumbnail Container */}
       <div className="relative aspect-[16/10] overflow-hidden bg-[#040C0E]">
         <img
-          src={item.thumbnailUrl || './portfolio/fb_reel_4.jpg'}
+          src={safeThumbnail}
           alt={item.title}
           onError={(e) => {
             e.target.onerror = null;
@@ -282,19 +286,15 @@ export function PortfolioSection({
 
         {/* Content Showcase: Grid or 3D Coverflow Swiper */}
         {viewMode === 'grid' ? (
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <AnimatePresence>
               {filteredItems.map((item) => (
                 <motion.div
                   key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.25 }}
                 >
                   <PortfolioCard
                     item={item}
@@ -305,7 +305,7 @@ export function PortfolioSection({
                 </motion.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         ) : (
           <div className="relative py-4 px-2">
             <Swiper

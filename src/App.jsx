@@ -201,8 +201,12 @@ export function App() {
       if (isAdminRoute) {
         try {
           sessionStorage.removeItem('noman_admin_route_intent');
-        } catch (e) {
-          // ignore
+        } catch (e) {}
+        // Instantly clean the address bar so #admin is NOT visible
+        if (window.location.hash || window.location.search.includes('admin')) {
+          try {
+            window.history.replaceState(null, '', window.location.pathname);
+          } catch (e) {}
         }
         handleOpenAdmin();
       }
@@ -332,8 +336,12 @@ export function App() {
           onLogout={handleLogoutAdmin}
           onNotify={(msg) => showToast(msg)}
           onAddLocalProject={(newItem) => {
-            const remaining = portfolioItems.filter((i) => i.id !== newItem.id);
-            updatePortfolioItems([newItem, ...remaining]);
+            const sanitized = { ...newItem };
+            if (!sanitized.thumbnailUrl || sanitized.thumbnailUrl.includes('video_fallback')) {
+              sanitized.thumbnailUrl = './portfolio/fb_reel_4.jpg';
+            }
+            const remaining = portfolioItems.filter((i) => i.id !== sanitized.id);
+            updatePortfolioItems([sanitized, ...remaining]);
           }}
           onDeleteProject={handleDeleteProject}
           onClearCategory={(type) => {

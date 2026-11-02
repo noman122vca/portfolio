@@ -265,6 +265,12 @@
   - [x] **1-Click Deletion in Modal**: Added red `[ 🗑️ মুছুন (Delete) ]` button in the top bar of `MediaDetailModal.jsx` to delete items directly from inside the popup.
   - [x] **Admin Studio Delete Tab Renaming & Bulk Purge**: Renamed 3rd tab to `🗑️ ভিডিও মুছুন / পরিচালনা`, added quick jump banner in Add Video tab, added `[ 🗑️ টেস্ট ভিডিওগুলো মুছুন ]` bulk purge button, and enlarged delete buttons on individual items.
   - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), production build passes in 3.71s (`npm run build`).
+- [x] **Phase 18: Card Shaking Fix, Permanent Thumbnail Preview + 6 Instant Presets & Clean Admin Route (No #admin)**:
+  - [x] **Card Shaking / Jitter Root Cause Fixed**: Removed `layout` prop from `PortfolioSection.jsx` grid motion wrappers and removed `scale(1.012)` and `transform: translateZ(0)` from `src/index.css`'s `.glass-card:hover`. Cards now glide up smoothly (`translateY(-4px)`) with zero layout fighting or shaking.
+  - [x] **Thumbnail Not Coming Fixed**: Added `safeThumbnail` fallback preventing `video_fallback` from ever rendering as a black box; updated `public/portfolio/video_fallback.svg` to embed `fb_reel_4.jpg` directly; added HTML5 Canvas client-side compression (`compressImageFile`) so uploads never exceed localStorage/Firestore quotas; added 6 one-click instant HD motion presets in the Add Video form and permanent live preview.
+  - [x] **Clean Admin Path (Eliminated `#admin`)**: Updated `public/admin/index.html` and `public/404.html` to route to root path without `#admin`, and added `window.history.replaceState` in `src/App.jsx` to immediately clean any hash from the browser address bar. Navigating to `/admin` opens Admin Studio while preserving a clean URL.
+  - [x] **Quality Gates**: 10/10 unit tests pass (`npm test`), production build completes in 3.96s (`npm run build`).
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.
+

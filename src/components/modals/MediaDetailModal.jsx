@@ -243,7 +243,7 @@ export function MediaDetailModal({ item, onClose, items = [], onSelectItem, isAd
                     <div className={`relative w-full ${isReel ? 'aspect-[9/16] max-h-[70vh]' : 'aspect-video'} bg-neutral-950 rounded-2xl overflow-hidden group flex items-center justify-center border border-white/10`}>
                       {/* Cinema Video Poster */}
                       <img
-                        src={item.thumbnailUrl || './portfolio/fb_reel_4.jpg'}
+                        src={(!item.thumbnailUrl || item.thumbnailUrl.includes('video_fallback')) ? './portfolio/fb_reel_4.jpg' : item.thumbnailUrl}
                         alt={item.title}
                         onError={(e) => {
                           e.target.onerror = null;

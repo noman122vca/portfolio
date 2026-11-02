@@ -60,6 +60,37 @@ function resolveAutoVideoThumbnail(url, detectedYtId) {
   return './portfolio/fb_reel_4.jpg';
 }
 
+function compressImageFile(file, maxWidth = 1280, maxHeight = 720, quality = 0.82) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = () => resolve(e.target.result);
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve('');
+    reader.readAsDataURL(file);
+  });
+}
+
 export function AdminDashboardModal({
   isOpen,
   onClose,
@@ -101,21 +132,31 @@ export function AdminDashboardModal({
   const autoVideoThumb = resolveAutoVideoThumbnail(videoUrl, detectedYtId);
   const finalVideoThumb = videoCustomThumb.trim() || autoVideoThumb;
 
-  const handleVideoThumbUpload = (e) => {
+  const handleVideoThumbUpload = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setVideoCustomThumb(reader.result);
-      reader.readAsDataURL(file);
+      try {
+        const compressed = await compressImageFile(file, 1280, 720, 0.82);
+        setVideoCustomThumb(compressed);
+      } catch (err) {
+        const reader = new FileReader();
+        reader.onloadend = () => setVideoCustomThumb(reader.result);
+        reader.readAsDataURL(file);
+      }
     }
   };
 
-  const handleGraphicImageUpload = (e) => {
+  const handleGraphicImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setGraphicImage(reader.result);
-      reader.readAsDataURL(file);
+      try {
+        const compressed = await compressImageFile(file, 1920, 1080, 0.84);
+        setGraphicImage(compressed);
+      } catch (err) {
+        const reader = new FileReader();
+        reader.onloadend = () => setGraphicImage(reader.result);
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -131,7 +172,7 @@ export function AdminDashboardModal({
       category: videoCategory,
       mediaType: 'video',
       videoFormat: isReelOrShort ? 'reel' : videoFormat,
-      thumbnailUrl: finalVideoThumb,
+      thumbnailUrl: finalVideoThumb || './portfolio/fb_reel_4.jpg',
       mediaUrl: videoUrl.trim(),
       description: videoDesc.trim() || 'Dynamic video project featuring professional editing and kinetic motion graphics.',
       tags: videoTags.split(',').map((t) => t.trim()).filter(Boolean),
@@ -144,7 +185,7 @@ export function AdminDashboardModal({
       onAddLocalProject(newVideo);
     }
 
-    // 2. Immediately close modal & reset form
+    // 2. Immediately reset form
     setVideoUrl('');
     setVideoTitle('');
     setVideoCustomThumb('');
@@ -443,44 +484,68 @@ export function AdminDashboardModal({
                     />
                   </div>
 
-                  {videoCustomThumb.trim() || autoYtThumb ? (
-                    <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/30">
-                      <div className="flex items-center gap-3 overflow-hidden">
-                        <img
-                          src={videoCustomThumb.trim() || autoYtThumb}
-                          alt="Preview"
-                          className="w-20 aspect-video object-cover rounded-lg bg-neutral-900 shrink-0 border border-white/10"
-                        />
-                        <div className="text-xs truncate">
-                          <span className="text-[#00E5FF] font-bold block">
-                            {detectedYtId ? `✓ YouTube Thumbnail (${detectedYtId})` : (isBN ? '✓ থাম্বনেইল ছবি যুক্ত হয়েছে' : '✓ Custom Thumbnail Loaded')}
-                          </span>
-                          <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
-                            {videoUrl || (isBN ? 'থাম্বনেইল প্রস্তুত' : 'Ready')}
-                          </span>
-                        </div>
+                  {/* Live Thumbnail Preview - Always Visible */}
+                  <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-black/40 border border-[#00E5FF]/30">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                      <img
+                        src={finalVideoThumb}
+                        alt="Preview"
+                        className="w-20 aspect-video object-cover rounded-lg bg-neutral-900 shrink-0 border border-white/10"
+                      />
+                      <div className="text-xs truncate">
+                        <span className="text-[#00E5FF] font-bold block">
+                          {videoCustomThumb
+                            ? (isBN ? '✓ কাস্টম থাম্বনেইল ছবি যুক্ত হয়েছে' : '✓ Custom Thumbnail Loaded')
+                            : (detectedYtId
+                                ? `✓ YouTube Thumbnail (${detectedYtId})`
+                                : (isBN ? '✓ মোশন আর্টওয়ার্ক পোস্টার রেডি' : '✓ Motion Artwork Poster Ready'))}
+                        </span>
+                        <span className="text-neutral-400 font-mono text-[11px] truncate block max-w-sm">
+                          {isBN ? 'ভিডিও অ্যাড করলে এই সুন্দর থাম্বনেইলটি প্রদর্শিত হবে' : 'This thumbnail will be published'}
+                        </span>
                       </div>
-                      {videoCustomThumb && (
+                    </div>
+                    {videoCustomThumb && (
+                      <button
+                        type="button"
+                        onClick={() => setVideoCustomThumb('')}
+                        className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-neutral-400 hover:text-rose-400 transition-colors text-xs cursor-pointer"
+                        title={isBN ? 'ছবি সরান' : 'Reset to Default'}
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* 6 Instant HD Motion Presets */}
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-[11px] font-mono text-neutral-400 block">
+                      {isBN ? '💡 অথবা ১-ক্লিকে নিচের যেকোনো পোস্টার বেছে নিন:' : '💡 Or click any instant motion poster below:'}
+                    </span>
+                    <div className="grid grid-cols-6 gap-2">
+                      {[
+                        { id: 'p1', src: './portfolio/fb_reel_1.jpg' },
+                        { id: 'p2', src: './portfolio/fb_reel_2.jpg' },
+                        { id: 'p3', src: './portfolio/fb_reel_4.jpg' },
+                        { id: 'p4', src: './portfolio/fb_reel_6.jpg' },
+                        { id: 'p5', src: './portfolio/fb_reel_8.jpg' },
+                        { id: 'p6', src: './portfolio/fb_reel_10.jpg' },
+                      ].map((preset) => (
                         <button
+                          key={preset.id}
                           type="button"
-                          onClick={() => setVideoCustomThumb('')}
-                          className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-neutral-400 hover:text-rose-400 transition-colors text-xs cursor-pointer"
-                          title={isBN ? 'ছবি সরান' : 'Remove Image'}
+                          onClick={() => setVideoCustomThumb(preset.src)}
+                          className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all cursor-pointer hover:scale-105 ${
+                            finalVideoThumb === preset.src
+                              ? 'border-[#00E5FF] shadow-[0_0_12px_rgba(0,229,255,0.7)]'
+                              : 'border-white/10 opacity-60 hover:opacity-100'
+                          }`}
                         >
-                          <X className="w-4 h-4" />
+                          <img src={preset.src} alt="Preset" className="w-full h-full object-cover" />
                         </button>
-                      )}
+                      ))}
                     </div>
-                  ) : isFb ? (
-                    <div className="p-2.5 rounded-xl bg-[#1877F2]/10 border border-[#1877F2]/20 text-[11px] text-sky-300 flex items-center gap-2">
-                      <Info className="w-4 h-4 shrink-0 text-[#1877F2]" />
-                      <span>
-                        {isBN
-                          ? 'ফেসবুক ভিডিওর জন্য ওপরের বাটন চেপে একটি আকর্ষণীয় কাভার ছবি আপলোড করতে পারেন।'
-                          : 'You can upload a custom cover image from your device for this Facebook video.'}
-                      </span>
-                    </div>
-                  ) : null}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
