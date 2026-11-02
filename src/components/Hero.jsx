@@ -177,7 +177,7 @@ export function Hero({ onOpenCV, portfolioItems = [] }) {
                 </>
               ) : (
                 <>
-                  <span className="text-white font-semibold">Hi, I am Md. Eftekar Hossen Noman.</span> As a trained and motivated creator in Video Editing and Graphic Design, I transform ideas into compelling visual narratives. Combining creative precision with marketing strategy, I help brands and creators captivate their audience across digital platforms.
+                  <span className="text-white font-semibold">Hi, I am MD. EFTEKAR HOSSEN NOMAN.</span> As a trained and motivated creator in Video Editing and Graphic Design, I transform ideas into compelling visual narratives. Combining creative precision with marketing strategy, I help brands and creators captivate their audience across digital platforms.
                 </>
               )}
             </p>

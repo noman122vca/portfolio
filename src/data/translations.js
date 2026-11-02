@@ -19,7 +19,7 @@ export const translations = {
       "headlinePre": "Crafting visual stories & high–retention",
       "headlineHighlight": "video edits.",
       "greeting": "Hi, I am",
-      "displayName": "Md. Eftekar Hossen Noman",
+      "displayName": "MD. EFTEKAR HOSSEN NOMAN",
       "bio": "As a trained and motivated creator in Graphic Design, Video Editing, and Creative Visuals, I transform ideas into compelling visual narratives. Combining creative precision with strategic vision, I help brands and creators captivate their audience across digital platforms.",
       "selectedWorks": "Selected Works",
       "letsConnect": "Let's Connect",
@@ -219,7 +219,7 @@ export const translations = {
         "messagePlaceholder": "Tell me about your project, timeline, and expectations...",
         "submitBtn": "Send Message",
         "submittedTitle": "Message Received!",
-        "submittedDesc": "Thank you for reaching out. Md. Eftekar Hossen Noman will review your message and reply as soon as possible."
+        "submittedDesc": "Thank you for reaching out. MD. EFTEKAR HOSSEN NOMAN will review your message and reply as soon as possible."
       },
       "headline": "Let's Discuss Your Next Creative Project",
       "subheadline": "Need high-retention video editing or compelling graphic design? Send a message directly or connect via WhatsApp and Email.",

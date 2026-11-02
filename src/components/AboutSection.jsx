@@ -40,8 +40,8 @@ export function AboutSection() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-lg font-extrabold text-white">{profileData.name}</h3>
-                  <p className="text-xs font-mono text-[#00E5FF]">{profileData.officialName}</p>
+                  <h3 className="text-lg font-extrabold text-white uppercase">{profileData.name}</h3>
+                  <p className="text-xs font-mono text-[#00E5FF] uppercase tracking-wider">{profileData.badge || profileData.title}</p>
                   <p className="text-xs text-neutral-400">{profileData.address}</p>
                 </div>
               </div>

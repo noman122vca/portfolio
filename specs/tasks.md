@@ -150,6 +150,26 @@ flowchart TD
 
 ---
 
+## Phase 10: User Story 7 (US7) - Uppercase Name Standardization & CV Modal Title De-duplication
+
+**Story Goal**: Standardize candidate name to ALL CAPITAL LETTERS (`MD. EFTEKAR HOSSEN NOMAN`) across all pages, data models, components, and the generated resume PDF; eliminate the duplicate name formatting (`Md. Eftekar Hossen Noman (Md. Eftekar Hossen Noman)`) in the CV modal header.  
+**Independent Test Criteria**:
+1. CV modal header displays single name without duplication: `MD. EFTEKAR HOSSEN NOMAN`.
+2. Candidate name is rendered in ALL CAPITAL LETTERS across Navbar, Hero, About, Footer, CV Modal, and downloaded PDF.
+3. Downloaded CV PDF renders `MD. EFTEKAR HOSSEN NOMAN` in header and reflects As-Sunnah Batch 41.
+4. All unit tests in `tests/site.test.js` pass with 100% assertions green.
+
+- [x] T043 [P] [US7] Update candidate name to `MD. EFTEKAR HOSSEN NOMAN` in `src/data/cvData.js`
+- [x] T044 [P] [US7] Update candidate name to `MD. EFTEKAR HOSSEN NOMAN` in `src/data/profileData.js`
+- [x] T045 [P] [US7] Update candidate name to `MD. EFTEKAR HOSSEN NOMAN` in `src/data/translations.js`
+- [x] T046 [US7] Remove duplicate name formatting in `src/components/modals/CVModal.jsx` and enforce uppercase typography
+- [x] T047 [US7] Update candidate name rendering in `src/components/Hero.jsx`, `src/components/AboutSection.jsx`, `src/components/Navbar.jsx`, and `src/components/Footer.jsx`
+- [x] T048 [US7] Regenerate `public/md-eftekar-hossen-noman-cv.pdf` with uppercase name `MD. EFTEKAR HOSSEN NOMAN` and As-Sunnah Batch 41
+- [x] T049 [US7] Update test assertions in `tests/site.test.js` to assert `MD. EFTEKAR HOSSEN NOMAN`
+- [x] T050 [US7] Execute build (`npm run build`), deploy to `gh-pages`, and verify live
+
+---
+
 ## Parallel Execution Strategy
 
 Tasks marked `[P]` can be developed independently:
@@ -158,5 +178,6 @@ Tasks marked `[P]` can be developed independently:
 - **Batch 3 (Verification & Polish)**: T013, T018, T025, T026 run in parallel before release.
 - **Batch 4 (Customization & Deployment Readiness)**: T027, T028, T031, T034 can be authored in parallel with T029, T030, T032, T033, T035.
 - **Batch 5 (US6 Refinement & PDF Generation)**: T036, T037, T038 can be authored in parallel before T039, T040, T041, T042.
+- **Batch 6 (US7 Uppercase Standardization & PDF Sync)**: T043, T044, T045 can be authored in parallel before T046, T047, T048, T049, T050.
 
 

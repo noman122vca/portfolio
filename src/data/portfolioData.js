@@ -7,7 +7,7 @@ export const defaultPortfolioItems = [
     "videoFormat": "landscape",
     "thumbnailUrl": "./portfolio/fb_reel_1.jpg",
     "mediaUrl": "https://www.facebook.com/reel/1363652169086347/",
-    "description": "Official promotional rough cut featuring speaker Nafees Salim for As-Sunnah Skill Development Institute. Dynamic cuts, sound design, and color grading by Md. Eftekar Hossen Noman.",
+    "description": "Official promotional rough cut featuring speaker Nafees Salim for As-Sunnah Skill Development Institute. Dynamic cuts, sound design, and color grading by MD. EFTEKAR HOSSEN NOMAN.",
     "tags": [
       "Nafees Salim",
       "As-Sunnah Skill",
@@ -140,7 +140,7 @@ export const defaultPortfolioItems = [
     "thumbnailUrl": "./portfolio/fb_graphic_4.jpg",
     "mediaUrl": "./portfolio/fb_graphic_4.jpg",
     "externalUrl": "https://www.facebook.com/share/p/1Edo69B3UJ/",
-    "description": "Official institutional coursework and creative portfolio project (Roll: 4124, Class 15) by Md Eftekar Hossen Noman at As-Sunnah Skill Development Institute.",
+    "description": "Official institutional coursework and creative portfolio project (Roll: 4124, Class 15) by MD. EFTEKAR HOSSEN NOMAN at As-Sunnah Skill Development Institute.",
     "tags": [
       "Batch 41",
       "As-Sunnah SDI",

@@ -217,13 +217,12 @@
   - [x] Tested and verified 8/8 unit tests passing (`npm test`) and production build passing (`npm run build`).
   - [x] Pushed to GitHub `main` (`7fa7c3b`) and deployed live to GitHub Pages `gh-pages` (`https://noman122vca.github.io/portfolio/`).
 
-- [x] **Phase 25: NSDA Removal & As-Sunnah Skill Development Batch 41 Update**:
-  - [x] **NSDA Card Removed**: Completely removed the National Skills Development Authority (NSDA) card from the "MY SKILLS & EXPERTISE" section (`src/components/SkillsAndTraining.jsx`).
-  - [x] **Centered As-Sunnah Card**: Re-architected `SkillsAndTraining.jsx` into a balanced, centered `max-w-4xl mx-auto` container with cyan rim glow, 2x2 competencies grid, and responsive layout.
-  - [x] **Batch Updated to 41**: Updated `asSunnahData.batch` to `Batch 41` in `src/data/trainingData.js`, rendering `SBMC COURSE • BATCH 41`.
-  - [x] **AboutSection Stat Updated**: Updated the 3rd stat card in `src/components/AboutSection.jsx` and `translations.js` to `Batch 41` / `As-Sunnah SDI Certified` so no obsolete NSDA references remain anywhere on the site.
-  - [x] **Unit Testing**: Updated `tests/site.test.js` to assert `Batch 41` and As-Sunnah SDI integrity. All 9 unit tests pass (`npm test`).
-  - [x] **Production Verification**: Built with `npm run build` with zero errors.
+- [x] **Phase 26: Uppercase Name Standardization & CV Modal De-duplication (US7)**:
+  - [x] **CV Modal Title De-duplication**: Fixed `{cvData.fullName} ({cvData.displayName})` duplicate rendering bug in `src/components/modals/CVModal.jsx`. Modal title now cleanly displays single name `MD. EFTEKAR HOSSEN NOMAN`.
+  - [x] **Uppercase Name Standardization**: Standardized candidate name to ALL CAPITAL LETTERS (`MD. EFTEKAR HOSSEN NOMAN`) across `cvData.js`, `profileData.js`, `translations.js`, `portfolioData.js`, `Hero.jsx`, `Navbar.jsx`, `AboutSection.jsx`, `Footer.jsx`, and `CVModal.jsx`.
+  - [x] **Resume PDF Regenerated**: Re-rendered `public/md-eftekar-hossen-noman-cv.pdf` and `dist/md-eftekar-hossen-noman-cv.pdf` using headless Chrome `Page.printToPDF`, featuring `MD. EFTEKAR HOSSEN NOMAN` in all-caps header, Takmil & Fazilat education, and As-Sunnah SBMC Batch 41.
+  - [x] **Automated Testing**: Updated `tests/site.test.js` to assert `MD. EFTEKAR HOSSEN NOMAN`. All 9 unit tests pass (`npm test`).
+  - [x] **Production Build**: Verified with `npm run build` with 0 errors.
 
 ## Pending Tasks
 - [ ] User 1-click Firestore database activation in Firebase Console (Test mode) whenever client wants global multi-device sync.

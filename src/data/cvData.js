@@ -1,6 +1,6 @@
 export const cvData = {
-  "fullName": "Md. Eftekar Hossen Noman",
-  "displayName": "Md. Eftekar Hossen Noman",
+  "fullName": "MD. EFTEKAR HOSSEN NOMAN",
+  "displayName": "MD. EFTEKAR HOSSEN NOMAN",
   "email": "eftekarhossennoman@gmail.com",
   "phone": "+8801619-042379",
   "address": "Dhaka, Bangladesh",
@@ -50,7 +50,7 @@ export const cvData = {
     "Teamwork & Collaboration"
   ],
   "professionalTraining": {
-    "course": "Small Business Management Course",
+    "course": "Small Business Management Course (Batch 41)",
     "institute": "As-Sunnah Skill Development Institute",
     "duration": "3 Months",
     "keyAreas": "Video Editing (Adobe Premiere Pro & After Effects), Graphic Design (Adobe Photoshop & Illustrator), Meta Marketing (Facebook Ads, SEO & Landing Page Design), and Generative AI Tools."

@@ -24,7 +24,7 @@ export function Footer({ onOpenAdmin, isAdmin = false, onLogoutAdmin }) {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-white text-base tracking-tight">
+                <span className="font-extrabold text-white text-base tracking-tight uppercase">
                   {profileData.name}
                 </span>
                 <CheckCircle2 className="w-4 h-4 text-[#00E5FF]" />
